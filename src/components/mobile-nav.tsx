@@ -22,8 +22,8 @@ export function MobileNav({ className }: { className?: string }) {
       href: "https://github.com/pykinsu",
     },
     {
-      name: "Telegram",
-      href: "https://t.me/pykinsu",
+      name: "Community",
+      href: "https://t.me/VVITConnect",
     },
     {
       name: "Twitter",
