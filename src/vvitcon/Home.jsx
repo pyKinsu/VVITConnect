@@ -35,7 +35,7 @@ export function Home() {
             */}
 
             {/* Features */}
-            <div className="mt-8 grid w-full grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-16 grid w-full grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
   {[
     {
       icon: <Shield className="h-8 w-8 text-teal-400" />,
@@ -62,7 +62,7 @@ export function Home() {
   ].map(({ icon, title, description }, index) => (
     <div
       key={index}
-      className="flex flex-col items-center justify-center space-y-3 p-6 text-center rounded-xl border border-gray-700 bg-gray-900/50 shadow-lg hover:shadow-teal-500/30 transition"
+      className="flex flex-col items-center justify-center space-y-3 p-6 text-center rounded-xl border border-gray-700 bg-gray-900 shadow-xl hover:shadow-teal-500/40 transition"
     >
       {icon}
       <h3 className="text-lg font-bold">{title}</h3>
@@ -70,6 +70,7 @@ export function Home() {
     </div>
   ))}
 </div>
+
 
           </div>
         </div>
