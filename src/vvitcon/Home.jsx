@@ -35,40 +35,39 @@ export function Home() {
             */}
 
             {/* Features */}
-            <div className="mt-16 grid w-full grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-  {[
-    {
-      icon: <Shield className="h-8 w-8 text-teal-400" />,
-      title: "Free Forever",
+            <div className="mt-8 grid w-full grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
+              {[
+                {
+                  icon: <Shield className="h-8 w-8 text-teal-400" />,
+                  title: "Free Forever",
       description:
         "No paywalls, ads, or logins. Just pure command-line knowledge.",
     },
-    {
-      icon: <CheckCircle className="h-8 w-8 text-teal-400" />,
-      title: "No Login/Signup",
+                {
+                  icon: <CheckCircle className="h-8 w-8 text-teal-400" />,
+                  title: "No Registration",
+                  description: "No sign-up or login required to use our tool.",
+                },
+                {
+                  icon: <Zap className="h-8 w-8 text-teal-400" />,
+                  title: "No Login/Signup",
       description: "You don’t need to login or signup to use this.",
     },
-    {
-      icon: <Zap className="h-8 w-8 text-teal-400" />,
-      title: "Super Fast UI",
-      description:
-        "Loads instantly, even inside Termux's built-in browser.",
-    },
-    {
-      icon: <MonitorPlay className="h-8 w-8 text-teal-400" />,
-      title: "Trusted",
+                {
+                  icon: <MonitorPlay className="h-8 w-8 text-teal-400" />,
+                  title: "Trusted",
       description: "Every resource comes from trusted sources.",
     },
-  ].map(({ icon, title, description }, index) => (
-    <div
-      key={index}
-      className="flex flex-col items-center justify-center space-y-3 p-6 text-center rounded-xl border border-gray-700 bg-gray-900 shadow-xl hover:shadow-teal-500/40 transition"
-    >
-      {icon}
-      <h3 className="text-lg font-bold">{title}</h3>
-      <p className="text-sm text-muted-foreground">{description}</p>
-    </div>
-  ))}
+              ].map(({ icon, title, description }, index) => (
+                <div
+                  key={index}
+                  className="section-box flex flex-col items-center justify-center space-y-3 p-6 text-center"
+                >
+                  {icon}
+                  <h3 className="text-lg font-bold">{title}</h3>
+                  <p className="text-sm text-muted-foreground">{description}</p>
+                </div>
+              ))}
 </div>
 
 
