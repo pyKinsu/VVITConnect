@@ -4,85 +4,80 @@
 
 @layer base {
   :root {
-    /* ---------- Day Mode Colors ---------- */
-    --background: 210 20% 98%;      /* Soft off-white */
-    --foreground: 210 15% 15%;      /* Dark text */
-    --card: 210 15% 95%;            /* Slightly off-white cards */
-    --card-foreground: 210 15% 15%; /* Dark card text */
-    --popover: 210 20% 97%;
-    --popover-foreground: 210 15% 15%;
+  /* Background & text */
+  --background: 210 20% 98%;      /* Soft off-white */
+  --foreground: 210 15% 15%;      /* Dark text for readability */
+  --card: 210 15% 95%;            /* Slightly off-white card */
+  --card-foreground: 210 15% 15%; /* Dark text inside cards */
+  --popover: 210 20% 97%;         /* Subtle popovers */
+  --popover-foreground: 210 15% 15%;
 
-    /* Primary & Accent */
-    --primary: 220 90% 55%;         /* Calm blue for buttons */
-    --primary-foreground: 0 0% 100%;
-    --secondary: 173 58% 39%;       /* Teal highlights */
-    --secondary-foreground: 0 0% 100%;
-    --accent: 300 70% 50%;          /* Purple badges/buttons */
-    --accent-foreground: 0 0% 100%;
+  /* Primary & Accent */
+  --primary: 220 90% 55%;         /* Calm, trustworthy blue */
+  --primary-foreground: 0 0% 100%;/* White text */
+  --secondary: 173 58% 39%;       /* Teal for highlights/buttons */
+  --secondary-foreground: 0 0% 100%;
+  --accent: 300 70% 50%;          /* Purple accent for badges/buttons */
+  --accent-foreground: 0 0% 100%;
 
-    /* Muted & Destructive */
-    --muted: 210 15% 85%;           /* Light gray */
-    --muted-foreground: 210 15% 35%;
-    --destructive: 0 80% 55%;       /* Red for errors */
-    --destructive-foreground: 0 0% 100%;
+  /* Muted & destructive */
+  --muted: 210 15% 85%;           /* Light gray for subtle elements */
+  --muted-foreground: 210 15% 35%;
+  --destructive: 0 80% 55%;       /* Red for destructive actions */
+  --destructive-foreground: 0 0% 100%;
 
-    /* Borders, Inputs & Rings */
-    --border: 210 15% 80%;
-    --input: 210 15% 90%;
-    --ring: 220 90% 65%;
-    --radius: 0.5rem;
+  /* Borders, inputs & rings */
+  --border: 210 15% 80%;
+  --input: 210 15% 90%;
+  --ring: 220 90% 65%;
+  --radius: 0.5rem;
 
-    /* Charts & Gradients */
-    --chart-1: 220 90% 55%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 45 70% 55%;
-    --chart-4: 300 70% 50%;
-    --chart-5: 30 80% 60%;
+  /* Charts */
+  --chart-1: 220 90% 55%;
+  --chart-2: 173 58% 39%;
+  --chart-3: 45 70% 55%;
+  --chart-4: 300 70% 50%;
+  --chart-5: 30 80% 60%;
 
-    --bg-gradient: radial-gradient(circle farthest-corner at 10% 20%, rgba(200, 220, 255, 1) 0%, rgba(240, 245, 255, 1) 90%);
-    --header-gradient: linear-gradient(to right, hsl(220,90%,55%), hsl(300,70%,50%));
-  }
+  /* Background gradient */
+  --bg-gradient: radial-gradient(circle farthest-corner at 10% 20%, rgba(200, 220, 255, 1) 0%, rgba(240, 245, 255, 1) 90%);
+}
+
 
   .dark {
-    /* ---------- Dark Mode Colors ---------- */
-    --background: 210 15% 8%;      /* Dark blue-gray */
-    --foreground: 210 15% 95%;     /* Light text */
-    --card: 210 15% 12%;            /* Dark cards */
-    --card-foreground: 210 15% 95%;
-    --popover: 210 15% 10%;
-    --popover-foreground: 210 15% 95%;
+  --background: 210 15% 8%;      /* Dark blue/gray background */
+  --foreground: 210 15% 95%;     /* Light text */
+  --card: 210 15% 12%;            /* Dark card background */
+  --card-foreground: 210 15% 95%;
+  --popover: 210 15% 10%;
+  --popover-foreground: 210 15% 95%;
 
-    /* Primary & Accent */
-    --primary: 220 90% 55%;         /* Same calm blue */
-    --primary-foreground: 0 0% 100%;
-    --secondary: 173 58% 39%;       /* Teal highlights */
-    --secondary-foreground: 0 0% 100%;
-    --accent: 300 70% 60%;          /* Brighter purple accent */
-    --accent-foreground: 0 0% 100%;
+  --primary: 220 90% 55%;         /* Same calm blue for consistency */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 173 58% 39%;       /* Teal highlights */
+  --secondary-foreground: 0 0% 100%;
+  --accent: 300 70% 60%;          /* Slightly brighter purple accent */
+  --accent-foreground: 0 0% 100%;
 
-    /* Muted & Destructive */
-    --muted: 210 15% 20%;           /* Dark muted elements */
-    --muted-foreground: 210 15% 60%;
-    --destructive: 0 80% 55%;
-    --destructive-foreground: 0 0% 100%;
+  --muted: 210 15% 20%;           /* Dark muted elements */
+  --muted-foreground: 210 15% 60%;
+  --destructive: 0 80% 55%;
+  --destructive-foreground: 0 0% 100%;
 
-    /* Borders, Inputs & Rings */
-    --border: 210 15% 25%;
-    --input: 210 15% 15%;
-    --ring: 220 90% 65%;
+  --border: 210 15% 25%;
+  --input: 210 15% 15%;
+  --ring: 220 90% 65%;
 
-    /* Charts & Gradients */
-    --chart-1: 220 90% 55%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 45 70% 55%;
-    --chart-4: 300 70% 50%;
-    --chart-5: 30 80% 60%;
+  /* Charts */
+  --chart-1: 220 90% 55%;
+  --chart-2: 173 58% 39%;
+  --chart-3: 45 70% 55%;
+  --chart-4: 300 70% 50%;
+  --chart-5: 30 80% 60%;
 
-    --bg-gradient: radial-gradient(circle farthest-corner at 10% 20%, rgba(10, 15, 30, 1) 0%, rgba(15, 20, 40, 1) 90%);
-    --header-gradient: linear-gradient(to right, hsl(220,90%,55%), hsl(300,70%,60%));
-  }
+  --bg-gradient: radial-gradient(circle farthest-corner at 10% 20%, rgba(10, 15, 30, 1) 0%, rgba(15, 20, 40, 1) 90%);
+}
 
-  /* ---------- Global Styles ---------- */
   * {
     @apply border-border;
   }
@@ -97,50 +92,20 @@
     transition: all 0.4s ease;
   }
 
-  /* ---------- Cards & Section Boxes ---------- */
   .section-box {
-    @apply rounded-2xl border p-6 text-center shadow-md backdrop-blur-md transition-all hover:scale-[1.03] hover:shadow-lg hover:border-primary;
+    @apply rounded-xl border border-border p-6 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md text-center;
     background-color: hsl(var(--card));
     color: hsl(var(--card-foreground));
-    border-color: hsl(var(--border));
+    position: relative;
   }
 
   .section-badge {
-    @apply inline-block rounded-full px-3 py-1 text-sm font-semibold backdrop-blur-md shadow-sm border;
+    @apply mb-2 inline-block rounded-lg px-3 py-1 text-sm;
     background-color: hsl(var(--accent));
     color: hsl(var(--accent-foreground));
-    border-color: hsl(var(--border));
   }
 
-  /* ---------- Headers & Titles ---------- */
-  .text-gradient {
-    background: var(--header-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  /* ---------- Buttons ---------- */
-  .btn-primary {
-    @apply px-4 py-2 rounded-lg font-semibold transition-all duration-300 shadow-md;
-    background-color: hsl(var(--primary));
-    color: hsl(var(--primary-foreground));
-  }
-  .btn-primary:hover {
-    background-color: hsl(var(--primary));
-    filter: brightness(1.1);
-  }
-
-  .btn-secondary {
-    @apply px-4 py-2 rounded-lg font-semibold transition-all duration-300 shadow-md;
-    background-color: hsl(var(--secondary));
-    color: hsl(var(--secondary-foreground));
-  }
-  .btn-secondary:hover {
-    background-color: hsl(var(--secondary));
-    filter: brightness(1.1);
-  }
-
-  /* ---------- How It Works Steps ---------- */
+  /* Custom styles for How It Works */
   .step-wrapper {
     @apply relative flex flex-col md:flex-row items-center justify-between max-w-6xl mx-auto gap-12 px-4;
   }
@@ -154,7 +119,7 @@
   }
 
   .step-title {
-    @apply text-base font-semibold mb-1 text-gradient;
+    @apply text-base font-semibold mb-1 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500;
   }
 
   .step-desc {
@@ -162,8 +127,49 @@
   }
 
   .step-number {
-    @apply absolute -top-5 left-1/2 transform -translate-x-1/2 flex items-center justify-center w-8 h-8 rounded-full text-xs font-bold z-10;
+    @apply absolute -top-5 left-1/2 transform -translate-x-1/2 flex items-center justify-center w-8 h-8 rounded-full bg-muted text-xs font-bold text-muted-foreground z-10;
     background-color: hsl(var(--muted));
-    color: hsl(var(--muted-foreground));
   }
+
+  .connector-horizontal,
+  .connector-vertical {
+    @apply bg-border absolute;
+    animation: line-draw 1s ease-in-out forwards;
+  }
+
+  .connector-horizontal {
+    width: 60px;
+    height: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 100%;
+  }
+
+  .connector-vertical {
+    width: 2px;
+    height: 60px;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  @keyframes line-draw {
+    from {
+      transform: scaleX(0) scaleY(0);
+      opacity: 0;
+    }
+    to {
+      transform: scaleX(1) scaleY(1);
+      opacity: 1;
+    }
+  }
+}
+
+/* tailwind.css or globals.css */
+.section-badge {
+  @apply inline-block rounded-full bg-teal-600/10 px-3 py-1 text-sm font-semibold text-teal-400 backdrop-blur-md shadow-sm border border-white/10;
+}
+
+.section-box {
+  @apply rounded-2xl border border-white/10 bg-white/5 p-6 text-white shadow-md backdrop-blur-md transition-all hover:scale-[1.03] hover:shadow-lg hover:border-teal-500/30;
 }
