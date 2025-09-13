@@ -1,6 +1,6 @@
 "use client";
 
-import { Shield, CheckCircle, Zap, MonitorPlay, ArrowDown } from "lucide-react";
+import { Shield, CheckCircle, Zap, MonitorPlay } from "lucide-react";
 import { FrequentlyAsked } from "@/components/FrequentlyAsked";
 
 export function Home() {
@@ -16,13 +16,13 @@ export function Home() {
               </h2>
               <p className="text-muted-foreground mx-auto max-w-[700px] md:text-xl">
                 Built for learners, who are seeking syllabus and study
-                materials here everything is at one place 🙌🏻.
+                materials — everything is at one place 🙌🏻.
               </p>
             </div>
 
-            {/* Hero Section 
+            {/* Hero Section (disabled for now) */}
+            {/*
             <section id="hero">
-              {/* Arrow & How it works
               <div className="mt-10 group cursor-pointer">
                 <a href="#howitworks">
                   <div className="text-muted-foreground mb-2 text-sm sm:text-base group-hover:underline transition duration-200">
@@ -31,10 +31,11 @@ export function Home() {
                   <ArrowDown className="mx-auto h-6 w-6 animate-bounce text-teal-500 group-hover:text-teal-400 transition duration-300" />
                 </a>
               </div>
-            </section> */}
+            </section>
+            */}
 
-            {/* CARD SECTION MATCHING INSTAGRAM STYLE */}
-            <div className="mt-8 grid w-full grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
+            {/* Features */}
+            <div className="mt-8 grid w-full grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {[
                 {
                   icon: <Shield className="h-8 w-8 text-teal-400" />,
@@ -46,7 +47,7 @@ export function Home() {
                   icon: <CheckCircle className="h-8 w-8 text-teal-400" />,
                   title: "No Login/Signup",
                   description:
-                    "You Dont Need to login or signup to jse this.",
+                    "You don’t need to login or signup to use this.",
                 },
                 {
                   icon: <Zap className="h-8 w-8 text-teal-400" />,
@@ -58,9 +59,9 @@ export function Home() {
                   icon: <MonitorPlay className="h-8 w-8 text-teal-400" />,
                   title: "Trusted",
                   description:
-                    "Every Resource Belong To Trusted Sources",
+                    "Every resource comes from trusted sources.",
                 },
-             ].map(({ icon, title, description }, index) => (
+              ].map(({ icon, title, description }, index) => (
                 <div
                   key={index}
                   className="section-box flex flex-col items-center justify-center space-y-3 p-6 text-center"
