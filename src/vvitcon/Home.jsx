@@ -20,9 +20,9 @@ export function Home() {
               </p>
             </div>
 
-            {/* Hero Section */}
+            {/* Hero Section 
             <section id="hero">
-              {/* Arrow & How it works */}
+              {/* Arrow & How it works
               <div className="mt-10 group cursor-pointer">
                 <a href="#howitworks">
                   <div className="text-muted-foreground mb-2 text-sm sm:text-base group-hover:underline transition duration-200">
@@ -31,7 +31,7 @@ export function Home() {
                   <ArrowDown className="mx-auto h-6 w-6 animate-bounce text-teal-500 group-hover:text-teal-400 transition duration-300" />
                 </a>
               </div>
-            </section>
+            </section> */}
 
             {/* CARD SECTION MATCHING INSTAGRAM STYLE */}
             <div className="mt-8 grid w-full grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
