@@ -1,45 +1,36 @@
-"use client";
+import React from "react";
 
-import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { GraduationCap } from "lucide-react";
-
-export default function BbaSemestersPage() {
-  const router = useRouter();
-
-  const semesters = [
-    { id: 1, title: "Semester 1", route: "/bba/semester-1" },
-    { id: 2, title: "Semester 2", route: "/bba/semester-2" },
-    { id: 3, title: "Semester 3", route: "/bba/semester-3" },
-    { id: 4, title: "Semester 4", route: "/bba/semester-4" },
-    { id: 5, title: "Semester 5", route: "/bba/semester-5" },
-    { id: 6, title: "Semester 6", route: "/bba/semester-6" },
-  ];
-
+const BCA = () => {
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen bg-transparent px-4 py-8">
-      {/* Header */}
-      <div className="flex items-center gap-2 mb-4">
-        <GraduationCap className="h-7 w-7 text-primary" />
-        <h1 className="text-xl md:text-2xl font-bold tracking-tight">
-          Choose Your Semester
-        </h1>
-      </div>
+    <div className="flex flex-col items-center justify-center min-h-screen px-4 bg-transparent">
+      {/* Title */}
+      <h2 className="text-2xl font-bold flex items-center gap-2 text-white mb-6">
+        🎓 Choose Your Semester
+      </h2>
 
-      {/* Buttons Grid */}
-      <div className="grid w-full max-w-xl grid-cols-2 gap-3 md:grid-cols-3">
-        {semesters.map((s) => (
-          <Button
-            key={s.id}
-            variant="secondary"
-            size="sm"
-            className="h-11 text-sm font-medium rounded-md shadow-sm hover:shadow-md hover:scale-[1.02] transition-all"
-            onClick={() => router.push(s.route)}
-          >
-            {s.title}
-          </Button>
-        ))}
+      {/* Semester Buttons */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 max-w-md w-full">
+        <button className="bg-purple-700 hover:bg-purple-800 text-white py-3 rounded-xl shadow-md transition">
+          Semester 1
+        </button>
+        <button className="bg-purple-700 hover:bg-purple-800 text-white py-3 rounded-xl shadow-md transition">
+          Semester 2
+        </button>
+        <button className="bg-purple-700 hover:bg-purple-800 text-white py-3 rounded-xl shadow-md transition">
+          Semester 3
+        </button>
+        <button className="bg-purple-700 hover:bg-purple-800 text-white py-3 rounded-xl shadow-md transition">
+          Semester 4
+        </button>
+        <button className="bg-purple-700 hover:bg-purple-800 text-white py-3 rounded-xl shadow-md transition">
+          Semester 5
+        </button>
+        <button className="bg-purple-700 hover:bg-purple-800 text-white py-3 rounded-xl shadow-md transition">
+          Semester 6
+        </button>
       </div>
-    </main>
+    </div>
   );
-}
+};
+
+export default BCA;
