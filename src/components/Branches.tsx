@@ -1,4 +1,6 @@
-import { useRouter } from "next/router";
+"use client"; // ✅ This makes it a Client Component
+
+import { useRouter } from "next/navigation";
 
 interface BranchCardProps {
   image: string;
