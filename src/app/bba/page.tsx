@@ -1,6 +1,6 @@
 import React from "react";
 
-const BCA = () => {
+const BBA = () => {
   return (
     <div className="flex flex-col items-center justify-start min-h-screen px-4 pt-10 bg-transparent">
       {/* Title */}
@@ -23,4 +23,4 @@ const BCA = () => {
   );
 };
 
-export default BCA;
+export default BBA;
