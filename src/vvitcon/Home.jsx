@@ -60,16 +60,14 @@ export function Home() {
                   description:
                     "Every Resource Belong To Trusted Sources",
                 },
-              ].map(({ icon, title, description }, index) => (
+             ].map(({ icon, title, description }, index) => (
                 <div
                   key={index}
                   className="section-box flex flex-col items-center justify-center space-y-3 p-6 text-center"
                 >
                   {icon}
                   <h3 className="text-lg font-bold">{title}</h3>
-                  <p className="text-sm text-muted-foreground">
-                    {description}
-                  </p>
+                  <p className="text-sm text-muted-foreground">{description}</p>
                 </div>
               ))}
             </div>
