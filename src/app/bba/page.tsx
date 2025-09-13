@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { GraduationCap } from "lucide-react"; // header icon
+import { GraduationCap } from "lucide-react";
 
 export default function BbaSemestersPage() {
   const router = useRouter();
@@ -17,23 +17,23 @@ export default function BbaSemestersPage() {
   ];
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen bg-transparent px-4 py-10">
+    <main className="flex flex-col items-center justify-center min-h-screen bg-transparent px-4 py-8">
       {/* Header */}
-      <div className="flex items-center gap-3 mb-8">
-        <GraduationCap className="h-8 w-8 text-primary" />
-        <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
+      <div className="flex items-center gap-2 mb-4">
+        <GraduationCap className="h-7 w-7 text-primary" />
+        <h1 className="text-xl md:text-2xl font-bold tracking-tight">
           Choose Your Semester
         </h1>
       </div>
 
       {/* Buttons Grid */}
-      <div className="grid w-full max-w-2xl grid-cols-2 gap-4 md:grid-cols-3">
+      <div className="grid w-full max-w-xl grid-cols-2 gap-3 md:grid-cols-3">
         {semesters.map((s) => (
           <Button
             key={s.id}
             variant="secondary"
             size="sm"
-            className="h-12 text-sm md:text-base font-medium rounded-lg shadow-sm hover:shadow-md hover:scale-[1.03] transition-all"
+            className="h-11 text-sm font-medium rounded-md shadow-sm hover:shadow-md hover:scale-[1.02] transition-all"
             onClick={() => router.push(s.route)}
           >
             {s.title}
