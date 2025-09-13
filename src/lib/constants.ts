@@ -9,22 +9,30 @@ export const siteLinks: NavLink[] = [
     href: "/",
   },
   {
-    name: "All Lessons",
-    href: "/Lessons",
+    name: "BCA",
+    href: "/bca",
   },
   {
-    name: "About Us",
-    href: "/About",
+    name: "BBA",
+    href: "/bba",
+  },
+  {
+    name: "BTech",
+    href: "/btech",
   },
 ];
 
 export const externalLinks: NavLink[] = [
   {
-    name: "Star Repository",
-    href: "https://github.com/pykinsu/Termux-HandBook",
+    name: "About Us",
+    href: "/about",
   },
   {
-    name: "Creator",
-    href: "https://github.com/pykinsu/",
+    name: "Privacy Policy",
+    href: "/privacy",
+  },
+  {
+    name: "Disclaimer",
+    href: "/disclaimer",
   },
 ];
