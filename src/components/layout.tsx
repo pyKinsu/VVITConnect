@@ -22,7 +22,7 @@ export function Navbar() {
         {/* Desktop Logo */}
         <Link href="/" className="hidden md:block select-none" prefetch={false}>
           <Image
-            src="/images/logo.png"
+            src="/logo.png"
             alt="Logo"
             width={120}
             height={32}
@@ -37,7 +37,7 @@ export function Navbar() {
         {/* Mobile Logo */}
         <Link href="/" className="block md:hidden ml-4" prefetch={false}>
           <Image
-            src="/images/logo.png"
+            src="/logo.png"
             alt="Logo"
             width={120}
             height={32}
