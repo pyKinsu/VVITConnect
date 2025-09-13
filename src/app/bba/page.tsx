@@ -1,26 +1,21 @@
 import React from "react";
 
-const semesters = [1, 2, 3, 4, 5, 6];
-
 const BCA = () => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen px-4 bg-gradient-to-b from-purple-900 via-purple-800 to-purple-900">
+    <div className="flex flex-col items-center justify-start min-h-screen px-4 pt-10 bg-transparent">
       {/* Title */}
-      <h2 className="text-3xl font-extrabold flex items-center gap-2 text-white mb-8">
+      <h2 className="text-2xl font-bold flex items-center gap-2 text-white mb-4">
         🎓 Choose Your Semester
       </h2>
 
       {/* Semester Buttons */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 max-w-lg w-full">
-        {semesters.map((num) => (
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 max-w-md w-full">
+        {Array.from({ length: 6 }, (_, i) => (
           <button
-            key={num}
-            className="bg-purple-700 hover:bg-purple-600 active:scale-95 
-                       text-white py-3 rounded-2xl shadow-lg 
-                       transition-all duration-200 font-medium"
-            aria-label={`Semester ${num}`}
+            key={i + 1}
+            className="bg-purple-700 hover:bg-purple-800 text-white py-3 rounded-xl shadow-md transition"
           >
-            Semester {num}
+            Semester {i + 1}
           </button>
         ))}
       </div>
