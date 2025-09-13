@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button"; // import your button
+import { Button } from "@/components/ui/button";
 import {
   FaBookOpen,
   FaGraduationCap,
@@ -24,17 +24,23 @@ export default function BbaSemestersPage() {
   ];
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen gap-6 bg-transparent">
-      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+    <main className="flex flex-col items-center justify-center min-h-screen bg-transparent px-4 py-10">
+      {/* Heading */}
+      <h1 className="mb-10 text-3xl font-extrabold text-center tracking-tight md:text-4xl">
+        🎓 Choose Your Semester
+      </h1>
+
+      {/* Responsive Buttons Grid */}
+      <div className="grid w-full max-w-3xl grid-cols-2 gap-5 md:grid-cols-3">
         {semesters.map((s) => (
           <Button
             key={s.id}
             variant="default"
             size="lg"
-            className="flex items-center gap-3 shadow-lg hover:scale-105 transition-transform"
+            className="flex flex-col items-center justify-center gap-2 py-6 shadow-lg hover:scale-105 transition-transform text-base sm:text-lg"
             onClick={() => router.push(s.route)}
           >
-            <span className="text-xl">{s.icon}</span>
+            <span className="text-2xl">{s.icon}</span>
             {s.title}
           </Button>
         ))}
