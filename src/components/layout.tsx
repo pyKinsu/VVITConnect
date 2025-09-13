@@ -84,25 +84,23 @@ export function Footer() {
           </p>
           <div className="flex flex-wrap justify-center sm:justify-start gap-4 text-xs sm:text-sm font-medium">
             <Link href="/contact" className="hover:text-foreground">Contact</Link>
-            <Link href="/privacy-policy" className="hover:text-foreground">Privacy Policy</Link>
-            <Link href="/terms-of-service" className="hover:text-foreground">Terms of Service</Link>
+            <Link href="/privacy" className="hover:text-foreground">Privacy Policy</Link>
+            <Link href="/disclaimer" className="hover:text-foreground">Terms of Service</Link>
           </div>
         </div>
 
         {/* Social Icons */}
         <div className="flex justify-center sm:justify-end gap-4">
-          {/* Telegram */}
+          {/* Twitter (X) */}
           <a
-            href="https://t.me/pykinsu"
+            href="https://twitter.com/pykinsu"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-blue-500"
-            aria-label="Telegram"
+            className="hover:text-blue-400"
+            aria-label="Twitter"
           >
-            <svg className="w-5 h-5 fill-current" viewBox="0 0 240 240">
-              <path d="M120,0C53.7,0,0,53.7,0,120s53.7,120,120,120s120-53.7,120-120S186.3,0,120,0z M173.4,80.2l-19.3,91.2
-                c-1.5,6.8-5.6,8.4-11.4,5.3l-31.4-23.1l-15.1,14.5c-1.7,1.7-3.1,3.1-6.3,3.1l2.3-32.7l59.7-53.8c2.6-2.3-0.6-3.6-4.1-1.3
-                l-73.8,46.4l-31.8-9.9c-6.9-2.1-7-6.9,1.4-10.2l124.3-47.9C170.2,65.7,175.1,69.1,173.4,80.2z"/>
+            <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+              <path d="M22.46 6.003c-.793.352-1.644.59-2.538.697a4.476 4.476 0 0 0 1.962-2.474 8.94 8.94 0 0 1-2.828 1.082 4.457 4.457 0 0 0-7.59 4.064 12.65 12.65 0 0 1-9.19-4.656 4.457 4.457 0 0 0 1.378 5.943 4.42 4.42 0 0 1-2.019-.558v.057a4.46 4.46 0 0 0 3.575 4.37 4.47 4.47 0 0 1-2.012.077 4.465 4.465 0 0 0 4.165 3.096 8.94 8.94 0 0 1-5.534 1.91c-.36 0-.716-.021-1.068-.062a12.61 12.61 0 0 0 6.828 2.002c8.19 0 12.675-6.785 12.675-12.675 0-.193-.004-.386-.013-.577A9.06 9.06 0 0 0 24 4.59a8.95 8.95 0 0 1-2.54.697z"/>
             </svg>
           </a>
 
