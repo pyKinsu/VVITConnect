@@ -1,55 +1,58 @@
 "use client";
 
-import React from "react";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import {
-  FiBookOpen,
-  FiPercent,
-  FiBriefcase,
-  FiCode,
-  FiCpu,
-  FiChevronRight,
-} from "react-icons/fi";
+import { FiBookOpen, FiCode, FiLayers, FiMessageCircle, FiDivideCircle, FiCpu } from "react-icons/fi";
+import { useRouter } from "next/navigation";
 
-export default function SyllabusPage(): JSX.Element {
+export default function SyllabusPage() {
+  const router = useRouter();
+
   const subjects = [
-    { name: "Communicative English", slug: "communicative-english", icon: <FiBookOpen size={20} /> },
-    { name: "Business Mathematics", slug: "business-mathematics", icon: <FiPercent size={20} /> },
-    { name: "Principles of Management & Organisation", slug: "pmo", icon: <FiBriefcase size={20} /> },
-    { name: "Problem Solving with Programming Concepts", slug: "pspc", icon: <FiCode size={20} /> },
-    { name: "Information Technology Applications", slug: "ita", icon: <FiCpu size={20} /> },
+    {
+      name: "Communicative English",
+      icon: <FiMessageCircle className="mr-2 h-5 w-5" />,
+      route: "/syllabus/english",
+    },
+    {
+      name: "Business Mathematics",
+      icon: <FiDivideCircle className="mr-2 h-5 w-5" />,
+      route: "/syllabus/maths",
+    },
+    {
+      name: "Principles of Management & Organisation",
+      icon: <FiLayers className="mr-2 h-5 w-5" />,
+      route: "/syllabus/management",
+    },
+    {
+      name: "Problem Solving with Programming Concepts",
+      icon: <FiCode className="mr-2 h-5 w-5" />,
+      route: "/syllabus/programming",
+    },
+    {
+      name: "Information Technology Applications",
+      icon: <FiCpu className="mr-2 h-5 w-5" />,
+      route: "/syllabus/ita",
+    },
   ];
 
   return (
-    <main className="min-h-screen bg-transparent text-foreground px-4 py-8 flex justify-center">
-      <div className="w-full max-w-4xl">
-        {/* Header */}
-        <header className="text-center mb-6">
-          <h1 className="text-2xl sm:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
-            1st Semester — Syllabus
-          </h1>
-        </header>
+    <main className="min-h-screen flex flex-col items-center justify-center px-6 py-12">
+      <div className="w-full max-w-3xl">
+        <h1 className="text-3xl sm:text-4xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
+          📘 Subjects — Syllabus
+        </h1>
 
-        {/* Subject Buttons */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid gap-4 sm:grid-cols-2">
           {subjects.map((subj) => (
-            <Link key={subj.slug} href={`/bca/semester/1/syllabus/${subj.slug}`} className="w-full">
-              <Button
-                variant="secondary"
-                size="lg"
-                className="w-full flex items-center justify-between px-5 py-4 text-base sm:text-lg bg-purple-700 text-yellow-300 hover:bg-purple-800"
-              >
-                {/* Left side: icon + text */}
-                <div className="flex items-center gap-3">
-                  {subj.icon}
-                  <span className="text-left">{subj.name}</span>
-                </div>
-
-                {/* Right arrow */}
-                <FiChevronRight size={20} />
-              </Button>
-            </Link>
+            <Button
+              key={subj.name}
+              size="lg"
+              className="w-full justify-start text-left text-lg rounded-xl shadow-md hover:shadow-lg transition-all"
+              onClick={() => router.push(subj.route)}
+            >
+              {subj.icon}
+              {subj.name}
+            </Button>
           ))}
         </div>
       </div>
