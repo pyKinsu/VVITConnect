@@ -227,14 +227,15 @@ export default function RoutinePage(): JSX.Element {
         {/* Top Highlight (today only) */}
 {day === today && topHighlightIndex !== -1 ? (
   <>
-    <div className="section-box flex items-center justify-between py-4 px-6 border-l-4 border-blue-500 bg-blue-50 mb-1">
+    {/* Highlight box */}
+    <div className="section-box flex items-center justify-between py-4 px-6 border-l-4 border-blue-500 bg-blue-100 mb-1">
       {/* Pin on left */}
       <FiMapPin className="text-blue-500 flex-shrink-0" size={16} />
 
-      {/* Subject and time in middle, centered */}
+      {/* Subject and time in middle */}
       <div className="flex-1 text-center flex flex-col items-center justify-center">
         <span className="font-semibold text-blue-800">{periods[topHighlightIndex].subject}</span>
-        <div className="text-sm text-muted-foreground">{periods[topHighlightIndex].time}</div>
+        <span className="text-sm text-muted-foreground">{periods[topHighlightIndex].time}</span>
       </div>
 
       {/* Info icon on right */}
@@ -249,7 +250,7 @@ export default function RoutinePage(): JSX.Element {
       </div>
     </div>
 
-    {/* Upcoming label under the box */}
+    {/* Upcoming label below */}
     <div className="text-center bg-yellow-100 text-yellow-900 font-semibold rounded-md py-1 text-sm mb-3">
       Upcoming
     </div>
