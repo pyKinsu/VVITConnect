@@ -227,30 +227,32 @@ export default function RoutinePage(): JSX.Element {
         {/* Top Highlight (today only) */}
 {day === today && topHighlightIndex !== -1 ? (
   <>
-    {/* Highlight box */}
-    <div className="flex items-center justify-between py-4 px-6 border-l-4 border-purple-500 bg-purple-100 rounded-xl shadow-md mb-2">
-      {/* Pin on left */}
-      <FiMapPin className="text-purple-500 flex-shrink-0" size={16} />
+    <div className="bg-purple-100 rounded-xl shadow-md p-1 mb-3"> {/* Wrapper ensures full purple */}
+      {/* Highlight box */}
+      <div className="flex items-center justify-between py-4 px-6 border-l-4 border-purple-500 rounded-xl bg-purple-100">
+        {/* Pin on left */}
+        <FiMapPin className="text-purple-500 flex-shrink-0" size={16} />
 
-      {/* Subject and time in center */}
-      <div className="flex-1 flex flex-col items-center justify-center text-center">
-        <span className="font-semibold text-purple-800">
-          {periods[topHighlightIndex].subject}
-        </span>
-        <span className="text-sm text-purple-700">
-          {periods[topHighlightIndex].time}
-        </span>
-      </div>
+        {/* Subject and time in center */}
+        <div className="flex-1 flex flex-col items-center justify-center text-center">
+          <span className="font-semibold text-purple-800">
+            {periods[topHighlightIndex].subject}
+          </span>
+          <span className="text-sm text-purple-700">
+            {periods[topHighlightIndex].time}
+          </span>
+        </div>
 
-      {/* Info icon on right */}
-      <div className="flex-shrink-0">
-        <button
-          onClick={() => openNotification(periods[topHighlightIndex].fullForm)}
-          className="p-1 rounded hover:scale-110 transition-transform"
-          aria-label="info"
-        >
-          <FiAlertCircle className="text-yellow-400" size={20} />
-        </button>
+        {/* Info icon on right */}
+        <div className="flex-shrink-0">
+          <button
+            onClick={() => openNotification(periods[topHighlightIndex].fullForm)}
+            className="p-1 rounded hover:scale-110 transition-transform"
+            aria-label="info"
+          >
+            <FiAlertCircle className="text-yellow-400" size={20} />
+          </button>
+        </div>
       </div>
     </div>
 
@@ -260,10 +262,11 @@ export default function RoutinePage(): JSX.Element {
     </div>
   </>
 ) : day === today && topHighlightIndex === -1 ? (
-  <div className="flex items-center justify-center py-4 px-6 bg-purple-100 rounded-xl shadow-md text-purple-800 font-semibold mb-4">
+  <div className="bg-purple-100 rounded-xl shadow-md p-4 text-purple-800 font-semibold mb-4 flex justify-center items-center">
     🎉 All classes over for today
   </div>
 ) : null}
+
 
 
 
