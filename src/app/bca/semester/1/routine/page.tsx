@@ -261,9 +261,6 @@ export default function RoutinePage(): JSX.Element {
   </div>
 ) : null}
 
-
-
-
         {/* Main Period List */}
         <div className="space-y-3">
           {periods.map((p, idx) => {
