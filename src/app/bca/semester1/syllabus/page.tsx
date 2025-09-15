@@ -17,27 +17,27 @@ export default function SyllabusPage() {
     {
       name: "Communicative English",
       icon: <FiMessageCircle className="w-7 h-7 text-primary mb-3" />,
-      route: "/syllabus/english",
+      route: "/bca/syllabus/101",
     },
     {
       name: "Business Mathematics",
       icon: <FiDivideCircle className="w-7 h-7 text-primary mb-3" />,
-      route: "/syllabus/maths",
+      route: "/bca/syllabus/102",
     },
     {
       name: "Principles of Management & Organisation",
       icon: <FiLayers className="w-7 h-7 text-primary mb-3" />,
-      route: "/syllabus/management",
+      route: "/bca/syllabus/105",
     },
     {
       name: "Problem Solving with Programming Concepts",
       icon: <FiCode className="w-7 h-7 text-primary mb-3" />,
-      route: "/syllabus/programming",
+      route: "/bca/syllabus/106",
     },
     {
-      name: "Information Technology Applications",
+      name: "Information Technology & Applications",
       icon: <FiCpu className="w-7 h-7 text-primary mb-3" />,
-      route: "/syllabus/ita",
+      route: "/bca/syllabus/103",
     },
   ];
 
