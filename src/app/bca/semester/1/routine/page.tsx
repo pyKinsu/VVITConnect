@@ -224,49 +224,108 @@ export default function RoutinePage(): JSX.Element {
           </button>
         </div>
 
-        {/* Top Highlight (today only) */}
-{day === today && topHighlightIndex !== -1 ? (
+        {/* Top Highlight (today only) */}{day === today && topHighlightIndex !== -1 ? (
   <>
-    {/* Wrapper ensures full purple background for the box including bottom */}
-    <div className="rounded-xl shadow-md mb-3 bg-purple-100 overflow-hidden">
+    {/* Wrapper ensures full purple background for the box */}
+    <div
+      style={{
+        borderRadius: "16px",
+        boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+        marginBottom: "12px",
+        backgroundColor: "#E0BBFF", // light purple
+        overflow: "hidden",
+        padding: "0",
+      }}
+    >
       {/* Highlight box */}
-      <div className="flex items-center justify-between py-4 px-6 border-l-4 border-purple-500 bg-purple-100">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "16px 24px",
+          borderLeft: "6px solid #7C3AED", // deep purple left border
+          backgroundColor: "#D8B4FE", // slightly darker purple for inner box
+        }}
+      >
         {/* Pin on left */}
-        <FiMapPin className="text-purple-500 flex-shrink-0" size={16} />
+        <FiMapPin style={{ color: "#7C3AED", flexShrink: 0 }} size={16} />
 
         {/* Subject and time in center */}
-        <div className="flex-1 flex flex-col items-center justify-center text-center">
-          <span className="font-semibold text-purple-800">
+        <div
+          style={{
+            flex: 1,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            textAlign: "center",
+          }}
+        >
+          <span style={{ fontWeight: 600, color: "#4C1D95", fontSize: "16px" }}>
             {periods[topHighlightIndex].subject}
           </span>
-          <span className="text-sm text-purple-700">
+          <span style={{ fontSize: "14px", color: "#5B21B6", marginTop: "4px" }}>
             {periods[topHighlightIndex].time}
           </span>
         </div>
 
         {/* Info icon on right */}
-        <div className="flex-shrink-0">
+        <div style={{ flexShrink: 0 }}>
           <button
             onClick={() => openNotification(periods[topHighlightIndex].fullForm)}
-            className="p-1 rounded hover:scale-110 transition-transform"
+            style={{
+              padding: "4px",
+              borderRadius: "6px",
+              cursor: "pointer",
+              transition: "transform 0.2s",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
+            onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
             aria-label="info"
           >
-            <FiAlertCircle className="text-yellow-400" size={20} />
+            <FiAlertCircle style={{ color: "#FBBF24" }} size={20} />
           </button>
         </div>
       </div>
     </div>
 
     {/* Upcoming label below */}
-    <div className="text-center bg-yellow-100 text-yellow-900 font-semibold rounded-md py-1 text-sm mb-3">
+    <div
+      style={{
+        textAlign: "center",
+        backgroundColor: "#FEF3C7",
+        color: "#B45309",
+        fontWeight: 600,
+        borderRadius: "8px",
+        padding: "4px 0",
+        fontSize: "14px",
+        marginBottom: "12px",
+      }}
+    >
       Upcoming
     </div>
   </>
 ) : day === today && topHighlightIndex === -1 ? (
-  <div className="flex justify-center items-center bg-purple-100 rounded-xl shadow-md py-4 mb-4 text-purple-800 font-semibold">
+  <div
+    style={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "#E0BBFF",
+      borderRadius: "16px",
+      boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+      padding: "16px",
+      marginBottom: "16px",
+      color: "#4C1D95",
+      fontWeight: 600,
+      fontSize: "16px",
+    }}
+  >
     🎉 All classes over for today
   </div>
 ) : null}
+
 
         {/* Main Period List */}
         <div className="space-y-3">
