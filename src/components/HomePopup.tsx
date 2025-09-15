@@ -10,7 +10,7 @@ interface HomePopup {
 
 const STORAGE_KEY = "home_popup_closed_at";
 
-export const HomePopup: React.FC<HomePopupProps> = ({
+export const HomePopup: React.FC<HomePopup> = ({
   contactUrl = "https://kinsu.onrender.com/pages/Contact/",
   reappearHours = 24,
 }) => {
