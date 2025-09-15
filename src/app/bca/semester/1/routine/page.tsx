@@ -225,83 +225,43 @@ export default function RoutinePage(): JSX.Element {
         </div>
 
         {/* Top Highlight (today only) */}
-        {day === today && topHighlightIndex !== -1 ? (
+{day === today && topHighlightIndex !== -1 ? (
   <>
-    {/* Wrapper ensures full dark purple background for the box */}
     <div
+      className="rounded-xl shadow-sm flex items-center justify-between py-4 px-6 mb-3"
       style={{
-        borderRadius: "16px",
-        boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
-        marginBottom: "12px",
         backgroundColor: "#4B0082", // dark purple
-        overflow: "hidden",
-        padding: "0",
+        borderLeft: "6px solid #2E0055", // darker purple left border
       }}
     >
-      {/* Highlight box */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "16px 24px",
-          borderLeft: "6px solid #2E0055", // darker purple left border
-          backgroundColor: "#4B0082", // match wrapper dark purple
-        }}
-      >
-        {/* Pin on left */}
-        <FiMapPin style={{ color: "#FFD700", flexShrink: 0 }} size={16} />
+      {/* Pin on left */}
+      <FiMapPin style={{ color: "#FFD700" }} size={16} />
 
-        {/* Subject and time in center */}
-        <div
-          style={{
-            flex: 1,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            textAlign: "center",
-          }}
-        >
-          <span style={{ fontWeight: 600, color: "#FFFFFF", fontSize: "16px" }}>
-            {periods[topHighlightIndex].subject}
-          </span>
-          <span style={{ fontSize: "14px", color: "#E0E0E0", marginTop: "4px" }}>
-            {periods[topHighlightIndex].time}
-          </span>
-        </div>
-
-        {/* Info icon on right */}
-        <div style={{ flexShrink: 0 }}>
-          <button
-            onClick={() => openNotification(periods[topHighlightIndex].fullForm)}
-            style={{
-              padding: "4px",
-              borderRadius: "6px",
-              cursor: "pointer",
-              transition: "transform 0.2s",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
-            onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
-            aria-label="info"
-          >
-            <FiAlertCircle style={{ color: "#FFD700" }} size={20} />
-          </button>
-        </div>
+      {/* Subject + time */}
+      <div className="flex-1 flex flex-col items-center text-center">
+        <span style={{ fontWeight: 600, color: "#FFFFFF" }}>
+          {periods[topHighlightIndex].subject}
+        </span>
+        <span style={{ fontSize: "14px", color: "#E0E0E0", marginTop: "4px" }}>
+          {periods[topHighlightIndex].time}
+        </span>
       </div>
+
+      {/* Info icon */}
+      <button
+        onClick={() => openNotification(periods[topHighlightIndex].fullForm)}
+        className="p-1 rounded hover:scale-110 transition-transform"
+        aria-label="info"
+      >
+        <FiAlertCircle style={{ color: "#FFD700" }} size={20} />
+      </button>
     </div>
 
-    {/* Upcoming label below */}
-    <div
+    {/* Upcoming label */}
+    <div className="text-center font-semibold text-sm mb-3 rounded-md py-1"
       style={{
-        textAlign: "center",
         backgroundColor: "#2E0055",
         color: "#FFD700",
-        fontWeight: 600,
-        borderRadius: "8px",
-        padding: "4px 0",
-        fontSize: "14px",
-        marginBottom: "12px",
       }}
     >
       Upcoming
@@ -309,23 +269,17 @@ export default function RoutinePage(): JSX.Element {
   </>
 ) : day === today && topHighlightIndex === -1 ? (
   <div
+    className="rounded-xl shadow-sm flex justify-center items-center py-4 mb-4"
     style={{
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
       backgroundColor: "#4B0082",
-      borderRadius: "16px",
-      boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
-      padding: "16px",
-      marginBottom: "16px",
       color: "#FFD700",
       fontWeight: 600,
-      fontSize: "16px",
     }}
   >
     🎉 All classes over for today
   </div>
 ) : null}
+
 
         {/* Main Period List */}
         <div className="space-y-3">
