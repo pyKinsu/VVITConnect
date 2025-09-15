@@ -95,8 +95,6 @@ const routineB: Routine = {
     { time: "1:00 - 1:50 PM", subject: "Spt & Cul", fullForm: "Sports & Cultural Activities" },
   ],
 };
-
-
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 export default function RoutinePage() {
@@ -107,7 +105,7 @@ export default function RoutinePage() {
   const [currentPeriod, setCurrentPeriod] = useState<Period | null>(null);
   const [showFullForm, setShowFullForm] = useState<{ [key: string]: boolean }>({});
 
-  // Determine current ongoing period
+  // Track current ongoing period
   useEffect(() => {
     const checkCurrentPeriod = () => {
       const now = new Date();
@@ -130,7 +128,7 @@ export default function RoutinePage() {
     };
 
     checkCurrentPeriod();
-    const interval = setInterval(checkCurrentPeriod, 30000); // update every 30 sec
+    const interval = setInterval(checkCurrentPeriod, 30000);
     return () => clearInterval(interval);
   }, [selectedDay]);
 
@@ -150,16 +148,15 @@ export default function RoutinePage() {
   };
 
   const renderRoutine = (routine: Routine) => {
-    // Separate current period and others
     const allPeriods = routine[selectedDay] || [];
     const otherPeriods = allPeriods.filter((p) => p !== currentPeriod);
 
     return (
       <>
         {currentPeriod && (
-          <div className="section-box relative flex items-center justify-between py-4 px-6 mb-4 w-full max-w-3xl border-2 border-primary shadow-lg bg-card">
-            <div className="flex items-center gap-2">
-              <FiMapPin className="text-primary" size={20} />
+          <div className="section-box flex items-center justify-between py-4 px-6 mb-4 w-full max-w-3xl bg-card border-l-4 border-primary shadow-md animate-pulse">
+            <div className="flex items-center gap-3">
+              <FiMapPin className="text-primary animate-bounce" size={20} />
               <div className="flex flex-col">
                 <span className="font-semibold text-lg">{currentPeriod.subject}</span>
                 <span className="text-sm text-muted-foreground">{currentPeriod.time}</span>
@@ -167,32 +164,29 @@ export default function RoutinePage() {
             </div>
             <FiAlertCircle
               size={24}
-              className="text-accent cursor-pointer"
+              className="text-yellow-400 hover:scale-110 transition-transform cursor-pointer"
               onClick={() => handleShowFullForm(currentPeriod.subject)}
             />
             {showFullForm[currentPeriod.subject] && (
-              <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-card text-card-foreground p-3 rounded shadow-lg text-sm z-50 max-w-xs">
+              <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-yellow-100/90 text-yellow-900 backdrop-blur-sm p-3 rounded-lg shadow-lg text-sm max-w-xs z-50 animate-fadeIn">
                 {currentPeriod.fullForm}
               </div>
             )}
           </div>
         )}
         {otherPeriods.map((period) => (
-          <div
-            key={period.time + period.subject}
-            className="section-box relative flex items-center justify-between py-4 px-6 mb-3 w-full max-w-3xl"
-          >
+          <div key={period.time + period.subject} className="section-box flex items-center justify-between py-4 px-6 mb-3 w-full max-w-3xl bg-card">
             <div className="flex flex-col">
               <span className="font-semibold text-lg">{period.subject}</span>
               <span className="text-sm text-muted-foreground">{period.time}</span>
             </div>
             <FiAlertCircle
               size={24}
-              className="text-accent cursor-pointer"
+              className="text-yellow-400 hover:scale-110 transition-transform cursor-pointer"
               onClick={() => handleShowFullForm(period.subject)}
             />
             {showFullForm[period.subject] && (
-              <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-card text-card-foreground p-3 rounded shadow-lg text-sm z-50 max-w-xs">
+              <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-yellow-100/90 text-yellow-900 backdrop-blur-sm p-3 rounded-lg shadow-lg text-sm max-w-xs z-50 animate-fadeIn">
                 {period.fullForm}
               </div>
             )}
@@ -210,15 +204,15 @@ export default function RoutinePage() {
         </h1>
       </header>
 
-      {/* Day Selector with arrows */}
+      {/* Day Selector */}
       <div className="flex items-center gap-2 mb-6">
-        <button onClick={prevDay} className="text-2xl p-2 rounded-full hover:bg-muted transition">
+        <button onClick={prevDay} className="text-2xl p-3 rounded-full hover:bg-muted transition-transform hover:scale-110">
           <FiChevronLeft />
         </button>
         <span className="px-6 py-2 rounded-lg bg-accent text-accent-foreground font-medium text-lg">
           {selectedDay}
         </span>
-        <button onClick={nextDay} className="text-2xl p-2 rounded-full hover:bg-muted transition">
+        <button onClick={nextDay} className="text-2xl p-3 rounded-full hover:bg-muted transition-transform hover:scale-110">
           <FiChevronRight />
         </button>
       </div>
@@ -240,4 +234,5 @@ export default function RoutinePage() {
       </section>
     </main>
   );
-}
+            }
+          
