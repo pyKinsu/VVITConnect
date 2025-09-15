@@ -10,7 +10,7 @@ import {
 } from "react-icons/fi";
 
 type Period = {
-  time: string; // e.g. "10:00 - 10:50 AM"
+  time: string;
   subject: string;
   fullForm: string;
 };
@@ -123,7 +123,7 @@ function parseRange(range: string): [number, number] {
 
 function getTodayWeekday(): string {
   const d = new Date().getDay();
-  return d === 0 ? "Monday" : ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][d];
+  return ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][d];
 }
 
 export default function RoutinePage(): JSX.Element {
@@ -177,11 +177,6 @@ export default function RoutinePage(): JSX.Element {
     borderLeft: "4px solid hsl(var(--primary))",
   };
 
-  const upcomingStyle: React.CSSProperties = {
-    backgroundColor: "hsl(var(--background))",
-    borderLeft: "4px solid hsl(var(--blue))",
-  };
-
   return (
     <main className="min-h-screen bg-transparent text-foreground px-4 py-8 flex justify-center">
       <div className="w-full max-w-4xl">
@@ -220,125 +215,125 @@ export default function RoutinePage(): JSX.Element {
         </div>
 
         {/* Pinned / Upcoming */}
-<div className="mb-4">
-  {(() => {
-    const today = getTodayWeekday();
-    if (day !== today) return null;
+        <div className="mb-4">
+          {(() => {
+            const today = getTodayWeekday();
+            if (day !== today) return null;
 
-    if (currentIndex !== -1) {
-      const p = periods[currentIndex];
-      return (
-        <div className="section-box p-4 flex items-center justify-between" style={currentStyle}>
-          <div className="flex items-center gap-2">
-            <FiMapPin className="text-yellow-400 animate-bounce" size={16} />
-            <span className="font-semibold text-blue-600">Upcoming</span>
-            <span className="ml-1 text-foreground font-medium">
-              {p.subject} • {p.time}
-            </span>
-          </div>
-          <button
-            onClick={() => openNotification(
-              `${section}-${day}-${p.time}-${p.subject}`,
-              p.fullForm
-            )}
-            className="p-1 rounded hover:scale-105 transition-transform"
-            aria-label="info"
-          >
-            <FiAlertCircle className="text-yellow-400" size={20} />
-          </button>
-        </div>
-      );
-    } else if (upcomingIndex !== -1) {
-      const p = periods[upcomingIndex];
-      return (
-        <div className="section-box p-3 flex items-center justify-between border-l-4 border-blue-400">
-          <div className="flex items-center gap-2">
-            <FiMapPin className="text-yellow-400 animate-bounce" size={16} />
-            <span className="font-semibold text-blue-600">Upcoming</span>
-            <span className="ml-1 text-foreground font-medium">
-              {p.subject} • {p.time}
-            </span>
-          </div>
-          <button
-            onClick={() => openNotification(
-              `${section}-${day}-${p.time}-${p.subject}`,
-              p.fullForm
-            )}
-            className="p-1 rounded hover:scale-105 transition-transform"
-          >
-            <FiAlertCircle className="text-yellow-400" size={20} />
-          </button>
-        </div>
-      );
-    } else {
-      return (
-        <div className="section-box p-3 text-center text-muted-foreground">
-          🎉 All classes over for today
-        </div>
-      );
-    }
-  })()}
-</div>
-
-{/* Main list of periods */}
-<div className="space-y-3">
-  {periods.map((p, idx) => {
-    const isCurrent = idx === currentIndex;
-    const isUpcoming = idx === upcomingIndex && currentIndex === -1;
-
-    return (
-      <div
-        key={`${p.time}-${p.subject}`}
-        className="section-box flex items-center justify-between py-4 px-6"
-        style={isCurrent || isUpcoming ? currentStyle : undefined}
-      >
-        <div>
-          <div className="font-semibold flex items-center gap-2">
-            {p.subject} 
-            {isCurrent && <FiMapPin className="text-primary" />}
-            {isUpcoming && <span className="text-yellow-400 font-semibold ml-1">Upcoming</span>}
-          </div>
-          <div className="text-sm text-muted-foreground">{p.time}</div>
-        </div>
-        <div>
-          <button
-            onClick={() =>
-              openNotification(`${section}-${day}-${p.time}-${p.subject}`, p.fullForm)
+            if (currentIndex !== -1) {
+              const p = periods[currentIndex];
+              return (
+                <div className="section-box p-4 flex items-center justify-between" style={currentStyle}>
+                  <div className="flex items-center gap-2">
+                    <FiMapPin className="text-yellow-400 animate-bounce" size={16} />
+                    <span className="font-semibold text-blue-600">Upcoming</span>
+                    <span className="ml-1 text-foreground font-medium">
+                      {p.subject} • {p.time}
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => openNotification(
+                      `${section}-${day}-${p.time}-${p.subject}`,
+                      p.fullForm
+                    )}
+                    className="p-1 rounded hover:scale-105 transition-transform"
+                    aria-label="info"
+                  >
+                    <FiAlertCircle className="text-yellow-400" size={20} />
+                  </button>
+                </div>
+              );
+            } else if (upcomingIndex !== -1) {
+              const p = periods[upcomingIndex];
+              return (
+                <div className="section-box p-3 flex items-center justify-between border-l-4 border-blue-400">
+                  <div className="flex items-center gap-2">
+                    <FiMapPin className="text-yellow-400 animate-bounce" size={16} />
+                    <span className="font-semibold text-blue-600">Upcoming</span>
+                    <span className="ml-1 text-foreground font-medium">
+                      {p.subject} • {p.time}
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => openNotification(
+                      `${section}-${day}-${p.time}-${p.subject}`,
+                      p.fullForm
+                    )}
+                    className="p-1 rounded hover:scale-105 transition-transform"
+                  >
+                    <FiAlertCircle className="text-yellow-400" size={20} />
+                  </button>
+                </div>
+              );
+            } else {
+              return (
+                <div className="section-box p-3 text-center text-muted-foreground">
+                  🎉 All classes over for today
+                </div>
+              );
             }
-            className="p-1 rounded hover:scale-110 transition-transform"
-            aria-label="info"
+          })()}
+        </div>
+
+        {/* Main list of periods */}
+        <div className="space-y-3">
+          {periods.map((p, idx) => {
+            const isCurrent = idx === currentIndex;
+            const isUpcoming = idx === upcomingIndex && currentIndex === -1;
+
+            return (
+              <div
+                key={`${p.time}-${p.subject}`}
+                className="section-box flex items-center justify-between py-4 px-6"
+                style={isCurrent || isUpcoming ? currentStyle : undefined}
+              >
+                <div>
+                  <div className="font-semibold flex items-center gap-2">
+                    {p.subject} 
+                    {isCurrent && <FiMapPin className="text-primary" />}
+                    {isUpcoming && <span className="text-yellow-400 font-semibold ml-1">Upcoming</span>}
+                  </div>
+                  <div className="text-sm text-muted-foreground">{p.time}</div>
+                </div>
+                <div>
+                  <button
+                    onClick={() =>
+                      openNotification(`${section}-${day}-${p.time}-${p.subject}`, p.fullForm)
+                    }
+                    className="p-1 rounded hover:scale-110 transition-transform"
+                    aria-label="info"
+                  >
+                    <FiAlertCircle className="text-yellow-400" size={20} />
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Global notification */}
+        {notificationText && (
+          <div
+            className="fixed left-4 bottom-6 z-50"
+            style={{ width: "min(420px, 90vw)" }}
           >
-            <FiAlertCircle className="text-yellow-400" size={20} />
-          </button>
-        </div>
-      </div>
-    );
-  })}
-</div>
-
-
-      {/* Global notification */}
-      {notificationText && (
-        <div
-          className="fixed left-4 bottom-6 z-50"
-          style={{ width: "min(420px, 90vw)" }}
-        >
-          <div className="bg-yellow-50 border border-yellow-300 text-yellow-900 p-4 rounded-xl shadow-2xl flex gap-3 items-start">
-            <FiAlertCircle className="mt-1" size={20} />
-            <div className="text-sm break-words">{notificationText}</div>
-            <button
-              onClick={() => {
-                setNotificationText(null);
-                setActiveNotificationId(null);
-              }}
-              className="ml-3 p-1 rounded hover:bg-yellow-100"
-              aria-label="close notification"
-            >
-              <FiX />
-            </button>
+            <div className="bg-yellow-50 border border-yellow-300 text-yellow-900 p-4 rounded-xl shadow-2xl flex gap-3 items-start">
+              <FiAlertCircle className="mt-1" size={20} />
+              <div className="text-sm break-words">{notificationText}</div>
+              <button
+                onClick={() => {
+                  setNotificationText(null);
+                  setActiveNotificationId(null);
+                }}
+                className="ml-3 p-1 rounded hover:bg-yellow-100"
+                aria-label="close notification"
+              >
+                <FiX />
+              </button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </main>
   );
 }
