@@ -19,88 +19,98 @@ type Routine = {
   [day: string]: Period[];
 };
 
+// -------------------- ROUTINE DATA --------------------
 const routineA: Routine = {
   Monday: [
-    { time: "10:00 - 10:50 AM", subject: "PMO", fullForm: "Principles of Management" },
-    { time: "11:00 - 11:50 AM", subject: "ITA", fullForm: "Introduction to Accounting" },
-    { time: "12:00 - 12:50 PM", subject: "ITA Lab", fullForm: "Accounting Lab" },
-    { time: "1:00 - 1:50 PM", subject: "PMO", fullForm: "Principles of Management" },
+    { time: "9:50 - 10:35 AM", subject: "PSPC", fullForm: "Problem Solving Programming Concept" },
+    { time: "10:35 - 11:20 AM", subject: "CE", fullForm: "Communicative English" },
+    { time: "11:25 - 12:10 PM", subject: "PMO", fullForm: "Principles of Management & Organisation" },
+    { time: "1:00 - 1:45 PM", subject: "ITA Lab", fullForm: "Iformation Technology Application Lab" },
+    { time: "1:45 - 2:35 PM", subject: "ITA Lab", fullForm: "Iformation Technology Application Lab" },
   ],
   Tuesday: [
-    { time: "10:00 - 10:50 AM", subject: "CE", fullForm: "Computer Essentials" },
-    { time: "11:00 - 11:50 AM", subject: "ITA", fullForm: "Introduction to Accounting" },
-    { time: "12:00 - 12:50 PM", subject: "PMO", fullForm: "Principles of Management" },
-    { time: "1:00 - 1:50 PM", subject: "CE", fullForm: "Computer Essentials" },
-    { time: "2:00 - 2:50 PM", subject: "PSPC", fullForm: "Problem Solving & Programming Concepts" },
+    { time: "9:50 - 10:35 AM", subject: "CE", fullForm: "Communicative English" },
+    { time: "10:35 - 11:20 AM", subject: "ITA", fullForm: " Information Technology Application" },
+    { time: "11:25 - 12:10 PM", subject: "PMO", fullForm: "Principles of Management & Organisation" },
+    { time: "1:00 - 1:45 PM", subject: "CE", fullForm: "Communicative English" },
+    { time: "1:45 - 2:35 PM", "PSPC", fullForm: "Problem Solving Programming Concept" },
   ],
   Wednesday: [
-    { time: "10:00 - 10:50 AM", subject: "PMO", fullForm: "Principles of Management" },
-    { time: "11:00 - 11:50 AM", subject: "CE", fullForm: "Computer Essentials" },
-    { time: "12:00 - 12:50 PM", subject: "BM", fullForm: "Business Mathematics" },
-    { time: "1:00 - 1:50 PM", subject: "ITA", fullForm: "Introduction to Accounting" },
-    { time: "2:00 - 2:50 PM", subject: "PMO", fullForm: "Principles of Management" },
+    { time: "9:50 - 10:35 AM", subject: "BM", fullForm: " Buisness Mathematics" },
+    { time: "10:35 - 11:20 AM", subject: "PSPC", fullForm: "Problem Solving Programming Concept" },
+    { time: "11:25 - 12:10 PM", subject: "CE", fullForm: "Communicative English" },
+    { time: "1:00 - 1:45 PM", subject: "PMO", fullForm: "Principles of Management & Organisation" },
+    { time: "1:45 - 2:35 PM", subject: "BM", fullForm: " Buisness Mathematics" },
   ],
   Thursday: [
-    { time: "10:00 - 10:50 AM", subject: "PSPC Lab", fullForm: "Problem Solving Lab" },
-    { time: "11:00 - 11:50 AM", subject: "ITA", fullForm: "Introduction to Accounting" },
-    { time: "12:00 - 12:50 PM", subject: "PSPC", fullForm: "Problem Solving & Programming Concepts" },
-    { time: "1:00 - 1:50 PM", subject: "ITA", fullForm: "Introduction to Accounting" },
+    { time: "9:50 - 10:35 AM", subject: "PSPC", fullForm: "Problem Solving Programming Concept" },
+    { time: "10:35 - 11:20 AM", subject: "CE", fullForm: "Communicative English" },
+    { time: "11:25 - 12:10 PM", subject: "PMO", fullForm: "Principles of Management & Organisation" },
+    { time: "1:00 - 1:45 PM", subject: "ITA Lab", fullForm: "Iformation Technology Application Lab" },
+    { time: "1:45 - 2:35 PM", subject: "ITA Lab", fullForm: "Iformation Technology Application Lab" },
   ],
   Friday: [
-    { time: "10:00 - 10:50 AM", subject: "ITA", fullForm: "Introduction to Accounting" },
-    { time: "11:00 - 11:50 AM", subject: "BM", fullForm: "Business Mathematics" },
-    { time: "12:00 - 12:50 PM", subject: "PSPC", fullForm: "Problem Solving & Programming Concepts" },
-    { time: "1:00 - 1:50 PM", subject: "PSPC Lab", fullForm: "Problem Solving Lab" },
-    { time: "2:00 - 2:50 PM", subject: "Spt & Cul", fullForm: "Sports & Cultural Activities" },
+    { time: "9:50 - 10:35 AM", subject: "CE", fullForm: "Communicative English" },
+    { time: "10:35 - 11:20 AM", subject: "ITA", fullForm: " Information Technology Application" },
+    { time: "11:25 - 12:10 PM", subject: "PMO", fullForm: "Principles of Management & Organisation" },
+    { time: "1:00 - 1:45 PM", subject: "PSPC Lab", fullForm: "Problem Solving Programming Concept Lab" },
+    { time: "1:45 - 2:35 PM", subject: "PSPC Lab", fullForm: "Problem Solving Programming Concept Lab" },
   ],
   Saturday: [
-    { time: "10:00 - 10:50 AM", subject: "BM", fullForm: "Business Mathematics" },
-    { time: "11:00 - 11:50 AM", subject: "PSPC", fullForm: "Problem Solving & Programming Concepts" },
-    { time: "12:00 - 12:50 PM", subject: "ITA", fullForm: "Introduction to Accounting" },
+    { time: "9:50 - 10:35 AM", subject: "BM", fullForm: " Buisness Mathematics" },
+    { time: "10:35 - 11:20 AM", subject: "PSPC", fullForm: "Problem Solving Programming Concept" },
+    { time: "11:25 - 12:10 PM", subject: "ITA", fullForm: " Information Technology Application" },
+    { time: "1:00 - 1:45 PM", subject: "Spt & Cul", fullForm: "Sports And Cultural Activities" },
+    { time: "1:45 - 2:35 PM", subject: "Spt & Cul ", fullForm: "Sports And Cultural Activities" },
   ],
 };
 
 const routineB: Routine = {
   Monday: [
-    { time: "10:00 - 10:50 AM", subject: "ITA", fullForm: "Introduction to Accounting" },
-    { time: "11:00 - 11:50 AM", subject: "PSPC", fullForm: "Problem Solving & Programming Concepts" },
-    { time: "12:00 - 12:50 PM", subject: "CE", fullForm: "Computer Essentials" },
-    { time: "1:00 - 1:50 PM", subject: "PMO", fullForm: "Principles of Management" },
+    { time: "9:50 - 10:35 AM", subject: "ITA", fullForm: " Information Technology Application" },
+    { time: "10:35 - 11:20 AM", subject: "PSPC", fullForm: "Problem Solving Programming Concept" },
+    { time: "11:25 - 12:10 PM", subject: "CE", fullForm: "Communicative English" },
+    { time: "1:00 - 1:45 PM", subject: "PMO", fullForm: "Principles of Management & Organisation" },
+    { time: "1:45 - 2:35 PM", subject: "PMO", fullForm: "Principles of Management & Organisation" },
   ],
   Tuesday: [
-    { time: "10:00 - 10:50 AM", subject: "PSPC", fullForm: "Problem Solving & Programming Concepts" },
-    { time: "11:00 - 11:50 AM", subject: "PSPC Lab", fullForm: "Problem Solving Lab" },
-    { time: "12:00 - 12:50 PM", subject: "PMO", fullForm: "Principles of Management" },
-    { time: "1:00 - 1:50 PM", subject: "ITA", fullForm: "Introduction to Accounting" },
+    { time: "9:50 - 10:35 AM", subject: "PSPC", fullForm: "Problem Solving Programming Concept" },
+    { time: "10:35 - 11:20 AM", subject: "PSPC Lab", fullForm: "Problem Solving Programming Concept Lab" },
+    { time: "11:25 - 12:10 PM", subject: "PSPC Lab", fullForm: "Problem Solving Programming Concept Lab" },
+    { time: "1:00 - 1:45 PM", subject: "PMO", fullForm: "Principles of Management & Organisation" },
+    { time: "1:45 - 2:35 PM", subject: "ITA", fullForm: "Iformation Technology Application" },
   ],
   Wednesday: [
-    { time: "10:00 - 10:50 AM", subject: "CE", fullForm: "Computer Essentials" },
-    { time: "11:00 - 11:50 AM", subject: "BM", fullForm: "Business Mathematics" },
-    { time: "12:00 - 12:50 PM", subject: "PMO", fullForm: "Principles of Management" },
-    { time: "1:00 - 1:50 PM", subject: "PSPC", fullForm: "Problem Solving & Programming Concepts" },
-    { time: "2:00 - 2:50 PM", subject: "ITA", fullForm: "Introduction to Accounting" },
+    { time: "9:50 - 10:35 AM", subject: "CE", fullForm: "Communicative English" },
+    { time: "10:35 - 11:20 AM", subject: "BM", fullForm: " Buisness Mathematics" },
+    { time: "11:25 - 12:10 PM", subject: "PMO", fullForm: "Principles of Management & Organisation" },
+    { time: "1:00 - 1:45 PM", subject: "PSPC", fullForm: "Problem Solving Programming Concept" },
+    { time: "1:45 - 2:35 PM", subject: "ITA", fullForm: "Iformation Technology Application" },
   ],
   Thursday: [
-    { time: "10:00 - 10:50 AM", subject: "BM", fullForm: "Business Mathematics" },
-    { time: "11:00 - 11:50 AM", subject: "ITA", fullForm: "Introduction to Accounting" },
-    { time: "12:00 - 12:50 PM", subject: "PMO", fullForm: "Principles of Management" },
-    { time: "1:00 - 1:50 PM", subject: "CE", fullForm: "Computer Essentials" },
-    { time: "2:00 - 2:50 PM", subject: "PSPC", fullForm: "Problem Solving & Programming Concepts" },
+    { time: "9:50 - 10:35 AM", subject: "BM", fullForm: " Buisness Mathematics" },
+    { time: "10:35 - 11:20 AM", subject: "ITA", fullForm: " Information Technology Application" },
+    { time: "11:25 - 12:10 PM", subject: "PMO", fullForm: "Principles of Management & Organisation" },
+    { time: "1:00 - 1:45 PM", subject: "CE", fullForm: "Communicative English" },
+    { time: "1:45 - 2:35 PM", subject: "PSPC", fullForm: "Problem Solving Programming Concept" },
   ],
   Friday: [
-    { time: "10:00 - 10:50 AM", subject: "ITA", fullForm: "Introduction to Accounting" },
-    { time: "11:00 - 11:50 AM", subject: "ITA", fullForm: "Introduction to Accounting" },
-    { time: "12:00 - 12:50 PM", subject: "CE", fullForm: "Computer Essentials" },
-    { time: "1:00 - 1:50 PM", subject: "PSPC", fullForm: "Problem Solving & Programming Concepts" },
+    { time: "9:50 - 10:35 AM", subject: "ITA", fullForm: " Information Technology Application" },
+    { time: "10:35 - 11:20 AM", subject: "BM", fullForm: " Buisness Mathematics" },
+    { time: "11:25 - 12:10 PM", subject: "CE", fullForm: "Communicative English" },
+    { time: "1:00 - 1:45 PM", subject: "CE", fullForm: "Communicative English" },
+    { time: "1:45 - 2:35 PM", subject: "ITA", fullForm: "Iformation Technology Application" },
   ],
   Saturday: [
-    { time: "10:00 - 10:50 AM", subject: "ITA", fullForm: "Introduction to Accounting" },
-    { time: "11:00 - 11:50 AM", subject: "ITA Lab", fullForm: "Accounting Lab" },
-    { time: "12:00 - 12:50 PM", subject: "BM", fullForm: "Business Mathematics" },
-    { time: "1:00 - 1:50 PM", subject: "Spt & Cul", fullForm: "Sports & Cultural Activities" },
+    { time: "9:50 - 10:35 AM", subject: "ITA Lab", fullForm: " Information Technology Application Lab" },
+    { time: "10:35 - 11:20 AM", subject: "ITA Lab", fullForm: " Information Technology Application Lab" },
+    { time: "11:25 - 12:10 PM", subject: "PMO", fullForm: "Principles of Management & Organisation" },
+    { time: "1:00 - 1:45 PM", subject: "Spt & Cul", fullForm: "Iformation Technology Application Lab" },
+    { time: "1:45 - 2:35 PM", subject: "Spt & Cul", fullForm: "Iformation Technology Application Lab" },
   ],
 };
 
+// -------------------- TIME UTILITIES --------------------
 function toMinutes(t: string): number {
   const m = t.match(/(\d{1,2}):(\d{2})\s*(AM|PM)?/i);
   if (!m) return 0;
@@ -113,12 +123,10 @@ function toMinutes(t: string): number {
 }
 
 function parseRange(range: string): [number, number] {
-  const parts = range.split("-");
-  const left = parts[0].trim();
-  const right = parts[1].trim();
-  const rightAmp = (right.match(/\b(AM|PM)\b/i) || [])[0];
-  const leftWithAmp = /\b(AM|PM)\b/i.test(left) ? left : `${left} ${rightAmp ?? ""}`;
-  return [toMinutes(leftWithAmp), toMinutes(right)];
+  const [start, end] = range.split("-").map((x) => x.trim());
+  const endAmp = (end.match(/\b(AM|PM)\b/i) || [])[0];
+  const startWithAmp = /\b(AM|PM)\b/i.test(start) ? start : `${start} ${endAmp ?? ""}`;
+  return [toMinutes(startWithAmp), toMinutes(end)];
 }
 
 function getTodayWeekday(): string {
@@ -126,10 +134,10 @@ function getTodayWeekday(): string {
   return ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][d];
 }
 
+// -------------------- MAIN COMPONENT --------------------
 export default function RoutinePage(): JSX.Element {
   const [section, setSection] = useState<"A" | "B">("A");
   const [day, setDay] = useState<string>(() => getTodayWeekday());
-  const [activeNotificationId, setActiveNotificationId] = useState<string | null>(null);
   const [notificationText, setNotificationText] = useState<string | null>(null);
   const [nowMinutes, setNowMinutes] = useState<number>(() => {
     const n = new Date();
@@ -137,11 +145,11 @@ export default function RoutinePage(): JSX.Element {
   });
 
   useEffect(() => {
-    const t = setInterval(() => {
+    const interval = setInterval(() => {
       const n = new Date();
       setNowMinutes(n.getHours() * 60 + n.getMinutes());
     }, 30_000);
-    return () => clearInterval(t);
+    return () => clearInterval(interval);
   }, []);
 
   const routines = section === "A" ? routineA : routineB;
@@ -155,29 +163,20 @@ export default function RoutinePage(): JSX.Element {
   let currentIndex = -1;
   let upcomingIndex = -1;
   for (let i = 0; i < periods.length; i++) {
-    const [s, e] = parseRange(periods[i].time);
-    if (nowMinutes >= s && nowMinutes <= e) currentIndex = i;
-    if (upcomingIndex === -1 && nowMinutes < s) upcomingIndex = i;
+    const [start, end] = parseRange(periods[i].time);
+    if (nowMinutes >= start && nowMinutes <= end) currentIndex = i;
+    if (upcomingIndex === -1 && nowMinutes < start) upcomingIndex = i;
   }
 
   const topHighlightIndex = currentIndex !== -1 ? currentIndex : upcomingIndex;
-
-  function openNotification(id: string, text: string) {
-    if (activeNotificationId === id) {
-      setActiveNotificationId(null);
-      setNotificationText(null);
-      return;
-    }
-    setActiveNotificationId(id);
-    setNotificationText(text);
-  }
+  const today = getTodayWeekday();
 
   const currentStyle: React.CSSProperties = {
     backgroundColor: "hsl(var(--primary) / 0.06)",
     borderLeft: "4px solid hsl(var(--primary))",
   };
 
-  const today = getTodayWeekday();
+  const openNotification = (text: string) => setNotificationText(text);
 
   return (
     <main className="min-h-screen bg-transparent text-foreground px-4 py-8 flex justify-center">
@@ -189,52 +188,56 @@ export default function RoutinePage(): JSX.Element {
           </h1>
         </header>
 
-        {/* Section chooser */}
+        {/* Section Chooser */}
         <div className="flex justify-center mb-4 gap-2 flex-wrap">
-          <button
-            onClick={() => setSection("A")}
-            className={`px-4 py-2 font-medium rounded-lg border ${section === "A" ? "bg-primary text-primary-foreground" : "bg-transparent"}`}
-          >
-            BCA - A
-          </button>
-          <button
-            onClick={() => setSection("B")}
-            className={`px-4 py-2 font-medium rounded-lg border ${section === "B" ? "bg-primary text-primary-foreground" : "bg-transparent"}`}
-          >
-            BCA - B
-          </button>
+          {["A", "B"].map((s) => (
+            <button
+              key={s}
+              onClick={() => setSection(s as "A" | "B")}
+              className={`px-4 py-2 font-medium rounded-lg border ${
+                section === s ? "bg-primary text-primary-foreground" : "bg-transparent"
+              }`}
+            >
+              BCA - {s}
+            </button>
+          ))}
         </div>
 
-        {/* Day selector */}
+        {/* Day Selector */}
         <div className="flex items-center justify-center gap-3 mb-6 flex-wrap">
-          <button onClick={() => setDay(daysList[(daysList.indexOf(day)-1+daysList.length)%daysList.length])} className="p-2 rounded-full hover:bg-muted transition">
-            <FiChevronLeft size={18}/>
+          <button
+            onClick={() =>
+              setDay(daysList[(daysList.indexOf(day) - 1 + daysList.length) % daysList.length])
+            }
+            className="p-2 rounded-full hover:bg-muted transition"
+          >
+            <FiChevronLeft size={18} />
           </button>
-          <div className="px-4 py-2 rounded-lg bg-accent text-accent-foreground font-semibold">{day}</div>
-          <button onClick={() => setDay(daysList[(daysList.indexOf(day)+1)%daysList.length])} className="p-2 rounded-full hover:bg-muted transition">
-            <FiChevronRight size={18}/>
+          <div className="px-4 py-2 rounded-lg bg-accent text-accent-foreground font-semibold">
+            {day}
+          </div>
+          <button
+            onClick={() => setDay(daysList[(daysList.indexOf(day) + 1) % daysList.length])}
+            className="p-2 rounded-full hover:bg-muted transition"
+          >
+            <FiChevronRight size={18} />
           </button>
         </div>
 
-        {/* Top Highlight (only for today) */}
+        {/* Top Highlight (today only) */}
         {day === today && topHighlightIndex !== -1 ? (
-          <div className="section-box flex items-center justify-between py-4 px-6 border-l-4 border-blue-400 bg-background mb-4">
-            <div>
-              <div className="font-semibold flex items-center gap-2">
+          <div className="section-box flex flex-col sm:flex-row items-start sm:items-center justify-between py-4 px-6 border-l-4 border-blue-400 bg-background mb-4">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+              <span className="font-semibold flex items-center gap-2 flex-wrap">
                 {periods[topHighlightIndex].subject}
                 <FiMapPin className="text-yellow-400 animate-bounce" size={16} />
                 <span className="text-blue-600 font-semibold">Upcoming</span>
-              </div>
-              <div className="text-sm text-muted-foreground">{periods[topHighlightIndex].time}</div>
+              </span>
+              <span className="text-sm text-muted-foreground">{periods[topHighlightIndex].time}</span>
             </div>
-            <div>
+            <div className="mt-2 sm:mt-0">
               <button
-                onClick={() =>
-                  openNotification(
-                    `${section}-${day}-${periods[topHighlightIndex].time}-${periods[topHighlightIndex].subject}`,
-                    periods[topHighlightIndex].fullForm
-                  )
-                }
+                onClick={() => openNotification(periods[topHighlightIndex].fullForm)}
                 className="p-1 rounded hover:scale-110 transition-transform"
                 aria-label="info"
               >
@@ -248,25 +251,22 @@ export default function RoutinePage(): JSX.Element {
           </div>
         ) : null}
 
-        {/* Main list of periods (skip top highlight) */}
+        {/* Main Period List */}
         <div className="space-y-3">
           {periods.map((p, idx) => {
             if (day === today && idx === topHighlightIndex) return null;
-
             return (
               <div
                 key={`${p.time}-${p.subject}`}
-                className="section-box flex items-center justify-between py-4 px-6"
+                className="section-box flex flex-col sm:flex-row sm:items-center justify-between py-4 px-6"
               >
-                <div>
-                  <div className="font-semibold">{p.subject}</div>
-                  <div className="text-sm text-muted-foreground">{p.time}</div>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                  <span className="font-semibold">{p.subject}</span>
+                  <span className="text-sm text-muted-foreground">{p.time}</span>
                 </div>
-                <div>
+                <div className="mt-2 sm:mt-0">
                   <button
-                    onClick={() =>
-                      openNotification(`${section}-${day}-${p.time}-${p.subject}`, p.fullForm)
-                    }
+                    onClick={() => openNotification(p.fullForm)}
                     className="p-1 rounded hover:scale-110 transition-transform"
                     aria-label="info"
                   >
@@ -278,20 +278,14 @@ export default function RoutinePage(): JSX.Element {
           })}
         </div>
 
-        {/* Global notification */}
+        {/* Notification */}
         {notificationText && (
-          <div
-            className="fixed left-4 bottom-6 z-50"
-            style={{ width: "min(420px, 90vw)" }}
-          >
+          <div className="fixed left-4 bottom-6 z-50 w-[min(420px,90vw)]">
             <div className="bg-yellow-50 border border-yellow-300 text-yellow-900 p-4 rounded-xl shadow-2xl flex gap-3 items-start">
               <FiAlertCircle className="mt-1" size={20} />
               <div className="text-sm break-words">{notificationText}</div>
               <button
-                onClick={() => {
-                  setNotificationText(null);
-                  setActiveNotificationId(null);
-                }}
+                onClick={() => setNotificationText(null)}
                 className="ml-3 p-1 rounded hover:bg-yellow-100"
                 aria-label="close notification"
               >
