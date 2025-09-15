@@ -109,8 +109,6 @@ const routineB: Routine = {
     { time: "1:45 - 2:35 PM", subject: "Spt & Cul", fullForm: "Iformation Technology Application Lab" },
   ],
 };
-
-// -------------------- TIME UTILITIES --------------------
 function toMinutes(t: string): number {
   const m = t.match(/(\d{1,2}):(\d{2})\s*(AM|PM)?/i);
   if (!m) return 0;
@@ -226,23 +224,23 @@ export default function RoutinePage(): JSX.Element {
 
         {/* Top Highlight (today only) */}
         {day === today && topHighlightIndex !== -1 ? (
-          <div className="section-box flex flex-col sm:flex-row items-start sm:items-center justify-between py-4 px-6 border-l-4 border-blue-400 bg-background mb-4">
-            <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-              <span className="font-semibold flex items-center gap-2 flex-wrap">
-                {periods[topHighlightIndex].subject}
-                <FiMapPin className="text-yellow-400 animate-bounce" size={16} />
-                <span className="text-blue-600 font-semibold">Upcoming</span>
-              </span>
-              <span className="text-sm text-muted-foreground">{periods[topHighlightIndex].time}</span>
-            </div>
-            <div className="mt-2 sm:mt-0">
+          <div
+            className="section-box flex flex-col justify-between py-4 px-4 border-l-4 border-blue-400 bg-background mb-4"
+            style={currentStyle}
+          >
+            <div className="flex items-start gap-3">
               <button
                 onClick={() => openNotification(periods[topHighlightIndex].fullForm)}
-                className="p-1 rounded hover:scale-110 transition-transform"
+                className="p-1 rounded hover:scale-110 transition-transform mt-1"
                 aria-label="info"
               >
                 <FiAlertCircle className="text-yellow-400" size={20} />
               </button>
+              <div className="flex flex-col">
+                <span className="font-semibold">{periods[topHighlightIndex].subject}</span>
+                <span className="text-sm text-muted-foreground">{periods[topHighlightIndex].time}</span>
+              </div>
+              <FiMapPin className="ml-auto text-yellow-400 animate-bounce" size={16} />
             </div>
           </div>
         ) : day === today && topHighlightIndex === -1 ? (
@@ -258,20 +256,20 @@ export default function RoutinePage(): JSX.Element {
             return (
               <div
                 key={`${p.time}-${p.subject}`}
-                className="section-box flex flex-col sm:flex-row sm:items-center justify-between py-4 px-6"
+                className="section-box flex flex-col justify-between py-4 px-4"
               >
-                <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                  <span className="font-semibold">{p.subject}</span>
-                  <span className="text-sm text-muted-foreground">{p.time}</span>
-                </div>
-                <div className="mt-2 sm:mt-0">
+                <div className="flex items-start gap-3">
                   <button
                     onClick={() => openNotification(p.fullForm)}
-                    className="p-1 rounded hover:scale-110 transition-transform"
+                    className="p-1 rounded hover:scale-110 transition-transform mt-1"
                     aria-label="info"
                   >
                     <FiAlertCircle className="text-yellow-400" size={20} />
                   </button>
+                  <div className="flex flex-col">
+                    <span className="font-semibold">{p.subject}</span>
+                    <span className="text-sm text-muted-foreground">{p.time}</span>
+                  </div>
                 </div>
               </div>
             );
@@ -297,4 +295,4 @@ export default function RoutinePage(): JSX.Element {
       </div>
     </main>
   );
-}
+                    }
