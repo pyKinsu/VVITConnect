@@ -1,21 +1,17 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { Moon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
-import { Button } from "@/components/ui/button";
+import * as React from "react"
+import { Moon, Sun } from "lucide-react"
+import { useTheme } from "next-themes"
+import { Button } from "@/components/ui/button"
 
 export function ThemeToggle() {
-  const { theme, setTheme, resolvedTheme } = useTheme();
-
-  // Ensure default theme is light
-  React.useEffect(() => {
-    if (!theme) setTheme("light");
-  }, [theme, setTheme]);
+  const { theme, setTheme, resolvedTheme } = useTheme()
 
   const toggleTheme = () => {
-    setTheme(resolvedTheme === "light" ? "dark" : "light");
-  };
+    const next = resolvedTheme === "dark" ? "light" : "dark"
+    setTheme(next)
+  }
 
   return (
     <Button
@@ -23,19 +19,13 @@ export function ThemeToggle() {
       size="icon"
       onClick={toggleTheme}
       aria-label="Toggle theme"
-      className="relative bg-card text-card-foreground border border-border transition-all duration-300
-                 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
     >
-      {/* Sun Icon */}
       <Sun
-        className={`absolute h-[1.2rem] w-[1.2rem] text-yellow-400 transition-all duration-500
-                    ${resolvedTheme === "dark" ? "-rotate-90 scale-0" : "rotate-0 scale-100"}`}
+        className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
       />
-      {/* Moon Icon */}
       <Moon
-        className={`absolute h-[1.2rem] w-[1.2rem] text-indigo-400 transition-all duration-500
-                    ${resolvedTheme === "dark" ? "rotate-0 scale-100" : "rotate-90 scale-0"}`}
+        className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
       />
     </Button>
-  );
+  )
 }
