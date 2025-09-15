@@ -280,20 +280,23 @@ export default function RoutinePage(): JSX.Element {
   })()}
 </div>
 
-
 {/* Main list of periods */}
 <div className="space-y-3">
   {periods.map((p, idx) => {
     const isCurrent = idx === currentIndex;
+    const isUpcoming = idx === upcomingIndex && currentIndex === -1;
+
     return (
       <div
         key={`${p.time}-${p.subject}`}
         className="section-box flex items-center justify-between py-4 px-6"
-        style={isCurrent ? currentStyle : undefined}
+        style={isCurrent || isUpcoming ? currentStyle : undefined}
       >
         <div>
           <div className="font-semibold flex items-center gap-2">
-            {p.subject} {isCurrent && <FiMapPin className="text-primary" />}
+            {p.subject} 
+            {isCurrent && <FiMapPin className="text-primary" />}
+            {isUpcoming && <span className="text-yellow-400 font-semibold ml-1">Upcoming</span>}
           </div>
           <div className="text-sm text-muted-foreground">{p.time}</div>
         </div>
