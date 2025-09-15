@@ -224,28 +224,31 @@ export default function RoutinePage(): JSX.Element {
           </button>
         </div>
 
-        {/* Highlight box */}
-<div className="section-box highlight-box flex items-center justify-between py-4 px-6 border-l-4 border-blue-500 mb-1">
-  {/* Pin on left */}
-  <FiMapPin className="text-blue-500 flex-shrink-0" size={16} />
+        {/* Top Highlight (today only) */}
+{day === today && topHighlightIndex !== -1 ? (
+  <>
+    {/* Highlight box */}
+    <div className="section-box flex items-center justify-between py-4 px-6 border-l-4 border-blue-500 mb-1 bg-blue-100">
+      {/* Pin on left */}
+      <FiMapPin className="text-blue-500 flex-shrink-0" size={16} />
 
-  {/* Subject and time in center */}
-  <div className="flex-1 text-center flex flex-col items-center justify-center">
-    <span className="font-semibold text-blue-800">{periods[topHighlightIndex].subject}</span>
-    <span className="text-sm text-muted-foreground">{periods[topHighlightIndex].time}</span>
-  </div>
+      {/* Subject and time in center */}
+      <div className="flex-1 text-center flex flex-col items-center justify-center">
+        <span className="font-semibold text-blue-800">{periods[topHighlightIndex].subject}</span>
+        <span className="text-sm text-muted-foreground">{periods[topHighlightIndex].time}</span>
+      </div>
 
-  {/* Info icon on right */}
-  <div className="flex-shrink-0">
-    <button
-      onClick={() => openNotification(periods[topHighlightIndex].fullForm)}
-      className="p-1 rounded hover:scale-110 transition-transform"
-      aria-label="info"
-    >
-      <FiAlertCircle className="text-yellow-400" size={20} />
-    </button>
-  </div>
-</div>
+      {/* Info icon on right */}
+      <div className="flex-shrink-0">
+        <button
+          onClick={() => openNotification(periods[topHighlightIndex].fullForm)}
+          className="p-1 rounded hover:scale-110 transition-transform"
+          aria-label="info"
+        >
+          <FiAlertCircle className="text-yellow-400" size={20} />
+        </button>
+      </div>
+    </div>
 
     {/* Upcoming label below */}
     <div className="text-center bg-yellow-100 text-yellow-900 font-semibold rounded-md py-1 text-sm mb-3">
@@ -253,10 +256,11 @@ export default function RoutinePage(): JSX.Element {
     </div>
   </>
 ) : day === today && topHighlightIndex === -1 ? (
-  <div className="section-box p-3 text-center text-muted-foreground mb-4 !bg-blue-100">
+  <div className="section-box p-3 text-center text-muted-foreground mb-4 bg-blue-100">
     🎉 All classes over for today
   </div>
 ) : null}
+
 
         {/* Main Period List */}
         <div className="space-y-3">
