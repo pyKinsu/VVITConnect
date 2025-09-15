@@ -10,14 +10,14 @@ export default function SemesterSelect() {
 
   const handleSelect = (semester: string) => {
     const semNumber = semester.match(/\d+/)?.[0] ?? "1";
-    router.push(`/semester/${semNumber}`);
+    router.push(`/semester${semNumber}`);
   };
 
   return (
     <main className="flex flex-col items-center justify-between min-h-[80vh] px-4 py-6">
       <header className="text-center">
         <h1 className="text-2xl sm:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
-          Choose Your Semester
+          Choose Your BCA Semester
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">
           Select your semester to view syllabus, notes & class periods.
