@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { FiX } from "react-icons/fi";
 
-interface HomePopupProps {
+interface HomePopup {
   contactUrl?: string; // URL for "Contact Me" button
   reappearHours?: number; // After closing, show again after these hours
 }
