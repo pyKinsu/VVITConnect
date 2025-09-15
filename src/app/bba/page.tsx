@@ -14,34 +14,32 @@ export default function SemesterSelect(): JSX.Element {
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center px-4 py-10">
-      <div className="w-full max-w-3xl">
-        {/* Header */}
-        <header className="text-center mb-6">
-          <h1 className="text-3xl sm:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
-            Choose Your Semester
-          </h1>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Select your semester to view syllabus, notes and class periods.
-          </p>
-        </header>
+    <main className="min-h-[80vh] flex flex-col items-center justify-center px-4">
+      {/* Header */}
+      <header className="text-center mb-6">
+        <h1 className="text-2xl sm:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
+          Choose Your Semester
+        </h1>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Select a semester to view syllabus, notes & class periods.
+        </p>
+      </header>
 
-        {/* Buttons grid */}
-        <section aria-label="Semester selection">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-            {semesters.map((sem) => (
-              <button
-                key={sem}
-                onClick={() => handleSelect(sem)}
-                aria-label={`Open ${sem}`}
-                className="section-box py-4 px-3 text-sm font-medium hover:scale-105 active:scale-95 transition-transform duration-150 focus:outline-none focus-visible:ring-4 focus-visible:ring-offset-2"
-              >
-                {sem}
-              </button>
-            ))}
-          </div>
-        </section>
-      </div>
+      {/* Buttons grid */}
+      <section aria-label="Semester selection">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          {semesters.map((sem) => (
+            <button
+              key={sem}
+              onClick={() => handleSelect(sem)}
+              aria-label={`Open ${sem}`}
+              className="section-box py-4 px-3 text-sm font-medium hover:scale-105 active:scale-95 transition-transform duration-150"
+            >
+              {sem}
+            </button>
+          ))}
+        </div>
+      </section>
     </main>
   );
 }
