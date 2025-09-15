@@ -227,17 +227,15 @@ export default function RoutinePage(): JSX.Element {
         {/* Top Highlight (today only) */}
 {day === today && topHighlightIndex !== -1 ? (
   <>
-    <div className="section-box flex items-center justify-between py-4 px-6 border-l-4 border-blue-500 bg-blue-50 mb-1">
-      {/* Pin and subject */}
-      <div className="flex items-center gap-3">
-        <FiMapPin className="text-blue-500" size={16} />
-        <div className="flex flex-col">
+    <div className="section-box flex items-center justify-between py-4 px-6 border-l-4 border-blue-500 bg-blue-100 mb-1">
+      {/* Pin and subject/time */}
+      <div className="flex items-center gap-3 w-full">
+        <FiMapPin className="text-blue-500" size={18} />
+        <div className="flex flex-col flex-1 items-center">
           <span className="font-semibold text-blue-800">{periods[topHighlightIndex].subject}</span>
           <span className="text-sm text-muted-foreground">{periods[topHighlightIndex].time}</span>
         </div>
-      </div>
-      {/* Info icon */}
-      <div>
+        {/* Info icon */}
         <button
           onClick={() => openNotification(periods[topHighlightIndex].fullForm)}
           className="p-1 rounded hover:scale-110 transition-transform"
@@ -248,9 +246,11 @@ export default function RoutinePage(): JSX.Element {
       </div>
     </div>
     {/* Upcoming label below the box */}
-    <div className="text-center bg-yellow-100 text-yellow-900 font-semibold rounded-md py-1 text-sm mb-3">
-      Upcoming
-    </div>
+    {nextIndex !== -1 && (
+      <div className="text-center bg-yellow-100 text-yellow-900 font-semibold rounded-md py-1 text-sm mb-3">
+        Upcoming: {periods[nextIndex].subject}
+      </div>
+    )}
   </>
 ) : day === today && topHighlightIndex === -1 ? (
   <div className="section-box p-3 text-center text-muted-foreground mb-4">
