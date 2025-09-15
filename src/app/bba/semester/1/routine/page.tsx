@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { FiAlertCircle, FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { FiAlertCircle, FiChevronLeft, FiChevronRight, FiMapPin } from "react-icons/fi";
 
 type Period = {
   time: string;
@@ -97,25 +97,23 @@ const routineB: Routine = {
 };
 
 
-
-
-
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 export default function RoutinePage() {
-  const todayIndex = new Date().getDay() - 1; // Sunday=0
+  const todayIndex = new Date().getDay() - 1;
   const defaultDay = todayIndex >= 0 && todayIndex <= 5 ? days[todayIndex] : "Monday";
 
   const [selectedDay, setSelectedDay] = useState<string>(defaultDay);
+  const [currentPeriod, setCurrentPeriod] = useState<Period | null>(null);
   const [showFullForm, setShowFullForm] = useState<{ [key: string]: boolean }>({});
-  const [currentPeriod, setCurrentPeriod] = useState<string | null>(null);
 
+  // Determine current ongoing period
   useEffect(() => {
     const checkCurrentPeriod = () => {
       const now = new Date();
       const totalMinutes = now.getHours() * 60 + now.getMinutes();
       const allPeriods = [...routineA[selectedDay] || [], ...routineB[selectedDay] || []];
-      let current: string | null = null;
+      let current: Period | null = null;
 
       allPeriods.forEach((period) => {
         const [start, end] = period.time.split(" - ").map((t) => {
@@ -126,13 +124,13 @@ export default function RoutinePage() {
           if (ampm === "AM" && hour === 12) hour = 0;
           return hour * 60 + parseInt(m);
         });
-        if (totalMinutes >= start && totalMinutes <= end) current = period.subject;
+        if (totalMinutes >= start && totalMinutes <= end) current = period;
       });
       setCurrentPeriod(current);
     };
 
     checkCurrentPeriod();
-    const interval = setInterval(checkCurrentPeriod, 60000);
+    const interval = setInterval(checkCurrentPeriod, 30000); // update every 30 sec
     return () => clearInterval(interval);
   }, [selectedDay]);
 
@@ -140,29 +138,6 @@ export default function RoutinePage() {
     setShowFullForm((prev) => ({ ...prev, [subject]: true }));
     setTimeout(() => setShowFullForm((prev) => ({ ...prev, [subject]: false })), 3000);
   };
-
-  const renderRoutine = (routine: Routine) =>
-    routine[selectedDay]?.map((period) => (
-      <div
-        key={period.time + period.subject}
-        className={`section-box relative flex items-center justify-between py-4 px-6 mb-3 w-full max-w-3xl transition-transform hover:scale-105 ${
-          currentPeriod === period.subject ? "border-2 border-primary shadow-md" : ""
-        }`}
-      >
-        <div className="flex flex-col">
-          <span className="font-semibold text-lg">{period.subject}</span>
-          <span className="text-sm text-muted-foreground">{period.time}</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <FiAlertCircle size={24} className="text-accent cursor-pointer" onClick={() => handleShowFullForm(period.subject)} />
-        </div>
-        {showFullForm[period.subject] && (
-          <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-card text-card-foreground p-3 rounded shadow-lg text-sm z-50 max-w-xs">
-            {period.fullForm}
-          </div>
-        )}
-      </div>
-    ));
 
   const prevDay = () => {
     const idx = days.indexOf(selectedDay);
@@ -174,17 +149,65 @@ export default function RoutinePage() {
     setSelectedDay(days[idx === days.length - 1 ? 0 : idx + 1]);
   };
 
+  const renderRoutine = (routine: Routine) => {
+    // Separate current period and others
+    const allPeriods = routine[selectedDay] || [];
+    const otherPeriods = allPeriods.filter((p) => p !== currentPeriod);
+
+    return (
+      <>
+        {currentPeriod && (
+          <div className="section-box relative flex items-center justify-between py-4 px-6 mb-4 w-full max-w-3xl border-2 border-primary shadow-lg bg-card">
+            <div className="flex items-center gap-2">
+              <FiMapPin className="text-primary" size={20} />
+              <div className="flex flex-col">
+                <span className="font-semibold text-lg">{currentPeriod.subject}</span>
+                <span className="text-sm text-muted-foreground">{currentPeriod.time}</span>
+              </div>
+            </div>
+            <FiAlertCircle
+              size={24}
+              className="text-accent cursor-pointer"
+              onClick={() => handleShowFullForm(currentPeriod.subject)}
+            />
+            {showFullForm[currentPeriod.subject] && (
+              <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-card text-card-foreground p-3 rounded shadow-lg text-sm z-50 max-w-xs">
+                {currentPeriod.fullForm}
+              </div>
+            )}
+          </div>
+        )}
+        {otherPeriods.map((period) => (
+          <div
+            key={period.time + period.subject}
+            className="section-box relative flex items-center justify-between py-4 px-6 mb-3 w-full max-w-3xl"
+          >
+            <div className="flex flex-col">
+              <span className="font-semibold text-lg">{period.subject}</span>
+              <span className="text-sm text-muted-foreground">{period.time}</span>
+            </div>
+            <FiAlertCircle
+              size={24}
+              className="text-accent cursor-pointer"
+              onClick={() => handleShowFullForm(period.subject)}
+            />
+            {showFullForm[period.subject] && (
+              <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-card text-card-foreground p-3 rounded shadow-lg text-sm z-50 max-w-xs">
+                {period.fullForm}
+              </div>
+            )}
+          </div>
+        ))}
+      </>
+    );
+  };
+
   return (
     <main className="flex flex-col items-center px-4 py-6 min-h-screen bg-transparent text-foreground">
       <header className="text-center mb-6">
         <h1 className="text-3xl sm:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
           1st Semester BCA Routine
         </h1>
-        {currentPeriod && (
-          <p className="mt-2 text-sm sm:text-base text-primary font-semibold animate-pulse">
-            Current Period: {currentPeriod}
-          </p>
-        )}
       </header>
 
       {/* Day Selector with arrows */}
