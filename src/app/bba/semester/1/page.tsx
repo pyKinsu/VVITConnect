@@ -21,7 +21,7 @@ const features = [
     path: "/books",
   },
   {
-    name: "C Programming Notes",
+    name: "C Notes",
     icon: <FaCode className="w-8 h-8 mx-auto mb-3 text-muted-foreground" />,
     path: "/notes/c-programming",
   },
