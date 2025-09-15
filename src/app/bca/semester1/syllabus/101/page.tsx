@@ -1,124 +1,121 @@
 "use client";
 
-import { useState } from "react";
 import { FiCircle, FiCheckCircle, FiLoader, FiBookOpen } from "react-icons/fi";
 
-export default function EnglishSyllabusPage() {
-  const syllabus = [
-    {
-      title: "Business Correspondence",
-      topics: [
-        "Structure of a Letter",
-        "Inquiry Letter",
-        "Sales Letter",
-        "Order Letter",
-        "Complaints",
-        "Complaint Handling",
-        "Routine letter",
-      ],
-    },
-    {
-      title: "Government Correspondence",
-      topics: ["Memo", "Agenda", "Minutes", "Proposals"],
-    },
-    {
-      title: "Writing Skills",
-      topics: [
-        "Report Writing",
-        "Composition (argumentative, explanatory, descriptive and narrative)",
-        "Paragraph writing",
-      ],
-    },
-    {
-      title: "Grammar",
-      topics: [
-        "Sentence Structure",
-        "Idiomatic Usage of Language",
-        "Tenses",
-        "Direct & Indirect Speech",
-        "Active & Passive Voice",
-        "Vocabulary",
-      ],
-    },
-    {
-      title: "Selected Short Stories",
-      topics: [
-        "Rahul Bajaj — Bajaj Group (Page No. 20)",
-        "Subhash Chandra — Essel Group/Zee TV (Page No. 40)",
-        "N. R. Narayana Murthy — Infosys (Page No. 148)",
-      ],
-    },
-    {
-      title: "Preparation for Job",
-      topics: [
-        "Writing Applications for Jobs",
-        "Preparing Curriculum Vitae",
-        "Preparing for Interviews",
-        "Preparing for Group Discussions",
-      ],
-    },
-  ];
+// ================== EDITABLE SYLLABUS DATA ==================
+// Status: 0 = Not Started, 1 = In Progress, 2 = Completed
+const syllabusData = [
+  {
+    title: "Business Correspondence",
+    topics: [
+      { name: "Structure of a Letter", status: 2 },
+      { name: "Inquiry Letter", status: 2 },
+      { name: "Sales Letter", status: 1 },
+      { name: "Order Letter", status: 0 },
+      { name: "Complaints", status: 0 },
+      { name: "Complaint Handling", status: 0 },
+      { name: "Routine letter", status: 0 },
+    ],
+  },
+  {
+    title: "Government Correspondence",
+    topics: [
+      { name: "Memo", status: 1 },
+      { name: "Agenda", status: 0 },
+      { name: "Minutes", status: 0 },
+      { name: "Proposals", status: 0 },
+    ],
+  },
+  {
+    title: "Writing Skills",
+    topics: [
+      { name: "Report Writing", status: 1 },
+      { name: "Composition (argumentative, explanatory, descriptive, narrative)", status: 0 },
+      { name: "Paragraph Writing", status: 0 },
+    ],
+  },
+  {
+    title: "Grammar",
+    topics: [
+      { name: "Sentence Structure", status: 2 },
+      { name: "Idiomatic Usage of Language", status: 1 },
+      { name: "Tenses", status: 1 },
+      { name: "Direct & Indirect Speech", status: 0 },
+      { name: "Active & Passive Voice", status: 0 },
+      { name: "Vocabulary", status: 0 },
+    ],
+  },
+  {
+    title: "Selected Short Stories",
+    topics: [
+      { name: "Rahul Bajaj Bajaj Group (Page No. 20)", status: 2 },
+      { name: "Subhash Chandra/Essel Group/Zee TV (Page No. 40)", status: 1 },
+      { name: "NR Narayana Murthy/Infosys (Page No. 148)", status: 0 },
+    ],
+  },
+  {
+    title: "Preparation for Job",
+    topics: [
+      { name: "Writing Applications for Jobs", status: 0 },
+      { name: "Preparing Curriculum Vitae", status: 0 },
+      { name: "Preparing for Interviews", status: 0 },
+      { name: "Preparing for Group Discussions", status: 0 },
+    ],
+  },
+  {
+    title: "Text Books",
+    topics: [
+      { name: "Added Value: The Life Stories of Indian Business Leaders; Peter Church; Roli Books.", status: 2 },
+      { name: "Organisations - Structures, Processes and Outcomes; Richard H. Hall; Prentice Hall India.", status: 1 },
+      { name: "English for the Secretary; Yvonne Hoban; Tata McGraw Hill.", status: 1 },
+      { name: "Technical Communication: M. Raman & S. Sharma; Oxford University Press.", status: 0 },
+      { name: "Business Communication Process and Product: M.E. Guffey; Thomson Learning.", status: 0 },
+    ],
+  },
+  {
+    title: "Reference Books",
+    topics: [
+      { name: "Human Behavior at Work; John W Newstorm & Keith Davis; Tata McGraw Hill.", status: 1 },
+      { name: "The Most Common Mistakes in English Usage; Thomas Elliot Berry; Tata McGraw Hill.", status: 0 },
+      { name: "Business Communication: R.K. Madhukar; Vikas Publication.", status: 0 },
+    ],
+  },
+];
 
-  const textBooks = [
-    "Added Value: The Life Stories of Indian Business Leaders; Peter Church; Roli Books.",
-    "Organisations - Structures, Processes and Outcomes; Richard H Hall; Prentice Hall India.",
-    "English for the Secretary; Yvonne Hoban; Tata McGraw Hill.",
-    "Technical Communication; M. Raman & S. Sharma; Oxford University Press.",
-    "Business Communication Process and Product; M.E. Guffey; Thomson Learning.",
-  ];
+// ================== RENDER ICON FUNCTION ==================
+const renderIcon = (status: number) => {
+  switch (status) {
+    case 1:
+      return <FiLoader className="text-yellow-400 w-5 h-5 animate-spin-slow" />;
+    case 2:
+      return <FiCheckCircle className="text-green-400 w-5 h-5" />;
+    default:
+      return <FiCircle className="text-gray-400 w-5 h-5" />;
+  }
+};
 
-  const referenceBooks = [
-    "Human Behavior at Work; John W Newstorm & Keith Davis; Tata McGraw Hill.",
-    "The Most Common Mistakes in English Usage; Thomas Elliot Berry; Tata McGraw Hill.",
-    "Business Communication; R.K. Madhukar; Vikas Publication.",
-  ];
-
-  // 0 = Not started, 1 = In progress, 2 = Done
-  const [status, setStatus] = useState<{ [key: string]: number }>({});
-
-  const toggleStatus = (topic: string) => {
-    setStatus((prev) => ({
-      ...prev,
-      [topic]: ((prev[topic] ?? 0) + 1) % 3, // cycles between 0,1,2
-    }));
-  };
-
-  const renderIcon = (topic: string) => {
-    const state = status[topic] ?? 0;
-    switch (state) {
-      case 1:
-        return <FiLoader className="text-yellow-400 w-5 h-5 animate-spin-slow" />;
-      case 2:
-        return <FiCheckCircle className="text-green-400 w-5 h-5" />;
-      default:
-        return <FiCircle className="text-gray-400 w-5 h-5" />;
-    }
-  };
-
+// ================== SYLLABUS VIEWER COMPONENT ==================
+export default function SyllabusViewer() {
   return (
     <main className="min-h-screen px-4 py-8 max-w-3xl mx-auto">
-      {/* Page Title */}
       <h1 className="text-2xl sm:text-3xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
         📘 BCA-101 — Communicative English
       </h1>
 
-      {/* Syllabus Sections */}
       <div className="space-y-6">
-        {syllabus.map((section) => (
+        {syllabusData.map((section) => (
           <div key={section.title} className="section-box text-left">
             <h2 className="text-lg font-semibold flex items-center gap-2 mb-3 text-purple-300">
-              <FiBookOpen className="text-purple-400" />
-              {section.title}
+              <FiBookOpen className="text-purple-400" /> {section.title}
             </h2>
             <ul className="space-y-2">
               {section.topics.map((topic) => (
                 <li
-                  key={topic}
-                  className="flex items-center justify-between bg-muted/30 rounded-lg px-3 py-2 cursor-pointer"
-                  onClick={() => toggleStatus(topic)}
+                  key={topic.name}
+                  className="flex items-center justify-between bg-muted/30 rounded-lg px-3 py-2 cursor-default"
                 >
-                  <span className="text-sm">{topic}</span>
-                  {renderIcon(topic)}
+                  <span className="text-sm">{topic.name}</span>
+                  {renderIcon(topic.status)}
                 </li>
               ))}
             </ul>
@@ -126,43 +123,18 @@ export default function EnglishSyllabusPage() {
         ))}
       </div>
 
-      {/* Text Books */}
-      <div className="section-box text-left mt-8">
-        <h2 className="text-lg font-semibold flex items-center gap-2 mb-3 text-blue-300">
-          <FiBookOpen className="text-blue-400" />
-          Text Books
-        </h2>
-        <ul className="list-disc list-inside space-y-2 text-sm">
-          {textBooks.map((book) => (
-            <li key={book}>{book}</li>
-          ))}
-        </ul>
-      </div>
-
-      {/* Reference Books */}
-      <div className="section-box text-left mt-6 mb-10">
-        <h2 className="text-lg font-semibold flex items-center gap-2 mb-3 text-green-300">
-          <FiBookOpen className="text-green-400" />
-          Reference Books
-        </h2>
-        <ul className="list-disc list-inside space-y-2 text-sm">
-          {referenceBooks.map((book) => (
-            <li key={book}>{book}</li>
-          ))}
-        </ul>
-      </div>
+      {/* Spin Animation */}
+      <style>
+        {`
+          @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+          }
+          .animate-spin-slow {
+            animation: spin-slow 3s linear infinite;
+          }
+        `}
+      </style>
     </main>
   );
 }
-
-// Custom slow spin for loader
-const styles = `
-@keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-.animate-spin-slow {
-  animation: spin-slow 3s linear infinite;
-}
-`;
-              
