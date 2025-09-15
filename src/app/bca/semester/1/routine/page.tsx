@@ -1,10 +1,16 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { FiAlertCircle, FiMapPin } from "react-icons/fi";
+import {
+  FiAlertCircle,
+  FiChevronLeft,
+  FiChevronRight,
+  FiMapPin,
+  FiX,
+} from "react-icons/fi";
 
 type Period = {
-  time: string;
+  time: string; // e.g. "10:00 - 10:50 AM"
   subject: string;
   fullForm: string;
 };
@@ -13,29 +19,9 @@ type Routine = {
   [day: string]: Period[];
 };
 
-function toMinutes(t: string): number {
-  const m = t.match(/(\d{1,2}):(\d{2})\s*(AM|PM)?/i);
-  if (!m) return 0;
-  let hour = parseInt(m[1], 10);
-  const min = parseInt(m[2], 10);
-  const ampm = (m[3] || "").toUpperCase();
-  if (ampm === "PM" && hour !== 12) hour += 12;
-  if (ampm === "AM" && hour === 12) hour = 0;
-  return hour * 60 + min;
-}
-function parseRange(range: string): [number, number] {
-  const parts = range.split("-");
-  const left = parts[0].trim();
-  const right = parts[1].trim();
-  const rightAmp = (right.match(/\b(AM|PM)\b/i) || [])[0];
-  const leftWithAmp = /\b(AM|PM)\b/i.test(left) ? left : `${left} ${rightAmp ?? ""}`;
-  return [toMinutes(leftWithAmp), toMinutes(right)];
-}
-function getTodayWeekday(): string {
-  const d = new Date().getDay();
-  return d === 0 ? "Monday" : ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][d];
-}
-
+/* -----------------------
+   --- Your routines -----
+   ----------------------- */
 const routineA: Routine = {
   Monday: [
     { time: "10:00 - 10:50 AM", subject: "PMO", fullForm: "Principles of Management" },
@@ -117,16 +103,46 @@ const routineB: Routine = {
     { time: "1:00 - 1:50 PM", subject: "Spt & Cul", fullForm: "Sports & Cultural Activities" },
   ],
 };
-export default function RoutinePage() {
-  const [section, setSection] = useState<"A" | "B">("A");
-  const today = getTodayWeekday();
-  const routines = section === "A" ? routineA : routineB;
-  const [day, setDay] = useState<string>(today);
 
-  const [nowMinutes, setNowMinutes] = useState(() => {
+/* -----------------------
+   --- helpers ----------
+   ----------------------- */
+
+function toMinutes(t: string): number {
+  const m = t.match(/(\d{1,2}):(\d{2})\s*(AM|PM)?/i);
+  if (!m) return 0;
+  let hour = parseInt(m[1], 10);
+  const min = parseInt(m[2], 10);
+  const ampm = (m[3] || "").toUpperCase();
+  if (ampm === "PM" && hour !== 12) hour += 12;
+  if (ampm === "AM" && hour === 12) hour = 0;
+  return hour * 60 + min;
+}
+
+function parseRange(range: string): [number, number] {
+  const parts = range.split("-");
+  const left = parts[0].trim();
+  const right = parts[1].trim();
+  const rightAmp = (right.match(/\b(AM|PM)\b/i) || [])[0];
+  const leftWithAmp = /\b(AM|PM)\b/i.test(left) ? left : `${left} ${rightAmp ?? ""}`;
+  return [toMinutes(leftWithAmp), toMinutes(right)];
+}
+
+export default function RoutinePage(): JSX.Element {
+  const [section, setSection] = useState<"A" | "B">("A");
+  const [day, setDay] = useState<string>(() => {
+    const t = new Date().getDay();
+    return t === 0 ? "Monday" : ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][t];
+  });
+
+  const [activeNotificationId, setActiveNotificationId] = useState<string | null>(null);
+  const [notificationText, setNotificationText] = useState<string | null>(null);
+
+  const [nowMinutes, setNowMinutes] = useState<number>(() => {
     const n = new Date();
     return n.getHours() * 60 + n.getMinutes();
   });
+
   useEffect(() => {
     const t = setInterval(() => {
       const n = new Date();
@@ -135,92 +151,77 @@ export default function RoutinePage() {
     return () => clearInterval(t);
   }, []);
 
-  const periods = routines[day] ?? [];
+  const routines = section === "A" ? routineA : routineB;
+  const daysList = Object.keys(routines);
 
+  useEffect(() => {
+    if (!daysList.includes(day)) setDay(daysList[0] ?? "Monday");
+  }, [routines, day, daysList]);
+
+  const periods = routines[day] ?? [];
   let currentIndex = -1;
   let upcomingIndex = -1;
-  if (day === today) {
-    for (let i = 0; i < periods.length; i++) {
-      const [s, e] = parseRange(periods[i].time);
-      if (nowMinutes >= s && nowMinutes <= e) {
-        currentIndex = i;
-        break;
-      }
-      if (upcomingIndex === -1 && nowMinutes < s) {
-        upcomingIndex = i;
-      }
-    }
+  for (let i = 0; i < periods.length; i++) {
+    const [s, e] = parseRange(periods[i].time);
+    if (nowMinutes >= s && nowMinutes <= e) currentIndex = i;
+    if (upcomingIndex === -1 && nowMinutes < s) upcomingIndex = i;
   }
 
+  function openNotification(id: string, text: string) {
+    if (activeNotificationId === id) {
+      setActiveNotificationId(null);
+      setNotificationText(null);
+      return;
+    }
+    setActiveNotificationId(id);
+    setNotificationText(text);
+  }
+
+  const currentStyle: React.CSSProperties = {
+    backgroundColor: "hsl(var(--primary) / 0.06)",
+    borderLeft: "4px solid hsl(var(--primary))",
+  };
+
+  const upcomingStyle: React.CSSProperties = {
+    backgroundColor: "hsl(var(--accent) / 0.04)",
+    borderLeft: "4px solid hsl(var(--accent))",
+  };
+
   return (
-    <main className="min-h-screen bg-transparent text-foreground px-4 py-6 flex justify-center">
-      <div className="w-full max-w-3xl">
+    <main className="min-h-screen bg-transparent text-foreground px-4 py-8 flex justify-center">
+      <div className="w-full max-w-4xl">
         {/* Header */}
         <header className="text-center mb-6">
-          <h1 className="text-2xl sm:text-3xl font-bold text-primary">
-            1st Semester Routine
+          <h1 className="text-3xl sm:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
+            1st Semester — Routine
           </h1>
-          <p className="text-sm text-muted-foreground">
-            Section: <strong>BCA - {section}</strong> · Day: <strong>{day}</strong>
-          </p>
         </header>
 
-        {/* Section switch (keep as before) */}
-        <div className="flex justify-center mb-6">
-          <div className="inline-flex rounded-lg overflow-hidden border border-border">
-            <button
-              onClick={() => setSection("A")}
-              className={`px-4 py-2 text-sm font-medium ${section === "A" ? "bg-primary text-primary-foreground" : "bg-transparent"}`}
-            >
-              BCA - A
-            </button>
-            <button
-              onClick={() => setSection("B")}
-              className={`px-4 py-2 text-sm font-medium ${section === "B" ? "bg-primary text-primary-foreground" : "bg-transparent"}`}
-            >
-              BCA - B
-            </button>
-          </div>
+        {/* Section chooser moved on top */}
+        <div className="flex justify-center mb-4 gap-2 flex-wrap">
+          <button
+            onClick={() => setSection("A")}
+            className={`px-4 py-2 font-medium rounded-lg border ${section === "A" ? "bg-primary text-primary-foreground" : "bg-transparent"}`}
+          >
+            BCA - A
+          </button>
+          <button
+            onClick={() => setSection("B")}
+            className={`px-4 py-2 font-medium rounded-lg border ${section === "B" ? "bg-primary text-primary-foreground" : "bg-transparent"}`}
+          >
+            BCA - B
+          </button>
         </div>
 
-        {/* Routine list */}
-        <div className="space-y-3">
-          {periods.length === 0 ? (
-            <div className="text-center text-muted-foreground">No classes scheduled.</div>
-          ) : (
-            periods.map((p, idx) => {
-              const isCurrent = idx === currentIndex;
-              const isUpcoming = idx === upcomingIndex;
-
-              return (
-                <div
-                  key={`${p.time}-${p.subject}`}
-                  className={`section-box px-4 py-3 flex items-center justify-between rounded-lg border transition ${
-                    isCurrent
-                      ? "border-primary bg-primary/5"
-                      : isUpcoming
-                      ? "border-yellow-400 bg-yellow-50"
-                      : "border-border"
-                  }`}
-                >
-                  <div>
-                    <div className="font-semibold flex items-center gap-2">
-                      {p.subject}
-                      {isCurrent && <FiMapPin className="text-primary" />}
-                      {isUpcoming && (
-                        <span className="text-xs text-yellow-600 font-medium">Upcoming</span>
-                      )}
-                    </div>
-                    <div className="text-xs text-muted-foreground">{p.time}</div>
-                  </div>
-
-                  <FiAlertCircle className="text-yellow-500 shrink-0" size={18} />
-                </div>
-              );
-            })
-          )}
+        {/* Day selector */}
+        <div className="flex items-center justify-center gap-3 mb-6 flex-wrap">
+          <button onClick={() => setDay(daysList[(daysList.indexOf(day)-1+daysList.length)%daysList.length])} className="p-2 rounded-full hover:bg-muted transition">
+            <FiChevronLeft size={18}/>
+          </button>
+          <div className="px-4 py-2 rounded-lg bg-accent text-accent-foreground font-semibold">{day}</div>
+          <button onClick={() => setDay(daysList[(daysList.indexOf(day)+1)%daysList.length])} className="p-2 rounded-full hover:bg-muted transition">
+            <FiChevronRight size={18}/>
+          </button>
         </div>
-      </div>
-    </main>
-  );
-}
+
+        {/* Pinned / Upcoming */}
