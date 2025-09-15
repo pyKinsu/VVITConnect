@@ -8,12 +8,12 @@ const features = [
   {
     name: "Routine",
     icon: <FaCalendarAlt className="w-8 h-8 mx-auto mb-3 text-muted-foreground" />,
-    path: "/routine",
+    path: "/semester1/routine",
   },
   {
     name: "Syllabus",
     icon: <FaFileAlt className="w-8 h-8 mx-auto mb-3 text-muted-foreground" />,
-    path: "/syllabus",
+    path: "/semester1/syllabus",
   },
   {
     name: "Books",
