@@ -96,10 +96,12 @@ const routineB: Routine = {
   ],
 };
 
+
+
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 export default function RoutinePage() {
-  // Set default selected day to current weekday
+  // Default day is current weekday
   const todayIndex = new Date().getDay() - 1; // Sunday=0
   const defaultDay = todayIndex >= 0 && todayIndex <= 5 ? days[todayIndex] : "Monday";
 
@@ -107,14 +109,14 @@ export default function RoutinePage() {
   const [showFullForm, setShowFullForm] = useState<{ [key: string]: boolean }>({});
   const [currentPeriod, setCurrentPeriod] = useState<string | null>(null);
 
-  // Update current period based on time
+  // Auto update current period
   useEffect(() => {
     const checkCurrentPeriod = () => {
       const now = new Date();
       const totalMinutes = now.getHours() * 60 + now.getMinutes();
       const allPeriods = [...routineA[selectedDay] || [], ...routineB[selectedDay] || []];
-
       let current: string | null = null;
+
       allPeriods.forEach((period) => {
         const [start, end] = period.time.split(" - ").map((t) => {
           const [h, mPart] = t.split(":");
@@ -143,12 +145,12 @@ export default function RoutinePage() {
     routine[selectedDay]?.map((period) => (
       <div
         key={period.time + period.subject}
-        className={`section-box relative flex items-center justify-between py-3 px-4 mb-2 w-full max-w-3xl ${
-          currentPeriod === period.subject ? "border-2 border-primary" : ""
+        className={`section-box relative flex items-center justify-between py-4 px-6 mb-3 w-full max-w-3xl transition-transform hover:scale-105 ${
+          currentPeriod === period.subject ? "border-2 border-primary shadow-lg" : ""
         }`}
       >
         <div className="flex flex-col">
-          <span className="font-semibold">{period.subject}</span>
+          <span className="font-semibold text-lg">{period.subject}</span>
           <span className="text-sm text-muted-foreground">{period.time}</span>
         </div>
         <button
@@ -158,7 +160,7 @@ export default function RoutinePage() {
           <FiAlertCircle size={24} />
         </button>
         {showFullForm[period.subject] && (
-          <div className="absolute bg-card text-card-foreground p-3 rounded shadow-lg mt-16 text-sm max-w-xs z-50">
+          <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-card text-card-foreground p-3 rounded shadow-lg text-sm z-50 w-max max-w-xs">
             {period.fullForm}
           </div>
         )}
@@ -176,52 +178,44 @@ export default function RoutinePage() {
   };
 
   return (
-    <main className="flex flex-col items-center px-4 py-6 min-h-[80vh]">
+    <main className="flex flex-col items-center px-4 py-6 min-h-screen bg-gradient-to-br from-purple-900 via-purple-700 to-purple-800 text-foreground">
       <header className="text-center mb-6">
-        <h1 className="text-2xl sm:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
+        <h1 className="text-3xl sm:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-purple-500">
           1st Semester BCA Routine
         </h1>
         {currentPeriod && (
-          <p className="mt-2 text-sm text-primary font-semibold">
+          <p className="mt-2 text-sm sm:text-base text-primary font-semibold animate-pulse">
             Current Period: {currentPeriod}
           </p>
         )}
       </header>
 
-      {/* Day selector with arrows */}
+      {/* Day Selector with Arrows */}
       <div className="flex items-center gap-2 mb-6">
-        <button onClick={prevDay} className="text-xl p-2 rounded hover:bg-muted">
+        <button onClick={prevDay} className="text-2xl p-2 rounded-full hover:bg-muted transition">
           <FiChevronLeft />
         </button>
-        <div className="flex gap-2 overflow-x-auto">
-          {days.map((day) => (
-            <button
-              key={day}
-              onClick={() => setSelectedDay(day)}
-              className={`py-2 px-4 rounded-lg font-medium ${
-                selectedDay === day
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-accent text-accent-foreground"
-              }`}
-            >
-              {day}
-            </button>
-          ))}
-        </div>
-        <button onClick={nextDay} className="text-xl p-2 rounded hover:bg-muted">
+        <span className="px-6 py-2 rounded-lg bg-accent text-accent-foreground font-medium text-lg">
+          {selectedDay}
+        </span>
+        <button onClick={nextDay} className="text-2xl p-2 rounded-full hover:bg-muted transition">
           <FiChevronRight />
         </button>
       </div>
 
       {/* Section A */}
       <section className="mb-8 w-full flex flex-col items-center">
-        <h2 className="text-xl font-semibold mb-4">BCA - A</h2>
+        <h2 className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
+          BCA - A
+        </h2>
         {renderRoutine(routineA)}
       </section>
 
       {/* Section B */}
       <section className="w-full flex flex-col items-center">
-        <h2 className="text-xl font-semibold mb-4">BCA - B</h2>
+        <h2 className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
+          BCA - B
+        </h2>
         {renderRoutine(routineB)}
       </section>
     </main>
