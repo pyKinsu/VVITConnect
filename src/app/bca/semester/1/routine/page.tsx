@@ -33,7 +33,7 @@ const routineA: Routine = {
     { time: "10:35 - 11:20 AM", subject: "ITA", fullForm: " Information Technology Application" },
     { time: "11:25 - 12:10 PM", subject: "PMO", fullForm: "Principles of Management & Organisation" },
     { time: "1:00 - 1:45 PM", subject: "CE", fullForm: "Communicative English" },
-    { time: "1:45 - 2:35 PM", "PSPC", fullForm: "Problem Solving Programming Concept" },
+    { time: "1:45 - 2:35 PM", shbject: "PSPC", fullForm: "Problem Solving Programming Concept" },
   ],
   Wednesday: [
     { time: "9:50 - 10:35 AM", subject: "BM", fullForm: " Buisness Mathematics" },
