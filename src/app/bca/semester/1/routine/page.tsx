@@ -227,9 +227,10 @@ export default function RoutinePage(): JSX.Element {
         {/* Top Highlight (today only) */}
 {day === today && topHighlightIndex !== -1 ? (
   <>
-    <div className="bg-purple-100 rounded-xl shadow-md p-1 mb-3"> {/* Wrapper ensures full purple */}
+    {/* Wrapper ensures full purple background for the box including bottom */}
+    <div className="rounded-xl shadow-md mb-3 bg-purple-100 overflow-hidden">
       {/* Highlight box */}
-      <div className="flex items-center justify-between py-4 px-6 border-l-4 border-purple-500 rounded-xl bg-purple-100">
+      <div className="flex items-center justify-between py-4 px-6 border-l-4 border-purple-500 bg-purple-100">
         {/* Pin on left */}
         <FiMapPin className="text-purple-500 flex-shrink-0" size={16} />
 
@@ -262,14 +263,10 @@ export default function RoutinePage(): JSX.Element {
     </div>
   </>
 ) : day === today && topHighlightIndex === -1 ? (
-  <div className="bg-purple-100 rounded-xl shadow-md p-4 text-purple-800 font-semibold mb-4 flex justify-center items-center">
+  <div className="flex justify-center items-center bg-purple-100 rounded-xl shadow-md py-4 mb-4 text-purple-800 font-semibold">
     🎉 All classes over for today
   </div>
 ) : null}
-
-
-
-
 
         {/* Main Period List */}
         <div className="space-y-3">
