@@ -225,29 +225,39 @@ export default function RoutinePage(): JSX.Element {
         </div>
 
         {/* Top Highlight (today only) */}
-        {day === today && topHighlightIndex !== -1 ? (
-          <div
-            className="section-box relative flex flex-col justify-between py-4 px-4 border-l-4 border-blue-400 bg-background mb-4"
-            style={currentStyle}
-          >
-            <FiMapPin className="absolute right-4 top-4 text-yellow-400 animate-bounce" size={16} />
-            <div className="flex flex-col gap-1">
-              <div className="text-lg font-semibold">{periods[topHighlightIndex].subject}</div>
-              <div className="text-sm text-muted-foreground">{periods[topHighlightIndex].time}</div>
-            </div>
-            <button
-              onClick={() => openNotification(periods[topHighlightIndex].fullForm)}
-              className="absolute top-4 right-10 p-1 rounded hover:scale-110 transition-transform"
-              aria-label="info"
-            >
-              <FiAlertCircle className="text-yellow-400" size={20} />
-            </button>
-          </div>
-        ) : day === today && topHighlightIndex === -1 ? (
-          <div className="section-box p-3 text-center text-muted-foreground mb-4">
-            🎉 All classes over for today
-          </div>
-        ) : null}
+{day === today && topHighlightIndex !== -1 ? (
+  <div className="relative section-box bg-blue-100 border-l-4 border-blue-500 mb-4">
+    {/* Upcoming label */}
+    <div className="absolute -top-3 left-4 text-xs text-muted-foreground font-semibold uppercase">
+      Upcoming
+    </div>
+
+    {/* Pin and info icon */}
+    <div className="flex justify-between items-start py-4 px-6">
+      {/* Pin left */}
+      <FiMapPin className="text-blue-500 mt-1" size={18} />
+
+      <div className="flex-1 flex flex-col ml-2">
+        <span className="font-semibold text-blue-800">{periods[topHighlightIndex].subject}</span>
+        <span className="text-sm text-muted-foreground mt-1">{periods[topHighlightIndex].time}</span>
+      </div>
+
+      {/* Info icon right top */}
+      <button
+        onClick={() => openNotification(periods[topHighlightIndex].fullForm)}
+        className="p-1 rounded hover:scale-110 transition-transform"
+        aria-label="info"
+      >
+        <FiAlertCircle className="text-yellow-400" size={20} />
+      </button>
+    </div>
+  </div>
+) : day === today && topHighlightIndex === -1 ? (
+  <div className="section-box p-3 text-center text-muted-foreground mb-4">
+    🎉 All classes over for today
+  </div>
+) : null}
+
 
         {/* Main Period List */}
         <div className="space-y-3">
