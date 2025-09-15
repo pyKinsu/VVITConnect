@@ -129,10 +129,8 @@ function getTodayWeekday(): string {
 export default function RoutinePage(): JSX.Element {
   const [section, setSection] = useState<"A" | "B">("A");
   const [day, setDay] = useState<string>(() => getTodayWeekday());
-
   const [activeNotificationId, setActiveNotificationId] = useState<string | null>(null);
   const [notificationText, setNotificationText] = useState<string | null>(null);
-
   const [nowMinutes, setNowMinutes] = useState<number>(() => {
     const n = new Date();
     return n.getHours() * 60 + n.getMinutes();
@@ -172,10 +170,14 @@ export default function RoutinePage(): JSX.Element {
     setNotificationText(text);
   }
 
-  const currentStyle: React.CSSProperties = {
+  const highlightStyle: React.CSSProperties = {
     backgroundColor: "hsl(var(--primary) / 0.06)",
     borderLeft: "4px solid hsl(var(--primary))",
   };
+
+  const today = getTodayWeekday();
+  const topHighlightIndex = currentIndex !== -1 ? currentIndex : upcomingIndex;
+  const topHighlight = topHighlightIndex !== -1 ? periods[topHighlightIndex] : null;
 
   return (
     <main className="min-h-screen bg-transparent text-foreground px-4 py-8 flex justify-center">
@@ -214,48 +216,36 @@ export default function RoutinePage(): JSX.Element {
           </button>
         </div>
 
-        {/* Pinned / Upcoming */}
-<div className="mb-4">
-  {(() => {
-    const today = getTodayWeekday();
-    if (day !== today) return null;
-
-    const indexToShow = currentIndex !== -1 ? currentIndex : upcomingIndex;
-    if (indexToShow === -1) {
-      return (
-        <div className="section-box p-3 text-center text-muted-foreground">
-          🎉 All classes over for today
-        </div>
-      );
-    }
-
-    const p = periods[indexToShow];
-    return (
-      <div className="section-box flex items-center justify-between py-4 px-6 border-l-4 border-blue-400 bg-background">
-        <div>
-          <div className="font-semibold flex items-center gap-2">
-            {p.subject} 
-            <FiMapPin className="text-yellow-400 animate-bounce" size={16} />
-            <span className="text-blue-600 font-semibold">Upcoming</span>
+        {/* Top Highlight for Today with single pin */}
+        {day === today && (
+          <div className="mb-4">
+            {topHighlight ? (
+              <div className="section-box flex items-center justify-between py-4 px-6" style={highlightStyle}>
+                <div>
+                  <div className="font-semibold flex items-center gap-2">
+                    {topHighlight.subject} <FiMapPin className="text-yellow-400" /> <span className="text-blue-600 font-semibold">Upcoming</span>
+                  </div>
+                  <div className="text-sm text-muted-foreground">{topHighlight.time}</div>
+                </div>
+                <div>
+                  <button
+                    onClick={() => openNotification(`${section}-${day}-${topHighlight.time}-${topHighlight.subject}`, topHighlight.fullForm)}
+                    className="p-1 rounded hover:scale-110 transition-transform"
+                    aria-label="info"
+                  >
+                    <FiAlertCircle className="text-yellow-400" size={20} />
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="section-box p-3 text-center text-muted-foreground">
+                🎉 All classes over for today
+              </div>
+            )}
           </div>
-          <div className="text-sm text-muted-foreground">{p.time}</div>
-        </div>
-        <div>
-          <button
-            onClick={() => openNotification(`${section}-${day}-${p.time}-${p.subject}`, p.fullForm)}
-            className="p-1 rounded hover:scale-110 transition-transform"
-            aria-label="info"
-          >
-            <FiAlertCircle className="text-yellow-400" size={20} />
-          </button>
-        </div>
-      </div>
-    );
-  })()}
-</div>
+        )}
 
-
-        {/* Main list of periods */}
+        {/* Main list of periods (no pin) */}
         <div className="space-y-3">
           {periods.map((p, idx) => {
             const isCurrent = idx === currentIndex;
@@ -265,21 +255,15 @@ export default function RoutinePage(): JSX.Element {
               <div
                 key={`${p.time}-${p.subject}`}
                 className="section-box flex items-center justify-between py-4 px-6"
-                style={isCurrent || isUpcoming ? currentStyle : undefined}
+                style={isCurrent || isUpcoming ? highlightStyle : undefined}
               >
                 <div>
-                  <div className="font-semibold flex items-center gap-2">
-                    {p.subject} 
-                    {isCurrent && <FiMapPin className="text-primary" />}
-                    {isUpcoming && <span className="text-yellow-400 font-semibold ml-1">Upcoming</span>}
-                  </div>
+                  <div className="font-semibold">{p.subject}</div>
                   <div className="text-sm text-muted-foreground">{p.time}</div>
                 </div>
                 <div>
                   <button
-                    onClick={() =>
-                      openNotification(`${section}-${day}-${p.time}-${p.subject}`, p.fullForm)
-                    }
+                    onClick={() => openNotification(`${section}-${day}-${p.time}-${p.subject}`, p.fullForm)}
                     className="p-1 rounded hover:scale-110 transition-transform"
                     aria-label="info"
                   >
@@ -293,10 +277,7 @@ export default function RoutinePage(): JSX.Element {
 
         {/* Global notification */}
         {notificationText && (
-          <div
-            className="fixed left-4 bottom-6 z-50"
-            style={{ width: "min(420px, 90vw)" }}
-          >
+          <div className="fixed left-4 bottom-6 z-50" style={{ width: "min(420px, 90vw)" }}>
             <div className="bg-yellow-50 border border-yellow-300 text-yellow-900 p-4 rounded-xl shadow-2xl flex gap-3 items-start">
               <FiAlertCircle className="mt-1" size={20} />
               <div className="text-sm break-words">{notificationText}</div>
