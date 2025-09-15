@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FiAlertCircle, FiChevronLeft, FiChevronRight, FiMapPin } from "react-icons/fi";
 
 type Period = {
@@ -95,6 +95,7 @@ const routineB: Routine = {
     { time: "1:00 - 1:50 PM", subject: "Spt & Cul", fullForm: "Sports & Cultural Activities" },
   ],
 };
+
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 export default function RoutinePage() {
@@ -104,6 +105,7 @@ export default function RoutinePage() {
   const [selectedDay, setSelectedDay] = useState<string>(defaultDay);
   const [currentPeriod, setCurrentPeriod] = useState<Period | null>(null);
   const [showFullForm, setShowFullForm] = useState<{ [key: string]: boolean }>({});
+  const currentRef = useRef<HTMLDivElement>(null);
 
   // Track current ongoing period
   useEffect(() => {
@@ -132,6 +134,13 @@ export default function RoutinePage() {
     return () => clearInterval(interval);
   }, [selectedDay]);
 
+  // Auto-scroll to current period
+  useEffect(() => {
+    if (currentRef.current) {
+      currentRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [currentPeriod, selectedDay]);
+
   const handleShowFullForm = (subject: string) => {
     setShowFullForm((prev) => ({ ...prev, [subject]: true }));
     setTimeout(() => setShowFullForm((prev) => ({ ...prev, [subject]: false })), 3000);
@@ -154,7 +163,10 @@ export default function RoutinePage() {
     return (
       <>
         {currentPeriod && (
-          <div className="section-box flex items-center justify-between py-4 px-6 mb-4 w-full max-w-3xl bg-card border-l-4 border-primary shadow-md animate-pulse">
+          <div
+            ref={currentRef}
+            className="section-box flex items-center justify-between py-4 px-6 mb-4 w-full max-w-3xl bg-card border-l-4 border-primary shadow-md animate-pulse"
+          >
             <div className="flex items-center gap-3">
               <FiMapPin className="text-primary animate-bounce" size={20} />
               <div className="flex flex-col">
@@ -234,5 +246,4 @@ export default function RoutinePage() {
       </section>
     </main>
   );
-            }
-          
+}
