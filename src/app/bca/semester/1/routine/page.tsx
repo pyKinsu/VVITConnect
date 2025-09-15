@@ -224,15 +224,16 @@ export default function RoutinePage(): JSX.Element {
           </button>
         </div>
 
-        {/* Top Highlight (today only) */}{day === today && topHighlightIndex !== -1 ? (
+        {/* Top Highlight (today only) */}
+        {day === today && topHighlightIndex !== -1 ? (
   <>
-    {/* Wrapper ensures full purple background for the box */}
+    {/* Wrapper ensures full dark purple background for the box */}
     <div
       style={{
         borderRadius: "16px",
-        boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+        boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
         marginBottom: "12px",
-        backgroundColor: "#E0BBFF", // light purple
+        backgroundColor: "#4B0082", // dark purple
         overflow: "hidden",
         padding: "0",
       }}
@@ -244,12 +245,12 @@ export default function RoutinePage(): JSX.Element {
           alignItems: "center",
           justifyContent: "space-between",
           padding: "16px 24px",
-          borderLeft: "6px solid #7C3AED", // deep purple left border
-          backgroundColor: "#D8B4FE", // slightly darker purple for inner box
+          borderLeft: "6px solid #2E0055", // darker purple left border
+          backgroundColor: "#4B0082", // match wrapper dark purple
         }}
       >
         {/* Pin on left */}
-        <FiMapPin style={{ color: "#7C3AED", flexShrink: 0 }} size={16} />
+        <FiMapPin style={{ color: "#FFD700", flexShrink: 0 }} size={16} />
 
         {/* Subject and time in center */}
         <div
@@ -262,10 +263,10 @@ export default function RoutinePage(): JSX.Element {
             textAlign: "center",
           }}
         >
-          <span style={{ fontWeight: 600, color: "#4C1D95", fontSize: "16px" }}>
+          <span style={{ fontWeight: 600, color: "#FFFFFF", fontSize: "16px" }}>
             {periods[topHighlightIndex].subject}
           </span>
-          <span style={{ fontSize: "14px", color: "#5B21B6", marginTop: "4px" }}>
+          <span style={{ fontSize: "14px", color: "#E0E0E0", marginTop: "4px" }}>
             {periods[topHighlightIndex].time}
           </span>
         </div>
@@ -284,7 +285,7 @@ export default function RoutinePage(): JSX.Element {
             onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
             aria-label="info"
           >
-            <FiAlertCircle style={{ color: "#FBBF24" }} size={20} />
+            <FiAlertCircle style={{ color: "#FFD700" }} size={20} />
           </button>
         </div>
       </div>
@@ -294,8 +295,8 @@ export default function RoutinePage(): JSX.Element {
     <div
       style={{
         textAlign: "center",
-        backgroundColor: "#FEF3C7",
-        color: "#B45309",
+        backgroundColor: "#2E0055",
+        color: "#FFD700",
         fontWeight: 600,
         borderRadius: "8px",
         padding: "4px 0",
@@ -312,12 +313,12 @@ export default function RoutinePage(): JSX.Element {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      backgroundColor: "#E0BBFF",
+      backgroundColor: "#4B0082",
       borderRadius: "16px",
-      boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+      boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
       padding: "16px",
       marginBottom: "16px",
-      color: "#4C1D95",
+      color: "#FFD700",
       fontWeight: 600,
       fontSize: "16px",
     }}
@@ -325,7 +326,6 @@ export default function RoutinePage(): JSX.Element {
     🎉 All classes over for today
   </div>
 ) : null}
-
 
         {/* Main Period List */}
         <div className="space-y-3">
