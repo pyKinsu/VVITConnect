@@ -1,6 +1,6 @@
 "use client";
 
-import { FiCircle, FiCheckCircle, FiLoader, FiBookOpen } from "react-icons/fi";
+import { FiCircle, FiCheckCircle, FiLoader, FiBookOpen, FiMinus } from "react-icons/fi";
 
 // ================== EDITABLE SYLLABUS DATA ==================
 // Status: 0 = Not Started, 1 = In Progress, 2 = Completed
@@ -65,26 +65,32 @@ const syllabusData = [
   {
     title: "Text Books",
     topics: [
-      { name: "Added Value: The Life Stories of Indian Business Leaders; Peter Church; Roli Books.", status: 2 },
-      { name: "Organisations - Structures, Processes and Outcomes; Richard H. Hall; Prentice Hall India.", status: 1 },
-      { name: "English for the Secretary; Yvonne Hoban; Tata McGraw Hill.", status: 1 },
-      { name: "Technical Communication: M. Raman & S. Sharma; Oxford University Press.", status: 0 },
-      { name: "Business Communication Process and Product: M.E. Guffey; Thomson Learning.", status: 0 },
+      { name: "Added Value: The Life Stories of Indian Business Leaders; Peter Church; Roli Books." },
+      { name: "Organisations - Structures, Processes and Outcomes; Richard H. Hall; Prentice Hall India." },
+      { name: "English for the Secretary; Yvonne Hoban; Tata McGraw Hill." },
+      { name: "Technical Communication: M. Raman & S. Sharma; Oxford University Press." },
+      { name: "Business Communication Process and Product: M.E. Guffey; Thomson Learning." },
     ],
   },
   {
     title: "Reference Books",
     topics: [
-      { name: "Human Behavior at Work; John W Newstorm & Keith Davis; Tata McGraw Hill.", status: 1 },
-      { name: "The Most Common Mistakes in English Usage; Thomas Elliot Berry; Tata McGraw Hill.", status: 0 },
-      { name: "Business Communication: R.K. Madhukar; Vikas Publication.", status: 0 },
+      { name: "Human Behavior at Work; John W Newstorm & Keith Davis; Tata McGraw Hill." },
+      { name: "The Most Common Mistakes in English Usage; Thomas Elliot Berry; Tata McGraw Hill." },
+      { name: "Business Communication: R.K. Madhukar; Vikas Publication." },
     ],
   },
 ];
 
 // ================== RENDER ICON FUNCTION ==================
-const renderIcon = (status: number) => {
-  switch (status) {
+const renderIcon = (topic: any, sectionTitle: string) => {
+  // For Text Books / Reference Books, show neutral icon
+  if (sectionTitle === "Text Books" || sectionTitle === "Reference Books") {
+    return <FiMinus className="text-gray-400 w-5 h-5" />;
+  }
+
+  // Otherwise show progress icons
+  switch (topic.status) {
     case 1:
       return <FiLoader className="text-yellow-400 w-5 h-5 animate-spin-slow" />;
     case 2:
@@ -115,7 +121,7 @@ export default function SyllabusViewer() {
                   className="flex items-center justify-between bg-muted/30 rounded-lg px-3 py-2 cursor-default"
                 >
                   <span className="text-sm">{topic.name}</span>
-                  {renderIcon(topic.status)}
+                  {renderIcon(topic, section.title)}
                 </li>
               ))}
             </ul>
