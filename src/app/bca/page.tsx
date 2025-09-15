@@ -10,7 +10,7 @@ export default function SemesterSelect() {
 
   const handleSelect = (semester: string) => {
     const semNumber = semester.match(/\d+/)?.[0] ?? "1";
-    router.push(`/semester${semNumber}`);
+    router.push(`/bca/semester${semNumber}`);
   };
 
   return (
