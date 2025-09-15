@@ -1,6 +1,5 @@
 "use client";
-
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { FiAlertCircle, FiChevronLeft, FiChevronRight, FiMapPin } from "react-icons/fi";
 
 type Period = {
@@ -9,12 +8,13 @@ type Period = {
   fullForm: string;
 };
 
-type Routine = {
-  [day: string]: Period[];
+type DayRoutine = {
+  day: string;
+  periods: Period[];
 };
 
 // Routine data (example)
-const routineA: Routine = {
+const routineA: DayRoutine[]  = {
   Monday: [
     { time: "10:00 - 10:50 AM", subject: "1BCA PMO", fullForm: "Principles of Management" },
     { time: "11:00 - 11:50 AM", subject: "1BCA ITA", fullForm: "Introduction to Accounting" },
@@ -55,7 +55,7 @@ const routineA: Routine = {
   ],
 };
 
-const routineB: Routine = {
+const routineB: DayRoutine[] = {
   Monday: [
     { time: "10:00 - 10:50 AM", subject: "1BCA ITA", fullForm: "Introduction to Accounting" },
     { time: "11:00 - 11:50 AM", subject: "1BCA PSPC", fullForm: "Problem Solving & Programming Concepts" },
@@ -95,172 +95,107 @@ const routineB: Routine = {
     { time: "1:00 - 1:50 PM", subject: "Spt & Cul", fullForm: "Sports & Cultural Activities" },
   ],
 };
-const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 export default function RoutinePage() {
-  const todayIndex = new Date().getDay() - 1;
-  const defaultDay = todayIndex >= 0 && todayIndex <= 5 ? days[todayIndex] : "Monday";
+  const [dayIndex, setDayIndex] = useState(new Date().getDay() - 1); // Mon=0
+  const [infoText, setInfoText] = useState<string | null>(null);
+  const [currentPeriod, setCurrentPeriod] = useState<string | null>(null);
+  const [nextInfo, setNextInfo] = useState<string>("");
 
-  const [selectedDay, setSelectedDay] = useState<string>(defaultDay);
-  const [currentPeriod, setCurrentPeriod] = useState<Period | null>(null);
-  const [infoVisible, setInfoVisible] = useState<string | null>(null);
-  const currentRef = useRef<HTMLDivElement>(null);
+  const routine = routineA[dayIndex >= 0 && dayIndex < routineA.length ? dayIndex : 0];
 
-  // Track current ongoing period
+  // track time and set current/next
   useEffect(() => {
-    const checkCurrentPeriod = () => {
+    const updateClassStatus = () => {
       const now = new Date();
-      const totalMinutes = now.getHours() * 60 + now.getMinutes();
-      const allPeriods = [...routineA[selectedDay] || [], ...routineB[selectedDay] || []];
-      let current: Period | null = null;
+      const nowMinutes = now.getHours() * 60 + now.getMinutes();
 
-      allPeriods.forEach((period) => {
-        const [start, end] = period.time.split(" - ").map((t) => {
-          const [h, mPart] = t.split(":");
-          const [m, ampm] = mPart.split(" ");
-          let hour = parseInt(h);
-          if (ampm === "PM" && hour !== 12) hour += 12;
-          if (ampm === "AM" && hour === 12) hour = 0;
-          return hour * 60 + parseInt(m);
-        });
-        if (totalMinutes >= start && totalMinutes <= end) current = period;
-      });
-      setCurrentPeriod(current);
+      let active = null;
+      let upcoming = null;
+
+      for (let i = 0; i < routine.periods.length; i++) {
+        const [sh, sm] = routine.periods[i].time.split(" - ")[0].split(":").map(Number);
+        const [eh, em] = routine.periods[i].time.split(" - ")[1].split(":").map(Number);
+
+        const startM = sh * 60 + sm;
+        const endM = eh * 60 + em;
+
+        if (nowMinutes >= startM && nowMinutes <= endM) {
+          active = routine.periods[i].subject;
+          break;
+        } else if (nowMinutes < startM && !upcoming) {
+          upcoming = `Upcoming: ${routine.periods[i].subject} at ${routine.periods[i].time}`;
+        }
+      }
+
+      if (active) setCurrentPeriod(active);
+      else if (upcoming) setNextInfo(upcoming);
+      else setNextInfo("All classes over");
     };
 
-    checkCurrentPeriod();
-    const interval = setInterval(checkCurrentPeriod, 30000);
-    return () => clearInterval(interval);
-  }, [selectedDay]);
-
-  // Auto-scroll to current period
-  useEffect(() => {
-    if (currentRef.current) {
-      currentRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-  }, [currentPeriod, selectedDay]);
-
-  const handleShowInfo = (subject: string) => {
-    if (infoVisible === subject) return; // Already visible
-    setInfoVisible(subject);
-    setTimeout(() => setInfoVisible(null), 3000);
-  };
-
-  const prevDay = () => {
-    const idx = days.indexOf(selectedDay);
-    setSelectedDay(days[idx === 0 ? days.length - 1 : idx - 1]);
-  };
-
-  const nextDay = () => {
-    const idx = days.indexOf(selectedDay);
-    setSelectedDay(days[idx === days.length - 1 ? 0 : idx + 1]);
-  };
-
-  const renderRoutine = (routine: Routine) => {
-    const allPeriods = routine[selectedDay] || [];
-    const otherPeriods = allPeriods.filter((p) => p !== currentPeriod);
-
-    return (
-      <>
-        {currentPeriod && (
-          <div
-            ref={currentRef}
-            className="section-box flex items-center justify-between py-4 px-6 mb-4 w-full max-w-3xl bg-card border-l-4 border-primary shadow-md animate-pulse relative"
-          >
-            <div className="flex items-center gap-3">
-              <FiMapPin className="text-primary animate-bounce" size={20} />
-              <div className="flex flex-col">
-                <span className="font-semibold text-lg">{currentPeriod.subject}</span>
-                <span className="text-sm text-muted-foreground">{currentPeriod.time}</span>
-              </div>
-            </div>
-            <div className="relative">
-              <FiAlertCircle
-                size={24}
-                className="text-yellow-400 hover:scale-110 transition-transform cursor-pointer"
-                onClick={() => handleShowInfo(currentPeriod.subject)}
-              />
-              {infoVisible === currentPeriod.subject && (
-                <div className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 bg-yellow-100/90 text-yellow-900 backdrop-blur-sm p-3 rounded-lg shadow-lg text-sm max-w-xs z-50 animate-fadeIn">
-                  {currentPeriod.fullForm}
-                </div>
-              )}
-            </div>
-          </div>
-        )}
-        {otherPeriods.map((period) => (
-          <div
-  key={period.time + period.subject}
-  className="relative w-full max-w-3xl mb-3"
->
-  <div className="section-box flex items-center justify-between py-4 px-6 bg-card">
-    <div className="flex flex-col">
-      <span className="font-semibold text-lg">{period.subject}</span>
-      <span className="text-sm text-muted-foreground">{period.time}</span>
-    </div>
-
-    {/* Info icon + Popover */}
-    <div className="relative">
-      <FiAlertCircle
-        size={24}
-        className="text-yellow-400 hover:scale-110 transition-transform cursor-pointer"
-        onClick={() => handleShowInfo(period.subject + period.time)}
-      />
-      {infoVisible === period.subject + period.time && (
-        <div
-          className="absolute top-full mt-2 left-1/2 -translate-x-1/2
-                     bg-yellow-100 text-yellow-900 font-medium
-                     px-4 py-2 rounded-lg shadow-xl
-                     z-[9999] animate-fadeIn whitespace-nowrap"
-        >
-          {period.fullForm}
-        </div>
-      )}
-    </div>
-  </div>
-</div>
-
-        ))}
-      </>
-    );
-  };
+    updateClassStatus();
+    const timer = setInterval(updateClassStatus, 60000);
+    return () => clearInterval(timer);
+  }, [routine]);
 
   return (
-    <main className="flex flex-col items-center px-4 py-6 min-h-screen bg-transparent text-foreground">
-      <header className="text-center mb-6">
-        <h1 className="text-3xl sm:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
-          1st Semester BCA Routine
-        </h1>
-      </header>
-
-      {/* Day Selector */}
-      <div className="flex items-center gap-2 mb-6">
-        <button onClick={prevDay} className="text-2xl p-3 rounded-full hover:bg-muted transition-transform hover:scale-110">
-          <FiChevronLeft />
+    <div className="flex flex-col items-center p-4 space-y-4">
+      {/* Day navigation */}
+      <div className="flex items-center space-x-4">
+        <button onClick={() => setDayIndex((dayIndex - 1 + routineA.length) % routineA.length)}>
+          <FiChevronLeft size={28} />
         </button>
-        <span className="px-6 py-2 rounded-lg bg-accent text-accent-foreground font-medium text-lg">
-          {selectedDay}
-        </span>
-        <button onClick={nextDay} className="text-2xl p-3 rounded-full hover:bg-muted transition-transform hover:scale-110">
-          <FiChevronRight />
+        <h1 className="text-2xl font-bold">{routine.day}</h1>
+        <button onClick={() => setDayIndex((dayIndex + 1) % routineA.length)}>
+          <FiChevronRight size={28} />
         </button>
       </div>
 
-      {/* Section A */}
-      <section className="mb-8 w-full flex flex-col items-center">
-        <h2 className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
-          BCA - A
-        </h2>
-        {renderRoutine(routineA)}
-      </section>
+      {/* Class periods */}
+      <div className="w-full max-w-3xl space-y-3">
+        {routine.periods.map((period) => (
+          <div
+            key={period.time + period.subject}
+            className={`flex items-center justify-between py-4 px-6 rounded-xl shadow-md
+                        ${currentPeriod === period.subject ? "bg-yellow-100 border-l-4 border-yellow-500" : "bg-white/80"}`}
+          >
+            <div>
+              <div className="font-semibold text-lg flex items-center gap-2">
+                {period.subject}
+                {currentPeriod === period.subject && <FiMapPin className="text-yellow-500" />}
+              </div>
+              <div className="text-sm text-gray-600">{period.time}</div>
+            </div>
+            <FiAlertCircle
+              className="text-yellow-500 cursor-pointer hover:scale-110 transition"
+              size={22}
+              onClick={() => setInfoText(period.fullForm)}
+            />
+          </div>
+        ))}
+      </div>
 
-      {/* Section B */}
-      <section className="w-full flex flex-col items-center">
-        <h2 className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
-          BCA - B
-        </h2>
-        {renderRoutine(routineB)}
-      </section>
-    </main>
+      {/* Upcoming / Over message */}
+      <div className="text-center text-gray-700 font-medium mt-4">
+        {nextInfo && <p>{nextInfo}</p>}
+      </div>
+
+      {/* Global Info Notification */}
+      {infoText && (
+        <div
+          className="fixed bottom-8 left-1/2 -translate-x-1/2
+                     bg-yellow-200 text-yellow-900 px-6 py-3 rounded-xl shadow-xl
+                     font-medium animate-fadeIn z-[9999]"
+        >
+          {infoText}
+          <button
+            onClick={() => setInfoText(null)}
+            className="ml-4 text-sm underline text-yellow-900"
+          >
+            Close
+          </button>
+        </div>
+      )}
+    </div>
   );
 }
