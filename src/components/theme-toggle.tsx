@@ -8,14 +8,13 @@ import { Button } from "@/components/ui/button";
 export function ThemeToggle() {
   const { theme, setTheme, resolvedTheme } = useTheme();
 
-  // Ensure initial theme is light
+  // Ensure default theme is light
   React.useEffect(() => {
     if (!theme) setTheme("light");
   }, [theme, setTheme]);
 
   const toggleTheme = () => {
-    // Toggle between light and dark
-    setTheme(resolvedTheme === "dark" ? "light" : "dark");
+    setTheme(resolvedTheme === "light" ? "dark" : "light");
   };
 
   return (
@@ -25,7 +24,7 @@ export function ThemeToggle() {
       onClick={toggleTheme}
       aria-label="Toggle theme"
       className="relative bg-card text-card-foreground border border-border transition-all duration-300
-                 hover:bg-primary hover:text-primary-foreground active:scale-95 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
     >
       {/* Sun Icon */}
       <Sun
