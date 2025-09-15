@@ -226,32 +226,32 @@ export default function RoutinePage(): JSX.Element {
 
         {/* Top Highlight (today only) */}
 {day === today && topHighlightIndex !== -1 ? (
-  <div className="relative section-box bg-blue-100 border-l-4 border-blue-500 mb-4">
-    {/* Upcoming label */}
-    <div className="absolute -top-3 left-4 text-xs text-muted-foreground font-semibold uppercase">
+  <>
+    <div className="section-box flex items-center justify-between py-4 px-6 border-l-4 border-blue-500 bg-blue-50 mb-1">
+      {/* Pin and subject */}
+      <div className="flex items-center gap-3">
+        <FiMapPin className="text-blue-500" size={16} />
+        <div className="flex flex-col">
+          <span className="font-semibold text-blue-800">{periods[topHighlightIndex].subject}</span>
+          <span className="text-sm text-muted-foreground">{periods[topHighlightIndex].time}</span>
+        </div>
+      </div>
+      {/* Info icon */}
+      <div>
+        <button
+          onClick={() => openNotification(periods[topHighlightIndex].fullForm)}
+          className="p-1 rounded hover:scale-110 transition-transform"
+          aria-label="info"
+        >
+          <FiAlertCircle className="text-yellow-400" size={20} />
+        </button>
+      </div>
+    </div>
+    {/* Upcoming label below the box */}
+    <div className="text-center bg-yellow-100 text-yellow-900 font-semibold rounded-md py-1 text-sm mb-3">
       Upcoming
     </div>
-
-    {/* Pin and info icon */}
-    <div className="flex justify-between items-start py-4 px-6">
-      {/* Pin left */}
-      <FiMapPin className="text-blue-500 mt-1" size={18} />
-
-      <div className="flex-1 flex flex-col ml-2">
-        <span className="font-semibold text-blue-800">{periods[topHighlightIndex].subject}</span>
-        <span className="text-sm text-muted-foreground mt-1">{periods[topHighlightIndex].time}</span>
-      </div>
-
-      {/* Info icon right top */}
-      <button
-        onClick={() => openNotification(periods[topHighlightIndex].fullForm)}
-        className="p-1 rounded hover:scale-110 transition-transform"
-        aria-label="info"
-      >
-        <FiAlertCircle className="text-yellow-400" size={20} />
-      </button>
-    </div>
-  </div>
+  </>
 ) : day === today && topHighlightIndex === -1 ? (
   <div className="section-box p-3 text-center text-muted-foreground mb-4">
     🎉 All classes over for today
