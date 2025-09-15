@@ -19,9 +19,6 @@ type Routine = {
   [day: string]: Period[];
 };
 
-/* -----------------------
-   --- Your routines -----
-   ----------------------- */
 const routineA: Routine = {
   Monday: [
     { time: "10:00 - 10:50 AM", subject: "PMO", fullForm: "Principles of Management" },
@@ -104,9 +101,6 @@ const routineB: Routine = {
   ],
 };
 
-/* -----------------------
-   --- helpers ----------
-   ----------------------- */
 function toMinutes(t: string): number {
   const m = t.match(/(\d{1,2}):(\d{2})\s*(AM|PM)?/i);
   if (!m) return 0;
@@ -132,9 +126,6 @@ function getTodayWeekday(): string {
   return d === 0 ? "Monday" : ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][d];
 }
 
-/* -----------------------
-   --- Component ---------
-   ----------------------- */
 export default function RoutinePage(): JSX.Element {
   const [section, setSection] = useState<"A" | "B">("A");
   const [day, setDay] = useState<string>(() => getTodayWeekday());
@@ -184,6 +175,11 @@ export default function RoutinePage(): JSX.Element {
   const currentStyle: React.CSSProperties = {
     backgroundColor: "hsl(var(--primary) / 0.06)",
     borderLeft: "4px solid hsl(var(--primary))",
+  };
+
+  const upcomingStyle: React.CSSProperties = {
+    backgroundColor: "hsl(var(--background))",
+    borderLeft: "4px solid hsl(var(--blue))",
   };
 
   return (
@@ -253,9 +249,9 @@ export default function RoutinePage(): JSX.Element {
               );
             } else if (upcomingIndex !== -1) {
               return (
-                <div className="section-box p-3 flex items-center justify-between border-l-4 border-yellow-400 bg-yellow-50">
+                <div className="section-box p-3 flex items-center justify-between" style={upcomingStyle}>
                   <div>
-                    <div className="font-semibold text-yellow-700">Upcoming</div>
+                    <div className="font-semibold text-foreground">Upcoming</div>
                     <div className="text-sm text-muted-foreground">
                       {periods[upcomingIndex].subject} • {periods[upcomingIndex].time}
                     </div>
@@ -285,17 +281,15 @@ export default function RoutinePage(): JSX.Element {
         <div className="space-y-3">
           {periods.map((p, idx) => {
             const isCurrent = idx === currentIndex;
-            const isUpcoming = idx === upcomingIndex && currentIndex === -1;
             return (
               <div
                 key={`${p.time}-${p.subject}`}
-                className={`section-box flex items-center justify-between py-4 px-6 ${isUpcoming ? "bg-yellow-50 border-l-4 border-yellow-400" : ""}`}
+                className="section-box flex items-center justify-between py-4 px-6"
                 style={isCurrent ? currentStyle : undefined}
               >
                 <div>
                   <div className="font-semibold flex items-center gap-2">
                     {p.subject} {isCurrent && <FiMapPin className="text-primary" />}
-                    {isUpcoming && <span className="text-yellow-700 text-sm">Upcoming</span>}
                   </div>
                   <div className="text-sm text-muted-foreground">{p.time}</div>
                 </div>
