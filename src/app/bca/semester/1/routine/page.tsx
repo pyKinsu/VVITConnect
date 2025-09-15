@@ -224,56 +224,69 @@ export default function RoutinePage(): JSX.Element {
           </button>
         </div>
 
-        {/* Pinned / Upcoming */}
-        <div className="mb-4">
-          {currentIndex !== -1 ? (
-            <div className="section-box p-4 flex items-center justify-between" style={currentStyle}>
-              <div className="flex items-center gap-3">
-                <FiMapPin className="text-primary animate-bounce" size={18} />
-                <div>
-                  <div className="font-semibold">{periods[currentIndex].subject}</div>
-                  <div className="text-sm text-muted-foreground">{periods[currentIndex].time}</div>
-                </div>
-              </div>
-              <button
-                onClick={() =>
-                  openNotification(
-                    `${section}-${day}-${periods[currentIndex].time}-${periods[currentIndex].subject}`,
-                    periods[currentIndex].fullForm
-                  )
-                }
-                className="p-1 rounded hover:scale-105 transition-transform"
-                aria-label="info"
-              >
-                <FiAlertCircle className="text-yellow-400" size={20} />
-              </button>
+        {/* Pinned / Upcoming area */}
+<div className="mb-4">
+  {(() => {
+    const today = getTodayWeekday(); // helper: returns "Monday", "Tuesday", etc.
+    if (day !== today) return null; // only show pinned/upcoming for current day
+
+    if (currentIndex !== -1) {
+      // Current class
+      return (
+        <div className="section-box p-4 flex items-center justify-between" style={currentStyle}>
+          <div className="flex items-center gap-3">
+            <FiMapPin className="text-primary animate-bounce" size={18} />
+            <div>
+              <div className="font-semibold">{periods[currentIndex].subject}</div>
+              <div className="text-sm text-muted-foreground">{periods[currentIndex].time}</div>
             </div>
-          ) : upcomingIndex !== -1 ? (
-            <div className="section-box p-3 flex items-center justify-between" style={upcomingStyle}>
-              <div>
-                <div className="font-semibold text-yellow-700">Upcoming</div>
-                <div className="text-sm text-muted-foreground">
-                  {periods[upcomingIndex].subject} • {periods[upcomingIndex].time}
-                </div>
-              </div>
-              <button
-                onClick={() =>
-                  openNotification(
-                    `${section}-${day}-${periods[upcomingIndex].time}-${periods[upcomingIndex].subject}`,
-                    periods[upcomingIndex].fullForm
-                  )
-                }
-                className="p-1 rounded hover:scale-105 transition-transform"
-              >
-                <FiAlertCircle className="text-yellow-400" size={20} />
-              </button>
-            </div>
-          ) : (
-            <div className="section-box p-3 text-center text-muted-foreground">
-              🎉 All classes over for today
-            </div>
-          )}
+          </div>
+          <button
+            onClick={() =>
+              openNotification(
+                `${section}-${day}-${periods[currentIndex].time}-${periods[currentIndex].subject}`,
+                periods[currentIndex].fullForm
+              )
+            }
+            className="p-1 rounded hover:scale-105 transition-transform"
+            aria-label="info"
+          >
+            <FiAlertCircle className="text-yellow-400" size={20} />
+          </button>
         </div>
+      );
+    } else if (upcomingIndex !== -1) {
+      // Only the next upcoming class
+      return (
+        <div className="section-box p-3 flex items-center justify-between border-l-4 border-yellow-400 bg-yellow-50">
+          <div>
+            <div className="font-semibold text-yellow-700">Upcoming</div>
+            <div className="text-sm text-muted-foreground">
+              {periods[upcomingIndex].subject} • {periods[upcomingIndex].time}
+            </div>
+          </div>
+          <button
+            onClick={() =>
+              openNotification(
+                `${section}-${day}-${periods[upcomingIndex].time}-${periods[upcomingIndex].subject}`,
+                periods[upcomingIndex].fullForm
+              )
+            }
+            className="p-1 rounded hover:scale-105 transition-transform"
+          >
+            <FiAlertCircle className="text-yellow-400" size={20} />
+          </button>
+        </div>
+      );
+    } else {
+      return (
+        <div className="section-box p-3 text-center text-muted-foreground">
+          🎉 All classes over for today
+        </div>
+      );
+    }
+  })()}
+</div>
 
         {/* List of periods */}
         <div className="space-y-3">
