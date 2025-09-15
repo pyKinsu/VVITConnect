@@ -197,7 +197,7 @@ export default function RoutinePage(): JSX.Element {
           </h1>
         </header>
 
-        {/* Section chooser moved on top */}
+        {/* Section chooser */}
         <div className="flex justify-center mb-4 gap-2 flex-wrap">
           <button
             onClick={() => setSection("A")}
@@ -225,3 +225,117 @@ export default function RoutinePage(): JSX.Element {
         </div>
 
         {/* Pinned / Upcoming */}
+        <div className="mb-4">
+          {currentIndex !== -1 ? (
+            <div className="section-box p-4 flex items-center justify-between" style={currentStyle}>
+              <div className="flex items-center gap-3">
+                <FiMapPin className="text-primary animate-bounce" size={18} />
+                <div>
+                  <div className="font-semibold">{periods[currentIndex].subject}</div>
+                  <div className="text-sm text-muted-foreground">{periods[currentIndex].time}</div>
+                </div>
+              </div>
+              <button
+                onClick={() =>
+                  openNotification(
+                    `${section}-${day}-${periods[currentIndex].time}-${periods[currentIndex].subject}`,
+                    periods[currentIndex].fullForm
+                  )
+                }
+                className="p-1 rounded hover:scale-105 transition-transform"
+                aria-label="info"
+              >
+                <FiAlertCircle className="text-yellow-400" size={20} />
+              </button>
+            </div>
+          ) : upcomingIndex !== -1 ? (
+            <div className="section-box p-3 flex items-center justify-between" style={upcomingStyle}>
+              <div>
+                <div className="font-semibold text-yellow-700">Upcoming</div>
+                <div className="text-sm text-muted-foreground">
+                  {periods[upcomingIndex].subject} • {periods[upcomingIndex].time}
+                </div>
+              </div>
+              <button
+                onClick={() =>
+                  openNotification(
+                    `${section}-${day}-${periods[upcomingIndex].time}-${periods[upcomingIndex].subject}`,
+                    periods[upcomingIndex].fullForm
+                  )
+                }
+                className="p-1 rounded hover:scale-105 transition-transform"
+              >
+                <FiAlertCircle className="text-yellow-400" size={20} />
+              </button>
+            </div>
+          ) : (
+            <div className="section-box p-3 text-center text-muted-foreground">
+              🎉 All classes over for today
+            </div>
+          )}
+        </div>
+
+        {/* List of periods */}
+        <div className="space-y-3">
+          {periods.length === 0 ? (
+            <div className="text-center text-muted-foreground">No classes scheduled for this day.</div>
+          ) : (
+            periods.map((p, idx) => {
+              const isCurrent = idx === currentIndex;
+              const isUpcoming = idx === upcomingIndex && currentIndex === -1;
+              return (
+                <div
+                  key={`${p.time}-${p.subject}`}
+                  className={`section-box flex items-center justify-between py-4 px-6 ${isUpcoming ? "bg-yellow-50 border-l-4 border-yellow-400" : ""}`}
+                  style={isCurrent ? currentStyle : undefined}
+                >
+                  <div>
+                    <div className="font-semibold flex items-center gap-2">
+                      {p.subject} {isCurrent && <FiMapPin className="text-primary" />}
+                      {isUpcoming && <span className="text-yellow-600 text-sm">Upcoming</span>}
+                    </div>
+                    <div className="text-sm text-muted-foreground">{p.time}</div>
+                  </div>
+                  <div>
+                    <button
+                      onClick={() =>
+                        openNotification(`${section}-${day}-${p.time}-${p.subject}`, p.fullForm)
+                      }
+                      className="p-1 rounded hover:scale-110 transition-transform"
+                      aria-label="info"
+                    >
+                      <FiAlertCircle className="text-yellow-400" size={20} />
+                    </button>
+                  </div>
+                </div>
+              );
+            })
+          )}
+        </div>
+      </div>
+
+      {/* GLOBAL notification — bottom-left */}
+      {notificationText && (
+        <div
+          className="fixed left-4 bottom-6 z-50"
+          style={{ width: "min(420px, 90vw)" }}
+        >
+          <div className="bg-yellow-50 border border-yellow-300 text-yellow-900 p-4 rounded-xl shadow-2xl flex gap-3 items-start">
+            <FiAlertCircle className="mt-1" size={20} />
+            <div className="text-sm break-words">{notificationText}</div>
+            <button
+              onClick={() => {
+                setNotificationText(null);
+                setActiveNotificationId(null);
+              }}
+              className="ml-3 p-1 rounded hover:bg-yellow-100"
+              aria-label="close notification"
+            >
+              <FiX />
+            </button>
+          </div>
+        </div>
+      )}
+    </main>
+  );
+}
