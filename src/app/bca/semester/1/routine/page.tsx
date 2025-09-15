@@ -215,65 +215,45 @@ export default function RoutinePage(): JSX.Element {
         </div>
 
         {/* Pinned / Upcoming */}
-        <div className="mb-4">
-          {(() => {
-            const today = getTodayWeekday();
-            if (day !== today) return null;
+<div className="mb-4">
+  {(() => {
+    const today = getTodayWeekday();
+    if (day !== today) return null;
 
-            if (currentIndex !== -1) {
-              const p = periods[currentIndex];
-              return (
-                <div className="section-box p-4 flex items-center justify-between" style={currentStyle}>
-                  <div className="flex items-center gap-2">
-                    <FiMapPin className="text-yellow-400 animate-bounce" size={16} />
-                    <span className="font-semibold text-blue-600">Upcoming</span>
-                    <span className="ml-1 text-foreground font-medium">
-                      {p.subject} • {p.time}
-                    </span>
-                  </div>
-                  <button
-                    onClick={() => openNotification(
-                      `${section}-${day}-${p.time}-${p.subject}`,
-                      p.fullForm
-                    )}
-                    className="p-1 rounded hover:scale-105 transition-transform"
-                    aria-label="info"
-                  >
-                    <FiAlertCircle className="text-yellow-400" size={20} />
-                  </button>
-                </div>
-              );
-            } else if (upcomingIndex !== -1) {
-              const p = periods[upcomingIndex];
-              return (
-                <div className="section-box p-3 flex items-center justify-between border-l-4 border-blue-400">
-                  <div className="flex items-center gap-2">
-                    <FiMapPin className="text-yellow-400 animate-bounce" size={16} />
-                    <span className="font-semibold text-blue-600">Upcoming</span>
-                    <span className="ml-1 text-foreground font-medium">
-                      {p.subject} • {p.time}
-                    </span>
-                  </div>
-                  <button
-                    onClick={() => openNotification(
-                      `${section}-${day}-${p.time}-${p.subject}`,
-                      p.fullForm
-                    )}
-                    className="p-1 rounded hover:scale-105 transition-transform"
-                  >
-                    <FiAlertCircle className="text-yellow-400" size={20} />
-                  </button>
-                </div>
-              );
-            } else {
-              return (
-                <div className="section-box p-3 text-center text-muted-foreground">
-                  🎉 All classes over for today
-                </div>
-              );
-            }
-          })()}
+    const indexToShow = currentIndex !== -1 ? currentIndex : upcomingIndex;
+    if (indexToShow === -1) {
+      return (
+        <div className="section-box p-3 text-center text-muted-foreground">
+          🎉 All classes over for today
         </div>
+      );
+    }
+
+    const p = periods[indexToShow];
+    return (
+      <div className="section-box flex items-center justify-between py-4 px-6 border-l-4 border-blue-400 bg-background">
+        <div>
+          <div className="font-semibold flex items-center gap-2">
+            {p.subject} 
+            <FiMapPin className="text-yellow-400 animate-bounce" size={16} />
+            <span className="text-blue-600 font-semibold">Upcoming</span>
+          </div>
+          <div className="text-sm text-muted-foreground">{p.time}</div>
+        </div>
+        <div>
+          <button
+            onClick={() => openNotification(`${section}-${day}-${p.time}-${p.subject}`, p.fullForm)}
+            className="p-1 rounded hover:scale-110 transition-transform"
+            aria-label="info"
+          >
+            <FiAlertCircle className="text-yellow-400" size={20} />
+          </button>
+        </div>
+      </div>
+    );
+  })()}
+</div>
+
 
         {/* Main list of periods */}
         <div className="space-y-3">
