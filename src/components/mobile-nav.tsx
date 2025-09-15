@@ -9,9 +9,9 @@ import { Menu } from "lucide-react";
 import { Separator } from "./ui/separator";
 import { siteLinks, externalLinks } from "@/lib/constants";
 
-// ✅ React Icons
+// ✅ Social Icons only
 import { FaGithub, FaTelegram, FaTwitter } from "react-icons/fa";
-import { MdHome, MdLibraryBooks, MdLink } from "react-icons/md";
+import { MdHome, MdLink } from "react-icons/md";
 
 export function MobileNav({ className }: { className?: string }) {
   const [open, setOpen] = React.useState(false);
@@ -19,7 +19,7 @@ export function MobileNav({ className }: { className?: string }) {
 
   const handleCloseSheet = () => setOpen(false);
 
-  // Add icons to socials
+  // Socials with icons
   const socials = [
     { name: "GitHub", href: "https://github.com/pykinsu", icon: <FaGithub /> },
     { name: "Community", href: "https://t.me/VVITConnect", icon: <FaTelegram /> },
@@ -48,14 +48,13 @@ export function MobileNav({ className }: { className?: string }) {
                   <Button
                     variant={pathname === link.href ? "default" : "outline"}
                     asChild
-                    className="flex items-center gap-2"
                   >
                     <Link
                       href={link.href}
-                      className="w-full flex items-center gap-2"
+                      className="w-full"
                       onClick={handleCloseSheet}
                     >
-                      <MdLibraryBooks /> {link.name}
+                      {link.name}
                     </Link>
                   </Button>
                 </li>
@@ -65,22 +64,24 @@ export function MobileNav({ className }: { className?: string }) {
 
           <Separator />
 
-          {/* External Links */}
+          {/* External Links (same style as Site Links) */}
           <div>
             <h2 className="mb-4 text-center text-lg font-semibold flex items-center justify-center gap-2">
-              <MdLink className="text-xl" /> Legal Links
+              <MdLink className="text-xl" /> More Pages
             </h2>
             <ul className="space-y-3">
               {externalLinks.map((link) => (
                 <li key={link.href}>
-                  <Button variant="outline" asChild className="flex items-center gap-2">
+                  <Button
+                    variant={pathname === link.href ? "default" : "outline"}
+                    asChild
+                  >
                     <Link
                       href={link.href}
-                      className="w-full flex items-center gap-2"
-                      target="_blank"
+                      className="w-full"
                       onClick={handleCloseSheet}
                     >
-                      <MdLink /> {link.name}
+                      {link.name}
                     </Link>
                   </Button>
                 </li>
@@ -90,9 +91,9 @@ export function MobileNav({ className }: { className?: string }) {
 
           <Separator />
 
-          {/* Socials */}
+          {/* Socials with icons */}
           <div>
-            <h2 className="mb-4 text-center text-lg font-semibold">Reach Admin</h2>
+            <h2 className="mb-4 text-center text-lg font-semibold">Socials</h2>
             <ul className="space-y-3">
               {socials.map((link) => (
                 <li key={link.href}>
