@@ -1,7 +1,14 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { FiBookOpen, FiCode, FiLayers, FiMessageCircle, FiDivideCircle, FiCpu } from "react-icons/fi";
+import {
+  FiBookOpen,
+  FiCode,
+  FiLayers,
+  FiMessageCircle,
+  FiDivideCircle,
+  FiCpu,
+} from "react-icons/fi";
 import { useRouter } from "next/navigation";
 
 export default function SyllabusPage() {
@@ -38,16 +45,18 @@ export default function SyllabusPage() {
   return (
     <main className="min-h-screen flex flex-col items-center justify-center px-6 py-12">
       <div className="w-full max-w-3xl">
+        {/* Title */}
         <h1 className="text-3xl sm:text-4xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
-          📘 Subjects — Syllabus
+          Subjects — Syllabus
         </h1>
 
-        <div className="grid gap-4 sm:grid-cols-2">
+        {/* Button Grid */}
+        <div className="grid gap-5 sm:grid-cols-2">
           {subjects.map((subj) => (
             <Button
               key={subj.name}
               size="lg"
-              className="w-full justify-start text-left text-lg rounded-xl shadow-md hover:shadow-lg transition-all"
+              className="w-full justify-start text-left text-lg rounded-xl shadow-md hover:scale-[1.02] transition-transform bg-card text-card-foreground border border-border"
               onClick={() => router.push(subj.route)}
             >
               {subj.icon}
