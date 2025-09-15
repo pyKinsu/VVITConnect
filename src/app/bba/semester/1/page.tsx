@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import { FaBook, FaCode, FaCalendarAlt, FaFileAlt } from "react-icons/fa";
+import { FaBook, FaCode, FaCalendarAlt, FaFileAlt, FaHome, FaUniversity } from "react-icons/fa";
 
 const features = [
   {
@@ -21,7 +21,7 @@ const features = [
     path: "/books",
   },
   {
-    name: "C Notes",
+    name: "C Programming Notes",
     icon: <FaCode className="w-8 h-8 mx-auto mb-3 text-muted-foreground" />,
     path: "/notes/c-programming",
   },
@@ -45,7 +45,17 @@ export default function FeaturesPage() {
         </p>
       </header>
 
-      <section className="flex-1 flex items-center justify-center w-full">
+      <section className="flex-1 flex flex-col items-center justify-center w-full space-y-6">
+        {/* Library button (wide) */}
+        <button
+          onClick={() => handleSelect("/library")}
+          className="section-box w-full max-w-4xl flex items-center justify-center gap-3 py-4 text-lg font-semibold hover:scale-105 active:scale-95 transition-transform duration-150"
+        >
+          <FaUniversity className="w-6 h-6" />
+          Library
+        </button>
+
+        {/* Grid of 4 feature buttons */}
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full max-w-4xl">
           {features.map((feature) => (
             <button
@@ -58,6 +68,15 @@ export default function FeaturesPage() {
             </button>
           ))}
         </div>
+
+        {/* Back to Home button (wide) */}
+        <button
+          onClick={() => handleSelect("/")}
+          className="section-box w-full max-w-4xl flex items-center justify-center gap-3 py-4 text-lg font-semibold hover:scale-105 active:scale-95 transition-transform duration-150"
+        >
+          <FaHome className="w-6 h-6" />
+          Back to Home
+        </button>
       </section>
     </main>
   );
