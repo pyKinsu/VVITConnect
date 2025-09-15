@@ -16,7 +16,7 @@ const fontSans = FontSans({
 
 // ✅ Updated metadata for VVIT Connect
 export const metadata: Metadata = {
-  title: "VVIT Connect 📚",
+  title: "VVIT Connect by @pyKinsu",
   description:
     "Your all-in-one study platform for VVIT. Access syllabus, notes, PDFs, and updates — fast, free, and trusted.",
 };
@@ -36,9 +36,9 @@ export default function RootLayout({
         )}
       >
         <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
+      attribute="class"      // allows Tailwind dark mode via class
+      defaultTheme="light"   // <<< sets default to light
+      enableSystem={false}   // ignore user system preference
           disableTransitionOnChange
         >
           <ReactQueryProvider>
