@@ -228,7 +228,7 @@ export default function RoutinePage(): JSX.Element {
 {day === today && topHighlightIndex !== -1 ? (
   <>
     {/* Highlight box */}
-    <div className="section-box flex items-center justify-between py-4 px-6 border-l-4 border-purple-500 bg-purple-100 mb-1">
+    <div className="highlight-box flex items-center justify-between py-4 px-6 border-l-4 border-purple-500 rounded-xl shadow-sm mb-1">
       {/* Pin on left */}
       <FiMapPin className="text-purple-500 flex-shrink-0" size={16} />
 
@@ -256,10 +256,11 @@ export default function RoutinePage(): JSX.Element {
     </div>
   </>
 ) : day === today && topHighlightIndex === -1 ? (
-  <div className="section-box p-3 text-center text-muted-foreground mb-4 bg-purple-100">
+  <div className="highlight-box flex items-center justify-center py-4 px-6 border-l-4 border-purple-500 rounded-xl shadow-sm mb-4">
     🎉 All classes over for today
   </div>
 ) : null}
+
 
 
         {/* Main Period List */}
