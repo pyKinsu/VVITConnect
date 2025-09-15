@@ -1,27 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import Spinner from "@/components/Spinner";
 
 export default function PageLoader() {
-  const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const handleStart = () => setLoading(true);
-    const handleStop = () => setLoading(false);
+    // Loader should disappear once hydration + page render is done
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000); // show at least 1s for smoother UX
 
-    router.events.on("routeChangeStart", handleStart);
-    router.events.on("routeChangeComplete", handleStop);
-    router.events.on("routeChangeError", handleStop);
-
-    return () => {
-      router.events.off("routeChangeStart", handleStart);
-      router.events.off("routeChangeComplete", handleStop);
-      router.events.off("routeChangeError", handleStop);
-    };
-  }, [router]);
+    return () => clearTimeout(timer);
+  }, []);
 
   if (!loading) return null;
 
