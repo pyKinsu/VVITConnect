@@ -1,49 +1,46 @@
+"use client";
+
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 
-const semesters = [
-  "Semester 1",
-  "Semester 2",
-  "Semester 3",
-  "Semester 4",
-  "Semester 5",
-  "Semester 6",
-  "Semester 7",
-  "Semester 8",
-];
+const semesters: string[] = Array.from({ length: 8 }, (_, i) => `Semester ${i + 1}`);
 
-export default function SemesterSelect() {
-  const navigate = useNavigate();
+export default function SemesterSelect(): JSX.Element {
+  const router = useRouter();
 
   const handleSelect = (semester: string) => {
-    // Example: navigate to /semester/1, /semester/2 etc.
-    const semNumber = semester.split(" ")[1];
-    navigate(`/semester/${semNumber}`);
+    const semNumber = semester.match(/\d+/)?.[0] ?? "1";
+    router.push(`/semester/${semNumber}`);
   };
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center px-4 py-10">
-      <div className="max-w-3xl w-full text-center space-y-6">
-        {/* Title */}
-        <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
-          Choose Your Semester
-        </h1>
-        <p className="text-muted-foreground text-sm">
-          Select your current semester to view syllabus, notes, and classes.
-        </p>
+    <main className="min-h-screen flex items-center justify-center px-4 py-10">
+      <div className="w-full max-w-3xl">
+        {/* Header */}
+        <header className="text-center mb-6">
+          <h1 className="text-3xl sm:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
+            Choose Your Semester
+          </h1>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Select your semester to view syllabus, notes and class periods.
+          </p>
+        </header>
 
-        {/* Buttons Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-6">
-          {semesters.map((sem) => (
-            <button
-              key={sem}
-              onClick={() => handleSelect(sem)}
-              className="section-box py-4 px-6 text-sm font-medium hover:scale-105 active:scale-95 transition-all"
-            >
-              {sem}
-            </button>
-          ))}
-        </div>
+        {/* Buttons grid */}
+        <section aria-label="Semester selection">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            {semesters.map((sem) => (
+              <button
+                key={sem}
+                onClick={() => handleSelect(sem)}
+                aria-label={`Open ${sem}`}
+                className="section-box py-4 px-3 text-sm font-medium hover:scale-105 active:scale-95 transition-transform duration-150 focus:outline-none focus-visible:ring-4 focus-visible:ring-offset-2"
+              >
+                {sem}
+              </button>
+            ))}
+          </div>
+        </section>
       </div>
     </main>
   );
