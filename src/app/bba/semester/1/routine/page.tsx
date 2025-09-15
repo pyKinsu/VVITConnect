@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { FiAlertCircle } from "react-icons/fi";
+import { FiAlertCircle, FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 type Period = {
   time: string;
@@ -13,7 +13,7 @@ type Routine = {
   [day: string]: Period[];
 };
 
-// Example routine for BCA-A (all days included)
+// Routine data (example)
 const routineA: Routine = {
   Monday: [
     { time: "10:00 - 10:50 AM", subject: "1BCA PMO", fullForm: "Principles of Management" },
@@ -55,7 +55,6 @@ const routineA: Routine = {
   ],
 };
 
-// Example routine for BCA-B (all days included)
 const routineB: Routine = {
   Monday: [
     { time: "10:00 - 10:50 AM", subject: "1BCA ITA", fullForm: "Introduction to Accounting" },
@@ -100,21 +99,22 @@ const routineB: Routine = {
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 export default function RoutinePage() {
-  const [selectedDay, setSelectedDay] = useState<string>("Monday");
+  // Set default selected day to current weekday
+  const todayIndex = new Date().getDay() - 1; // Sunday=0
+  const defaultDay = todayIndex >= 0 && todayIndex <= 5 ? days[todayIndex] : "Monday";
+
+  const [selectedDay, setSelectedDay] = useState<string>(defaultDay);
   const [showFullForm, setShowFullForm] = useState<{ [key: string]: boolean }>({});
   const [currentPeriod, setCurrentPeriod] = useState<string | null>(null);
 
-  // Function to check current period based on system time
+  // Update current period based on time
   useEffect(() => {
     const checkCurrentPeriod = () => {
       const now = new Date();
-      const hours = now.getHours();
-      const minutes = now.getMinutes();
-      const totalMinutes = hours * 60 + minutes;
-
+      const totalMinutes = now.getHours() * 60 + now.getMinutes();
       const allPeriods = [...routineA[selectedDay] || [], ...routineB[selectedDay] || []];
-      let current: string | null = null;
 
+      let current: string | null = null;
       allPeriods.forEach((period) => {
         const [start, end] = period.time.split(" - ").map((t) => {
           const [h, mPart] = t.split(":");
@@ -124,23 +124,19 @@ export default function RoutinePage() {
           if (ampm === "AM" && hour === 12) hour = 0;
           return hour * 60 + parseInt(m);
         });
-        if (totalMinutes >= start && totalMinutes <= end) {
-          current = period.subject;
-        }
+        if (totalMinutes >= start && totalMinutes <= end) current = period.subject;
       });
       setCurrentPeriod(current);
     };
 
     checkCurrentPeriod();
-    const interval = setInterval(checkCurrentPeriod, 60000); // update every 1 min
+    const interval = setInterval(checkCurrentPeriod, 60000);
     return () => clearInterval(interval);
   }, [selectedDay]);
 
   const handleShowFullForm = (subject: string) => {
     setShowFullForm((prev) => ({ ...prev, [subject]: true }));
-    setTimeout(() => {
-      setShowFullForm((prev) => ({ ...prev, [subject]: false }));
-    }, 3000);
+    setTimeout(() => setShowFullForm((prev) => ({ ...prev, [subject]: false })), 3000);
   };
 
   const renderRoutine = (routine: Routine) =>
@@ -169,6 +165,16 @@ export default function RoutinePage() {
       </div>
     ));
 
+  const prevDay = () => {
+    const idx = days.indexOf(selectedDay);
+    setSelectedDay(days[idx === 0 ? days.length - 1 : idx - 1]);
+  };
+
+  const nextDay = () => {
+    const idx = days.indexOf(selectedDay);
+    setSelectedDay(days[idx === days.length - 1 ? 0 : idx + 1]);
+  };
+
   return (
     <main className="flex flex-col items-center px-4 py-6 min-h-[80vh]">
       <header className="text-center mb-6">
@@ -182,21 +188,29 @@ export default function RoutinePage() {
         )}
       </header>
 
-      {/* Day Selector */}
-      <div className="flex gap-2 mb-6 overflow-x-auto">
-        {days.map((day) => (
-          <button
-            key={day}
-            onClick={() => setSelectedDay(day)}
-            className={`py-2 px-4 rounded-lg font-medium ${
-              selectedDay === day
-                ? "bg-primary text-primary-foreground"
-                : "bg-accent text-accent-foreground"
-            }`}
-          >
-            {day}
-          </button>
-        ))}
+      {/* Day selector with arrows */}
+      <div className="flex items-center gap-2 mb-6">
+        <button onClick={prevDay} className="text-xl p-2 rounded hover:bg-muted">
+          <FiChevronLeft />
+        </button>
+        <div className="flex gap-2 overflow-x-auto">
+          {days.map((day) => (
+            <button
+              key={day}
+              onClick={() => setSelectedDay(day)}
+              className={`py-2 px-4 rounded-lg font-medium ${
+                selectedDay === day
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-accent text-accent-foreground"
+              }`}
+            >
+              {day}
+            </button>
+          ))}
+        </div>
+        <button onClick={nextDay} className="text-xl p-2 rounded hover:bg-muted">
+          <FiChevronRight />
+        </button>
       </div>
 
       {/* Section A */}
