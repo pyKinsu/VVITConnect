@@ -95,7 +95,6 @@ const routineB: Routine = {
     { time: "1:00 - 1:50 PM", subject: "Spt & Cul", fullForm: "Sports & Cultural Activities" },
   ],
 };
-
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 export default function RoutinePage() {
@@ -104,7 +103,7 @@ export default function RoutinePage() {
 
   const [selectedDay, setSelectedDay] = useState<string>(defaultDay);
   const [currentPeriod, setCurrentPeriod] = useState<Period | null>(null);
-  const [showFullForm, setShowFullForm] = useState<{ [key: string]: boolean }>({});
+  const [infoVisible, setInfoVisible] = useState<string | null>(null);
   const currentRef = useRef<HTMLDivElement>(null);
 
   // Track current ongoing period
@@ -141,9 +140,10 @@ export default function RoutinePage() {
     }
   }, [currentPeriod, selectedDay]);
 
-  const handleShowFullForm = (subject: string) => {
-    setShowFullForm((prev) => ({ ...prev, [subject]: true }));
-    setTimeout(() => setShowFullForm((prev) => ({ ...prev, [subject]: false })), 3000);
+  const handleShowInfo = (subject: string) => {
+    if (infoVisible === subject) return; // Already visible
+    setInfoVisible(subject);
+    setTimeout(() => setInfoVisible(null), 3000);
   };
 
   const prevDay = () => {
@@ -165,7 +165,7 @@ export default function RoutinePage() {
         {currentPeriod && (
           <div
             ref={currentRef}
-            className="section-box flex items-center justify-between py-4 px-6 mb-4 w-full max-w-3xl bg-card border-l-4 border-primary shadow-md animate-pulse"
+            className="section-box flex items-center justify-between py-4 px-6 mb-4 w-full max-w-3xl bg-card border-l-4 border-primary shadow-md animate-pulse relative"
           >
             <div className="flex items-center gap-3">
               <FiMapPin className="text-primary animate-bounce" size={20} />
@@ -174,34 +174,38 @@ export default function RoutinePage() {
                 <span className="text-sm text-muted-foreground">{currentPeriod.time}</span>
               </div>
             </div>
-            <FiAlertCircle
-              size={24}
-              className="text-yellow-400 hover:scale-110 transition-transform cursor-pointer"
-              onClick={() => handleShowFullForm(currentPeriod.subject)}
-            />
-            {showFullForm[currentPeriod.subject] && (
-              <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-yellow-100/90 text-yellow-900 backdrop-blur-sm p-3 rounded-lg shadow-lg text-sm max-w-xs z-50 animate-fadeIn">
-                {currentPeriod.fullForm}
-              </div>
-            )}
+            <div className="relative">
+              <FiAlertCircle
+                size={24}
+                className="text-yellow-400 hover:scale-110 transition-transform cursor-pointer"
+                onClick={() => handleShowInfo(currentPeriod.subject)}
+              />
+              {infoVisible === currentPeriod.subject && (
+                <div className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 bg-yellow-100/90 text-yellow-900 backdrop-blur-sm p-3 rounded-lg shadow-lg text-sm max-w-xs z-50 animate-fadeIn">
+                  {currentPeriod.fullForm}
+                </div>
+              )}
+            </div>
           </div>
         )}
         {otherPeriods.map((period) => (
-          <div key={period.time + period.subject} className="section-box flex items-center justify-between py-4 px-6 mb-3 w-full max-w-3xl bg-card">
+          <div key={period.time + period.subject} className="section-box flex items-center justify-between py-4 px-6 mb-3 w-full max-w-3xl bg-card relative">
             <div className="flex flex-col">
               <span className="font-semibold text-lg">{period.subject}</span>
               <span className="text-sm text-muted-foreground">{period.time}</span>
             </div>
-            <FiAlertCircle
-              size={24}
-              className="text-yellow-400 hover:scale-110 transition-transform cursor-pointer"
-              onClick={() => handleShowFullForm(period.subject)}
-            />
-            {showFullForm[period.subject] && (
-              <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-yellow-100/90 text-yellow-900 backdrop-blur-sm p-3 rounded-lg shadow-lg text-sm max-w-xs z-50 animate-fadeIn">
-                {period.fullForm}
-              </div>
-            )}
+            <div className="relative">
+              <FiAlertCircle
+                size={24}
+                className="text-yellow-400 hover:scale-110 transition-transform cursor-pointer"
+                onClick={() => handleShowInfo(period.subject)}
+              />
+              {infoVisible === period.subject && (
+                <div className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 bg-yellow-100/90 text-yellow-900 backdrop-blur-sm p-3 rounded-lg shadow-lg text-sm max-w-xs z-50 animate-fadeIn">
+                  {period.fullForm}
+                </div>
+              )}
+            </div>
           </div>
         ))}
       </>
