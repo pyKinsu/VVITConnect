@@ -98,10 +98,11 @@ const routineB: Routine = {
 
 
 
+
+
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 export default function RoutinePage() {
-  // Default day is current weekday
   const todayIndex = new Date().getDay() - 1; // Sunday=0
   const defaultDay = todayIndex >= 0 && todayIndex <= 5 ? days[todayIndex] : "Monday";
 
@@ -109,7 +110,6 @@ export default function RoutinePage() {
   const [showFullForm, setShowFullForm] = useState<{ [key: string]: boolean }>({});
   const [currentPeriod, setCurrentPeriod] = useState<string | null>(null);
 
-  // Auto update current period
   useEffect(() => {
     const checkCurrentPeriod = () => {
       const now = new Date();
@@ -146,21 +146,18 @@ export default function RoutinePage() {
       <div
         key={period.time + period.subject}
         className={`section-box relative flex items-center justify-between py-4 px-6 mb-3 w-full max-w-3xl transition-transform hover:scale-105 ${
-          currentPeriod === period.subject ? "border-2 border-primary shadow-lg" : ""
+          currentPeriod === period.subject ? "border-2 border-primary shadow-md" : ""
         }`}
       >
         <div className="flex flex-col">
           <span className="font-semibold text-lg">{period.subject}</span>
           <span className="text-sm text-muted-foreground">{period.time}</span>
         </div>
-        <button
-          onClick={() => handleShowFullForm(period.subject)}
-          className="text-accent hover:text-primary transition-colors"
-        >
-          <FiAlertCircle size={24} />
-        </button>
+        <div className="flex items-center gap-2">
+          <FiAlertCircle size={24} className="text-accent cursor-pointer" onClick={() => handleShowFullForm(period.subject)} />
+        </div>
         {showFullForm[period.subject] && (
-          <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-card text-card-foreground p-3 rounded shadow-lg text-sm z-50 w-max max-w-xs">
+          <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-card text-card-foreground p-3 rounded shadow-lg text-sm z-50 max-w-xs">
             {period.fullForm}
           </div>
         )}
@@ -178,9 +175,9 @@ export default function RoutinePage() {
   };
 
   return (
-    <main className="flex flex-col items-center px-4 py-6 min-h-screen bg-gradient-to-br from-purple-900 via-purple-700 to-purple-800 text-foreground">
+    <main className="flex flex-col items-center px-4 py-6 min-h-screen bg-transparent text-foreground">
       <header className="text-center mb-6">
-        <h1 className="text-3xl sm:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-purple-500">
+        <h1 className="text-3xl sm:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
           1st Semester BCA Routine
         </h1>
         {currentPeriod && (
@@ -190,7 +187,7 @@ export default function RoutinePage() {
         )}
       </header>
 
-      {/* Day Selector with Arrows */}
+      {/* Day Selector with arrows */}
       <div className="flex items-center gap-2 mb-6">
         <button onClick={prevDay} className="text-2xl p-2 rounded-full hover:bg-muted transition">
           <FiChevronLeft />
