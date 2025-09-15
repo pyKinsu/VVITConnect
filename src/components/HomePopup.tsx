@@ -1,88 +1,85 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { FiX } from "react-icons/fi";
+import { FiX, FiMail } from "react-icons/fi";
 
-interface HomePopup {
-  contactUrl?: string; // URL for "Contact Me" button
-  reappearHours?: number; // After closing, show again after these hours
+interface HomePopupProps {
+  hoursUntilNext?: number; // after how many hours it should show again
 }
 
-const STORAGE_KEY = "home_popup_closed_at";
-
-export const HomePopup: React.FC<HomePopup> = ({
-  contactUrl = "https://kinsu.onrender.com/pages/Contact/",
-  reappearHours = 24,
-}) => {
-  const [show, setShow] = useState(false);
+const HomePopup: React.FC<HomePopupProps> = ({ hoursUntilNext = 24 }) => {
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    // Check localStorage for last closed timestamp
-    const lastClosed = localStorage.getItem(STORAGE_KEY);
-    if (lastClosed) {
-      const diffHours =
-        (new Date().getTime() - parseInt(lastClosed, 10)) / 1000 / 60 / 60;
-      if (diffHours >= reappearHours) setShow(true);
-    } else {
-      setShow(true);
+    const lastShown = localStorage.getItem("homePopupLastShown");
+    const now = new Date().getTime();
+
+    if (!lastShown || now - parseInt(lastShown) > hoursUntilNext * 60 * 60 * 1000) {
+      setVisible(true);
+      localStorage.setItem("homePopupLastShown", now.toString());
     }
-  }, [reappearHours]);
+  }, [hoursUntilNext]);
 
-  const handleClose = () => {
-    setShow(false);
-    localStorage.setItem(STORAGE_KEY, Date.now().toString());
-  };
-
-  if (!show) return null;
+  if (!visible) return null;
 
   return (
-    <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 w-[90vw] max-w-md animate-slideUp rounded-xl shadow-2xl bg-gradient-to-r from-purple-500 to-pink-500 text-white p-5">
-      {/* Close Icon */}
+    <div
+      className="fixed bottom-4 left-1/2 transform -translate-x-1/2 w-[90%] max-w-md bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl shadow-lg z-50 overflow-hidden animate-slideUp"
+    >
+      {/* Top Close */}
       <button
-        onClick={handleClose}
-        className="absolute top-3 right-3 text-white hover:text-gray-200 transition"
-        aria-label="Close"
+        onClick={() => setVisible(false)}
+        className="absolute top-2 right-2 text-white p-1 hover:text-yellow-300"
+        aria-label="close"
       >
-        <FiX size={24} />
+        <FiX size={20} />
       </button>
 
-      <h2 className="text-lg font-bold mb-2">Website Under Development 🚀</h2>
-      <p className="text-sm mb-4">
-        I am making it better day by day. If you find any mistake or want to
-        contribute, feel free to contact me!
-      </p>
+      {/* Content */}
+      <div className="flex flex-col gap-3 p-5">
+        <h2 className="text-lg font-bold flex items-center gap-2">
+          <FiMail /> Website Update
+        </h2>
+        <p className="text-sm">
+          This website is under development. I'm improving it day by day. If you notice any
+          mistakes or want to contribute, please contact me.
+        </p>
 
-      <div className="flex justify-end gap-3">
-        <a
-          href={contactUrl}
-          className="px-4 py-2 bg-white text-purple-600 font-semibold rounded-lg hover:bg-gray-100 transition"
-        >
-          Contact Me
-        </a>
-        <button
-          onClick={handleClose}
-          className="px-4 py-2 bg-purple-800 text-white font-semibold rounded-lg hover:bg-purple-900 transition"
-        >
-          Close
-        </button>
+        {/* Buttons */}
+        <div className="flex justify-end gap-3 mt-2">
+          <a
+            href="mailto:your-email@example.com"
+            className="bg-yellow-400 hover:bg-yellow-300 text-black px-4 py-2 rounded-lg font-medium transition"
+          >
+            Contact Me
+          </a>
+          <button
+            onClick={() => setVisible(false)}
+            className="bg-white hover:bg-gray-200 text-black px-4 py-2 rounded-lg font-medium transition"
+          >
+            Close
+          </button>
+        </div>
       </div>
 
-      {/* Slide-up animation */}
       <style jsx>{`
         @keyframes slideUp {
-          from {
+          0% {
             transform: translateY(100%) translateX(-50%);
             opacity: 0;
           }
-          to {
+          100% {
             transform: translateY(0) translateX(-50%);
             opacity: 1;
           }
         }
+
         .animate-slideUp {
-          animation: slideUp 0.5s ease-out;
+          animation: slideUp 0.5s ease-out forwards;
         }
       `}</style>
     </div>
   );
 };
+
+export default HomePopup;
