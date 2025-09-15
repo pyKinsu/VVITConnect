@@ -1,26 +1,42 @@
+"use client";
+
 import React from "react";
+import { useRouter } from "next/navigation";
 
-const BCA = () => {
+const semesters = Array.from({ length: 6 }, (_, i) => `Semester ${i + 1}`);
+
+export default function SemesterSelect() {
+  const router = useRouter();
+
+  const handleSelect = (semester: string) => {
+    const semNumber = semester.match(/\d+/)?.[0] ?? "1";
+    router.push(`/semester/${semNumber}`);
+  };
+
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen px-4 pt-10 bg-transparent">
-      {/* Title */}
-      <h2 className="text-2xl font-bold flex items-center gap-2 text-white mb-4">
-        🎓 Choose Your Semester
-      </h2>
+    <main className="flex flex-col items-center justify-between min-h-[80vh] px-4 py-6">
+      <header className="text-center">
+        <h1 className="text-2xl sm:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
+          Choose Your Semester
+        </h1>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Select your semester to view syllabus, notes & class periods.
+        </p>
+      </header>
 
-      {/* Semester Buttons */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 max-w-md w-full">
-        {Array.from({ length: 6 }, (_, i) => (
-          <button
-            key={i + 1}
-            className="bg-purple-700 hover:bg-purple-800 text-white py-3 rounded-xl shadow-md transition"
-          >
-            Semester {i + 1}
-          </button>
-        ))}
-      </div>
-    </div>
+      <section className="flex-1 flex items-center justify-center w-full">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 w-full max-w-4xl">
+          {semesters.map((sem) => (
+            <button
+              key={sem}
+              onClick={() => handleSelect(sem)}
+              className="section-box py-6 text-base font-semibold hover:scale-105 active:scale-95 transition-transform duration-150"
+            >
+              {sem}
+            </button>
+          ))}
+        </div>
+      </section>
+    </main>
   );
-};
-
-export default BCA;
+}
