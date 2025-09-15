@@ -1,15 +1,19 @@
 import { Home } from "@/vvitcon/Home";
 import { Branches } from "@/components/Branches";
+import HomePopup from "@/components/HomePopup"; // import the popup
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col py-8">
+    <div className="flex flex-col py-8 relative">
+      {/* Popup */}
+      <HomePopup />
+
       <h1 className="text-balance mb-4 text-center text-4xl font-extrabold">
         Choose Your Branch Below
       </h1>
 
       <Branches />
-      
+
       <section>
         <Home />
       </section>
