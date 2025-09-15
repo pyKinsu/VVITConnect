@@ -189,24 +189,37 @@ export default function RoutinePage() {
           </div>
         )}
         {otherPeriods.map((period) => (
-          <div key={period.time + period.subject} className="section-box flex items-center justify-between py-4 px-6 mb-3 w-full max-w-3xl bg-card relative">
-            <div className="flex flex-col">
-              <span className="font-semibold text-lg">{period.subject}</span>
-              <span className="text-sm text-muted-foreground">{period.time}</span>
-            </div>
-            <div className="relative">
-              <FiAlertCircle
-                size={24}
-                className="text-yellow-400 hover:scale-110 transition-transform cursor-pointer"
-                onClick={() => handleShowInfo(period.subject)}
-              />
-              {infoVisible === period.subject && (
-                <div className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 bg-yellow-100/90 text-yellow-900 backdrop-blur-sm p-3 rounded-lg shadow-lg text-sm max-w-xs z-50 animate-fadeIn">
-                  {period.fullForm}
-                </div>
-              )}
-            </div>
-          </div>
+          <div
+  key={period.time + period.subject}
+  className="relative w-full max-w-3xl mb-3"
+>
+  <div className="section-box flex items-center justify-between py-4 px-6 bg-card">
+    <div className="flex flex-col">
+      <span className="font-semibold text-lg">{period.subject}</span>
+      <span className="text-sm text-muted-foreground">{period.time}</span>
+    </div>
+
+    {/* Info icon + Popover */}
+    <div className="relative">
+      <FiAlertCircle
+        size={24}
+        className="text-yellow-400 hover:scale-110 transition-transform cursor-pointer"
+        onClick={() => handleShowInfo(period.subject + period.time)}
+      />
+      {infoVisible === period.subject + period.time && (
+        <div
+          className="absolute top-full mt-2 left-1/2 -translate-x-1/2
+                     bg-yellow-100 text-yellow-900 font-medium
+                     px-4 py-2 rounded-lg shadow-xl
+                     z-[9999] animate-fadeIn whitespace-nowrap"
+        >
+          {period.fullForm}
+        </div>
+      )}
+    </div>
+  </div>
+</div>
+
         ))}
       </>
     );
