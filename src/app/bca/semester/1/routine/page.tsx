@@ -109,6 +109,8 @@ const routineB: Routine = {
     { time: "1:45 - 2:35 PM", subject: "Spt & Cul", fullForm: "Iformation Technology Application Lab" },
   ],
 };
+
+// -------------------- TIME UTILITIES --------------------
 function toMinutes(t: string): number {
   const m = t.match(/(\d{1,2}):(\d{2})\s*(AM|PM)?/i);
   if (!m) return 0;
@@ -225,23 +227,21 @@ export default function RoutinePage(): JSX.Element {
         {/* Top Highlight (today only) */}
         {day === today && topHighlightIndex !== -1 ? (
           <div
-            className="section-box flex flex-col justify-between py-4 px-4 border-l-4 border-blue-400 bg-background mb-4"
+            className="section-box relative flex flex-col justify-between py-4 px-4 border-l-4 border-blue-400 bg-background mb-4"
             style={currentStyle}
           >
-            <div className="flex items-start gap-3">
-              <button
-                onClick={() => openNotification(periods[topHighlightIndex].fullForm)}
-                className="p-1 rounded hover:scale-110 transition-transform mt-1"
-                aria-label="info"
-              >
-                <FiAlertCircle className="text-yellow-400" size={20} />
-              </button>
-              <div className="flex flex-col">
-                <span className="font-semibold">{periods[topHighlightIndex].subject}</span>
-                <span className="text-sm text-muted-foreground">{periods[topHighlightIndex].time}</span>
-              </div>
-              <FiMapPin className="ml-auto text-yellow-400 animate-bounce" size={16} />
+            <FiMapPin className="absolute right-4 top-4 text-yellow-400 animate-bounce" size={16} />
+            <div className="flex flex-col gap-1">
+              <div className="text-lg font-semibold">{periods[topHighlightIndex].subject}</div>
+              <div className="text-sm text-muted-foreground">{periods[topHighlightIndex].time}</div>
             </div>
+            <button
+              onClick={() => openNotification(periods[topHighlightIndex].fullForm)}
+              className="absolute top-4 right-10 p-1 rounded hover:scale-110 transition-transform"
+              aria-label="info"
+            >
+              <FiAlertCircle className="text-yellow-400" size={20} />
+            </button>
           </div>
         ) : day === today && topHighlightIndex === -1 ? (
           <div className="section-box p-3 text-center text-muted-foreground mb-4">
@@ -256,20 +256,18 @@ export default function RoutinePage(): JSX.Element {
             return (
               <div
                 key={`${p.time}-${p.subject}`}
-                className="section-box flex flex-col justify-between py-4 px-4"
+                className="section-box relative flex flex-col justify-between py-4 px-4"
               >
-                <div className="flex items-start gap-3">
-                  <button
-                    onClick={() => openNotification(p.fullForm)}
-                    className="p-1 rounded hover:scale-110 transition-transform mt-1"
-                    aria-label="info"
-                  >
-                    <FiAlertCircle className="text-yellow-400" size={20} />
-                  </button>
-                  <div className="flex flex-col">
-                    <span className="font-semibold">{p.subject}</span>
-                    <span className="text-sm text-muted-foreground">{p.time}</span>
-                  </div>
+                <button
+                  onClick={() => openNotification(p.fullForm)}
+                  className="absolute top-4 right-4 p-1 rounded hover:scale-110 transition-transform"
+                  aria-label="info"
+                >
+                  <FiAlertCircle className="text-yellow-400" size={20} />
+                </button>
+                <div className="flex flex-col gap-1">
+                  <div className="text-lg font-semibold">{p.subject}</div>
+                  <div className="text-sm text-muted-foreground">{p.time}</div>
                 </div>
               </div>
             );
@@ -295,4 +293,4 @@ export default function RoutinePage(): JSX.Element {
       </div>
     </main>
   );
-                    }
+}
