@@ -1,7 +1,5 @@
 "use client";
 
-import { ArrowLeft, ArrowRight, HelpCircle } from "lucide-react";
-import Link from "next/link";
 import LessonNav from "@/components/LessonNav";
 
 const keywordsList: string[][] = [
@@ -17,21 +15,20 @@ const keywordsList: string[][] = [
 
 export default function Keywords() {
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12 text-foreground">
+    <div className="max-w-4xl mx-auto px-4 py-12 text-white">
       {/* Back link */}
-      <Link
+      <a
         href="/notes/c"
-        className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors mb-6"
+        className="inline-flex items-center text-sm font-medium text-white/80 hover:text-white transition-colors mb-6"
       >
-        <ArrowLeft className="w-4 h-4 mr-1" />
-        Back to C Notes
-      </Link>
+        ← Back to C Notes
+      </a>
 
       {/* Title */}
       <h1 className="text-3xl font-bold mb-6 text-white">Keywords in C</h1>
 
       {/* Intro */}
-      <p className="text-muted-foreground text-justify mb-6 leading-relaxed text-white/90">
+      <p className="text-white/90 text-justify mb-6 leading-relaxed">
         <span className="font-medium">Keywords</span> are reserved words that
         have special meaning in the C language. You cannot use them as
         identifiers (variable names, function names, etc.). These keywords are
@@ -42,9 +39,9 @@ export default function Keywords() {
       <h2 className="text-xl font-semibold text-white mb-3">
         List of Common C Keywords
       </h2>
-      <div className="overflow-x-auto rounded-lg border border-border mb-6">
+      <div className="overflow-x-auto rounded-lg border border-white/30 mb-6">
         <table className="w-full border-collapse text-sm">
-          <thead className="bg-muted/50 text-white">
+          <thead className="bg-white/10 text-white">
             <tr>
               <th className="px-4 py-2 text-left font-semibold">Keywords</th>
               <th className="px-4 py-2 text-left font-semibold">Keywords</th>
@@ -56,7 +53,7 @@ export default function Keywords() {
             {keywordsList.map((row, rowIndex) => (
               <tr
                 key={rowIndex}
-                className={rowIndex % 2 === 0 ? "bg-background" : "bg-muted/30"}
+                className={rowIndex % 2 === 0 ? "bg-white/5" : "bg-white/10"}
               >
                 {row.map((keyword, i) => (
                   <td key={i} className="px-4 py-2 text-white/90">
@@ -71,30 +68,19 @@ export default function Keywords() {
 
       {/* Example */}
       <h3 className="text-lg font-semibold text-white mt-6 mb-2">Example:</h3>
-      <pre className="bg-green-900 text-green-100 p-4 rounded-lg text-sm font-mono">
+      <pre className="bg-blue-900 text-white p-4 rounded-lg text-sm font-mono">
 {`int register; // Invalid
 int reg;      // Valid`}
       </pre>
 
-            {/* Navigation */}
-      <div className="mt-10 pt-6 border-t border-border space-y-4">
-        {/* Quiz Button */}
-        <div className="flex justify-center">
-          <Link
-            href="/quiz/keywords"
-            className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors text-sm font-medium"
-          >
-            <HelpCircle className="w-4 h-4 mr-2" />
-            Attempt Quiz
-          </Link>
-        </div>
-
-        {/* Prev + Next in one line */}
+      {/* Lesson Navigation */}
+      <div className="mt-10">
         <LessonNav
-  quiz={{ href: "/quiz/keywords" }}
-  prev={{ href: "/notes/c/identifier", label: "Previous Lesson" }}
-  next={{ href: "/notes/c/datatypes", label: "Next Lesson" }}
-/>
+          quiz={{ href: "/quiz/keywords" }}
+          prev={{ href: "/notes/c/identifier", label: "Previous Lesson" }}
+          next={{ href: "/notes/c/datatypes", label: "Next Lesson" }}
+        />
+      </div>
     </div>
   );
 }
