@@ -5,8 +5,8 @@ import { ArrowLeft, ArrowRight, HelpCircle } from "lucide-react";
 
 interface LessonNavProps {
   prev?: { href: string; label: string };
-  next?: { href: string; label: string };
   quiz?: { href: string; label?: string };
+  next?: { href: string; label: string };
 }
 
 export default function LessonNav({ prev, next, quiz }: LessonNavProps) {
