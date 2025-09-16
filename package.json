@@ -28,7 +28,6 @@
     "react-pdf": "^7.1.0",
     "react-swipeable": "^7.0.0",
     "cheerio": "^1.0.0-rc.12",
-    "react-canvas": "^1.0.17",
     "class-variance-authority": "^0.7.0",
     "framer-motion": "^11.0.25",
     "lucide-react": "^0.366.0",
