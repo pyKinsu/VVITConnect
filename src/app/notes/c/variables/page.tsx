@@ -31,13 +31,13 @@ export default function Variable() {
       {/* Images */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         <div className="border border-white/30 rounded-lg overflow-hidden">
-          <img src="/empty.png" alt="Empty Container" className="w-full h-auto" />
+          <img src="/course/empty.png" alt="Empty Container" className="w-full h-auto" />
         </div>
         <div className="border border-white/30 rounded-lg overflow-hidden">
-          <img src="/con1.png" alt="Single Item Container" className="w-full h-auto" />
+          <img src="/course/con1.png" alt="Single Item Container" className="w-full h-auto" />
         </div>
         <div className="border border-white/30 rounded-lg overflow-hidden">
-          <img src="/con2.png" alt="Multiple Item Container" className="w-full h-auto" />
+          <img src="/course/con2.png" alt="Multiple Item Container" className="w-full h-auto" />
         </div>
       </div>
 
