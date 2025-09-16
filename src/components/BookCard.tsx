@@ -1,4 +1,3 @@
-
 "use client";
 import React from "react";
 import { Card, CardMedia, CardContent, Typography } from "@mui/material";
@@ -12,13 +11,13 @@ interface BookCardProps {
 const BookCard: React.FC<BookCardProps> = ({ title, image, onClick }) => {
   return (
     <Card 
-      sx={{ width: 150, cursor: "pointer", m: 1, flex: 1 }} 
+      sx={{ width: "100%", cursor: "pointer", flex: 1 }} 
       onClick={onClick}
       elevation={3}
     >
       <CardMedia
         component="img"
-        height="220"
+        height="200"
         image={image}
         alt={title}
       />
