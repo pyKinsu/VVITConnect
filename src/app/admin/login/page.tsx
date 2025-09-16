@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/lib/firebase";
+import { useRouter } from "next/navigation";
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState("");
@@ -13,47 +13,50 @@ export default function AdminLoginPage() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      localStorage.setItem("isAdmin", "true");
-      router.push("/admin/routine-editor");
-    } catch (err: any) {
-      setError("Invalid email or password");
+      router.push("/admin");
+    } catch (err) {
+      console.error(err);
+      setError("Invalid credentials. Try again.");
     }
   };
 
   return (
-    <main className="flex items-center justify-center h-screen bg-gray-100">
+    <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 to-purple-100">
       <form
         onSubmit={handleLogin}
-        className="bg-white shadow-lg rounded-lg p-8 w-96"
+        className="bg-white shadow-lg rounded-xl p-8 w-full max-w-md"
       >
-        <h1 className="text-2xl font-bold mb-6 text-center text-purple-600">
+        <h1 className="text-2xl font-bold text-purple-700 mb-6 text-center">
           Admin Login
         </h1>
 
-        {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
+        {error && (
+          <p className="text-red-500 text-sm text-center mb-4">{error}</p>
+        )}
 
         <input
           type="email"
           placeholder="Email"
-          className="w-full p-3 border rounded-lg mb-3"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
+          className="w-full px-4 py-2 border rounded-lg mb-4 focus:ring-2 focus:ring-purple-500"
         />
 
         <input
           type="password"
           placeholder="Password"
-          className="w-full p-3 border rounded-lg mb-6"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
+          className="w-full px-4 py-2 border rounded-lg mb-6 focus:ring-2 focus:ring-purple-500"
         />
 
         <button
           type="submit"
-          className="w-full bg-purple-600 text-white p-3 rounded-lg hover:bg-purple-700"
+          className="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition"
         >
           Login
         </button>
