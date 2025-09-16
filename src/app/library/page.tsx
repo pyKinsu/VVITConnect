@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Box, Grid, Modal } from "@mui/material";
 import BookCard from "@/components/BookCard";
-import PdfReader from "@/components/PdfReader";
+import PDFReader from "@/components/PDFReader";
 
 const books = [
   { title: "Sample 1", image: "/book.jpg", pdf: "https://www.nielit.gov.in/sites/default/files/Kohima/103-IT Tools %26 Application.pdf" },
@@ -31,7 +31,7 @@ export default function Library() {
 
       <Modal open={!!selectedPdf} onClose={() => setSelectedPdf(null)}>
         <Box sx={{ width: "100%", height: "100%" }}>
-          {selectedPdf && <PdfReader pdfUrl={selectedPdf} />}
+          {selectedPdf && <PDFReader pdfUrl={selectedPdf} />}
         </Box>
       </Modal>
     </Box>
