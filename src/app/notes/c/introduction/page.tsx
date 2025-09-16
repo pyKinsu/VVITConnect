@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export default function Introduction() {
@@ -80,6 +80,25 @@ export default function Introduction() {
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Navigation */}
+      <div className="flex justify-between mt-10 pt-6 border-t border-border">
+        <Link
+          href="/notes/c"
+          className="inline-flex items-center px-4 py-2 rounded-lg bg-muted hover:bg-accent transition-colors text-sm font-medium"
+        >
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          Back to Notes
+        </Link>
+
+        <Link
+          href="/notes/c/identifiers"
+          className="inline-flex items-center px-4 py-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-sm font-medium"
+        >
+          Next Lesson
+          <ArrowRight className="w-4 h-4 ml-2" />
+        </Link>
       </div>
     </div>
   );
