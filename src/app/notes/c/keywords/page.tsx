@@ -75,22 +75,24 @@ export default function Keywords() {
 int reg;      // Valid`}
       </pre>
 
-      {/* Navigation */}
-      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mt-10 pt-6 border-t border-border">
+            {/* Navigation */}
+      <div className="mt-10 pt-6 border-t border-border space-y-4">
         {/* Quiz Button */}
-        <Link
-          href="/quiz/keywords"
-          className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors text-sm font-medium w-full sm:w-auto"
-        >
-          <HelpCircle className="w-4 h-4 mr-2" />
-          Attempt Quiz
-        </Link>
+        <div className="flex justify-center">
+          <Link
+            href="/quiz/keywords"
+            className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors text-sm font-medium"
+          >
+            <HelpCircle className="w-4 h-4 mr-2" />
+            Attempt Quiz
+          </Link>
+        </div>
 
-        {/* Previous + Next */}
-        <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+        {/* Prev + Next in one line */}
+        <div className="flex justify-between gap-3">
           <Link
             href="/notes/c/identifier"
-            className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors text-sm font-medium w-full sm:w-auto"
+            className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors text-sm font-medium w-full sm:w-auto"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Previous Lesson
@@ -98,7 +100,7 @@ int reg;      // Valid`}
 
           <Link
             href="/notes/c/datatypes"
-            className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors text-sm font-medium w-full sm:w-auto"
+            className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors text-sm font-medium w-full sm:w-auto"
           >
             Next Lesson
             <ArrowRight className="w-4 h-4 ml-2" />
