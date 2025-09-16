@@ -1,73 +1,89 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { db } from "@/lib/firebase";
+import { collection, getDocs, doc, setDoc } from "firebase/firestore";
+import { subjectOptions } from "@/lib/subjectOptions";
 
-export default function RoutineEditor({ routine, onSave }: { routine: any; onSave: (r: any) => void }) {
-  const [localRoutine, setLocalRoutine] = useState(routine);
+type Period = {
+  time: string;
+  subject: string;
+};
 
-  function handleChange(day: string, index: number, field: string, value: string) {
-    const updated = { ...localRoutine };
-    updated[day][index][field] = value;
-    setLocalRoutine(updated);
-  }
+type Routine = {
+  [day: string]: Period[];
+};
 
-  function addPeriod(day: string) {
-    const updated = { ...localRoutine };
-    updated[day].push({ time: "", subject: "", fullForm: "" });
-    setLocalRoutine(updated);
-  }
+export default function RoutineEditor() {
+  const [routine, setRoutine] = useState<Routine>({});
+  const [loading, setLoading] = useState(true);
 
-  function removePeriod(day: string, index: number) {
-    const updated = { ...localRoutine };
-    updated[day].splice(index, 1);
-    setLocalRoutine(updated);
-  }
+  useEffect(() => {
+    const fetchRoutine = async () => {
+      const snapshot = await getDocs(collection(db, "routineA"));
+      const data: Routine = {};
+      snapshot.forEach((doc) => {
+        data[doc.id] = doc.data().periods;
+      });
+      setRoutine(data);
+      setLoading(false);
+    };
+    fetchRoutine();
+  }, []);
+
+  const handleChange = (day: string, index: number, subject: string) => {
+    setRoutine((prev) => {
+      const newDay = [...prev[day]];
+      newDay[index].subject = subject;
+      return { ...prev, [day]: newDay };
+    });
+  };
+
+  const handleSave = async () => {
+    for (const day in routine) {
+      await setDoc(doc(db, "routineA", day), {
+        periods: routine[day],
+      });
+    }
+    alert("Routine updated!");
+  };
+
+  if (loading) return <p>Loading...</p>;
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold mb-6">Edit BCA Routine</h1>
-      {Object.keys(localRoutine).map((day) => (
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4 text-purple-600">
+        Edit BCA Routine
+      </h1>
+      {Object.keys(routine).map((day) => (
         <div key={day} className="mb-6">
-          <h2 className="text-xl font-semibold mb-2">{day}</h2>
-          {localRoutine[day].map((p: any, idx: number) => (
-            <div key={idx} className="flex gap-2 mb-2">
-              <input
-                className="border px-2 py-1 rounded w-1/4"
-                value={p.time}
-                onChange={(e) => handleChange(day, idx, "time", e.target.value)}
-                placeholder="Time"
-              />
-              <input
-                className="border px-2 py-1 rounded w-1/4"
-                value={p.subject}
-                onChange={(e) => handleChange(day, idx, "subject", e.target.value)}
-                placeholder="Subject"
-              />
-              <input
-                className="border px-2 py-1 rounded w-1/2"
-                value={p.fullForm}
-                onChange={(e) => handleChange(day, idx, "fullForm", e.target.value)}
-                placeholder="Full Form"
-              />
-              <button
-                onClick={() => removePeriod(day, idx)}
-                className="bg-red-500 text-white px-2 rounded"
+          <h2 className="text-lg font-semibold mb-2">{day}</h2>
+          <div className="space-y-2">
+            {routine[day].map((p, idx) => (
+              <div
+                key={idx}
+                className="p-3 rounded-lg border bg-white shadow-sm flex items-center gap-4"
               >
-                ✕
-              </button>
-            </div>
-          ))}
-          <button
-            onClick={() => addPeriod(day)}
-            className="bg-blue-500 text-white px-3 py-1 rounded"
-          >
-            + Add Period
-          </button>
+                <span className="w-40">{p.time}</span>
+                <select
+                  value={p.subject}
+                  onChange={(e) => handleChange(day, idx, e.target.value)}
+                  className="border rounded px-2 py-1"
+                >
+                  {Object.keys(subjectOptions).map((subj) => (
+                    <option key={subj} value={subj}>
+                      {subj}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            ))}
+          </div>
         </div>
       ))}
       <button
-        onClick={() => onSave(localRoutine)}
-        className="mt-4 bg-green-600 text-white px-4 py-2 rounded"
+        onClick={handleSave}
+        className="mt-4 px-6 py-2 bg-purple-600 text-white rounded-lg shadow hover:bg-purple-700"
       >
         Save Routine
       </button>
