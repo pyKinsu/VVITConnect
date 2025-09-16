@@ -1,89 +1,75 @@
 "use client";
 
-import { useState } from "react";
-import dynamic from "next/dynamic";
-import type { PDFDocumentProxy } from "pdfjs-dist";
+import React, { useState } from "react";
+import { Document, Page, pdfjs } from "react-pdf";
+import { Box, IconButton, Typography, Slider } from "@mui/material";
+import { ZoomIn, ZoomOut, NavigateBefore, NavigateNext } from "@mui/icons-material";
 
-// Dynamically import react-pdf components client-side only
-const Document = dynamic(
-  () => import("react-pdf").then((mod) => mod.Document),
-  { ssr: false }
-);
-const Page = dynamic(() => import("react-pdf").then((mod) => mod.Page), {
-  ssr: false,
-});
-
-// Worker setup
-import { pdfjs } from "react-pdf";
+// PDF.js worker setup
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
-interface PDFReaderProps {
-  url: string;
-  title?: string;
+export interface PDFReaderProps {
+  pdfUrl: string;
 }
 
-export default function PDFReader({ url, title }: PDFReaderProps) {
-  const [numPages, setNumPages] = useState<number | null>(null);
+const PDFReader: React.FC<PDFReaderProps> = ({ pdfUrl }) => {
+  const [numPages, setNumPages] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState<number>(1);
-  const [scale, setScale] = useState<number>(1.2);
+  const [scale, setScale] = useState<number>(1.0);
 
-  function onDocumentLoadSuccess({ numPages }: PDFDocumentProxy) {
+  const handleDocumentLoad = ({ numPages }: { numPages: number }) => {
     setNumPages(numPages);
-    setPageNumber(1);
-  }
+  };
 
   return (
-    <div className="flex flex-col h-screen">
-      {/* Header */}
-      <header className="bg-blue-600 text-white py-3 px-6 shadow-md">
-        <h1 className="text-lg font-bold">{title || "PDF Reader"}</h1>
-      </header>
-
+    <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
       {/* PDF Viewer */}
-      <div className="flex-1 overflow-auto flex justify-center items-start bg-gray-100 p-4">
-        <Document file={url} onLoadSuccess={onDocumentLoadSuccess}>
+      <Box sx={{ flex: 1, overflow: "auto", display: "flex", justifyContent: "center" }}>
+        <Document file={pdfUrl} onLoadSuccess={handleDocumentLoad}>
           <Page pageNumber={pageNumber} scale={scale} />
         </Document>
-      </div>
+      </Box>
 
-      {/* Toolbar */}
-      <footer className="bg-white border-t shadow-inner py-3 px-4 flex items-center justify-between">
-        <div className="flex gap-2">
-          <button
-            className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
-            onClick={() => setPageNumber((prev) => prev - 1)}
-            disabled={pageNumber <= 1}
-          >
-            ◀ Prev
-          </button>
-          <button
-            className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
-            onClick={() => setPageNumber((prev) => prev + 1)}
-            disabled={!!numPages && pageNumber >= numPages}
-          >
-            Next ▶
-          </button>
-        </div>
+      {/* Controls */}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          p: 2,
+          gap: 2,
+          borderTop: "1px solid #ccc",
+          backgroundColor: "#fafafa",
+        }}
+      >
+        <IconButton onClick={() => setScale((s) => s + 0.2)}>
+          <ZoomIn />
+        </IconButton>
+        <IconButton onClick={() => setScale((s) => Math.max(0.5, s - 0.2))}>
+          <ZoomOut />
+        </IconButton>
 
-        <span className="text-sm">
-          Page {pageNumber} of {numPages || "--"}
-        </span>
+        <IconButton disabled={pageNumber <= 1} onClick={() => setPageNumber((p) => p - 1)}>
+          <NavigateBefore />
+        </IconButton>
+        <Typography>
+          {pageNumber} / {numPages}
+        </Typography>
+        <IconButton disabled={pageNumber >= numPages} onClick={() => setPageNumber((p) => p + 1)}>
+          <NavigateNext />
+        </IconButton>
 
-        <div className="flex gap-2">
-          <button
-            className="px-3 py-1 bg-gray-200 rounded"
-            onClick={() => setScale((s) => Math.max(0.6, s - 0.2))}
-          >
-            ➖ Zoom Out
-          </button>
-          <button
-            className="px-3 py-1 bg-gray-200 rounded"
-            onClick={() => setScale((s) => Math.min(3, s + 0.2))}
-          >
-            ➕ Zoom In
-          </button>
-        </div>
-      </footer>
-    </div>
+        <Box sx={{ width: 200 }}>
+          <Slider
+            value={pageNumber}
+            min={1}
+            max={numPages}
+            onChange={(_, value) => setPageNumber(value as number)}
+          />
+        </Box>
+      </Box>
+    </Box>
   );
-}
+};
+
+export default PDFReader;
