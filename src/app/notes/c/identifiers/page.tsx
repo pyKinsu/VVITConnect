@@ -65,10 +65,9 @@ float salary = 50000.50;`}
 
       {/* Navigation */}
       <LessonNav
-        prev="/notes/c/introduction"
-        quiz="/quiz/identifier"
-        next="/notes/c/keywords"
-      />
-    </div>
+  quiz={{ href: "/quiz/keywords" }}
+  prev={{ href: "/notes/c/identifier", label: "Previous Lesson" }}
+  next={{ href: "/notes/c/datatypes", label: "Next Lesson" }}
+/>  </div>
   );
 }
