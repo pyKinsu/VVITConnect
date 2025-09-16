@@ -2,6 +2,7 @@
 
 import { ArrowLeft, ArrowRight, HelpCircle } from "lucide-react";
 import Link from "next/link";
+import LessonNav from "@/components/LessonNav";
 
 const keywordsList: string[][] = [
   ["auto", "break", "case", "char"],
@@ -89,24 +90,11 @@ int reg;      // Valid`}
         </div>
 
         {/* Prev + Next in one line */}
-        <div className="flex justify-between gap-3">
-          <Link
-            href="/notes/c/identifier"
-            className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors text-sm font-medium w-full sm:w-auto"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Previous Lesson
-          </Link>
-
-          <Link
-            href="/notes/c/datatypes"
-            className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors text-sm font-medium w-full sm:w-auto"
-          >
-            Next Lesson
-            <ArrowRight className="w-4 h-4 ml-2" />
-          </Link>
-        </div>
-      </div>
+        <LessonNav
+  quiz={{ href: "/quiz/keywords" }}
+  prev={{ href: "/notes/c/identifier", label: "Previous Lesson" }}
+  next={{ href: "/notes/c/datatypes", label: "Next Lesson" }}
+/>
     </div>
   );
 }
