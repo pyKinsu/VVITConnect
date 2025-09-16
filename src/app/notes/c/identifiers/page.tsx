@@ -65,9 +65,9 @@ float salary = 50000.50;`}
 
       {/* Navigation */}
       <LessonNav
-        prevHref="/notes/c/introduction"
-        quizHref="/quiz/identifier"
-        nextHref="/notes/c/keywords"
+        prev="/notes/c/introduction"
+        quiz="/quiz/identifier"
+        next="/notes/c/keywords"
       />
     </div>
   );
