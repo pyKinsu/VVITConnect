@@ -65,7 +65,7 @@ export default function CNotesPage() {
                   <div className="flex gap-2">
                     {/* View Notes */}
                     <Link
-                      href={`/notes/c/${chapter.title.toLowerCase()}/${topic.slug}`}
+                      href={`/notes/${topic.slug}`} // Can Be replace with this href={`/notes/c/${chapter.title.toLowerCase()}/${topic.slug}`} //
                       className="p-2 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
                       aria-label={`View notes for ${topic.name}`}
                     >
