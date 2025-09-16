@@ -1,88 +1,59 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
-import { Box, Typography, IconButton, Slider } from "@mui/material";
-import { ArrowBack, ArrowForward, ZoomIn, ZoomOut } from "@mui/icons-material";
+import { Box, Typography, Button, IconButton, Slider } from "@mui/material";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ZoomInIcon from "@mui/icons-material/ZoomIn";
+import ZoomOutIcon from "@mui/icons-material/ZoomOut";
 
-// Worker
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
-interface PdfReaderProps {
-  pdfUrl: string;
-  title: string;
-}
+export default function PDFReader({ fileUrl, title }) {
+  const [numPages, setNumPages] = useState(null);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [scale, setScale] = useState(1.2);
 
-const PdfReader: React.FC<PdfReaderProps> = ({ pdfUrl, title }) => {
-  const [numPages, setNumPages] = useState<number>(0);
-  const [pageNumber, setPageNumber] = useState<number>(1);
-  const [scale, setScale] = useState<number>(1.2);
-
-  const onDocumentLoadSuccess = ({ numPages }: any) => {
+  function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
     setPageNumber(1);
-  };
-
-  const goToPrevPage = () => setPageNumber((prev) => Math.max(prev - 1, 1));
-  const goToNextPage = () => setPageNumber((prev) => Math.min(prev + 1, numPages));
-
-  const zoomIn = () => setScale((prev) => prev + 0.2);
-  const zoomOut = () => setScale((prev) => Math.max(prev - 0.2, 0.5));
+  }
 
   return (
-    <Box sx={{ maxWidth: "800px", mx: "auto", p: 2 }}>
+    <Box sx={{ maxWidth: 800, mx: "auto", p: 2 }}>
       {/* Header */}
-      <Typography variant="h5" fontWeight="bold" gutterBottom textAlign="center">
-        {title}
+      <Typography variant="h5" fontWeight="bold" sx={{ mb: 2 }}>
+        {title || "PDF Reader"}
       </Typography>
 
-      {/* PDF Document */}
-      <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
+      {/* PDF Viewer */}
+      <Document file={fileUrl} onLoadSuccess={onDocumentLoadSuccess}>
         <Page pageNumber={pageNumber} scale={scale} />
       </Document>
 
-      {/* PDF Tools */}
-      <Box
-        sx={{
-          mt: 2,
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          flexWrap: "wrap",
-        }}
-      >
-        <Box>
-          <IconButton onClick={goToPrevPage} disabled={pageNumber === 1}>
-            <ArrowBack />
+      {/* Toolbar */}
+      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mt: 2, flexWrap: "wrap" }}>
+        <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+          <IconButton disabled={pageNumber <= 1} onClick={() => setPageNumber(pageNumber - 1)}>
+            <ArrowBackIosNewIcon />
           </IconButton>
-          <Typography variant="body2" component="span">
+          <Typography>
             Page {pageNumber} / {numPages}
           </Typography>
-          <IconButton onClick={goToNextPage} disabled={pageNumber === numPages}>
-            <ArrowForward />
+          <IconButton disabled={pageNumber >= numPages} onClick={() => setPageNumber(pageNumber + 1)}>
+            <ArrowForwardIosIcon />
           </IconButton>
         </Box>
 
-        <Box>
-          <IconButton onClick={zoomOut}>
-            <ZoomOut />
+        <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+          <IconButton onClick={() => setScale(scale + 0.2)}>
+            <ZoomInIcon />
           </IconButton>
-          <IconButton onClick={zoomIn}>
-            <ZoomIn />
+          <IconButton onClick={() => setScale(Math.max(scale - 0.2, 0.5))}>
+            <ZoomOutIcon />
           </IconButton>
-        </Box>
-
-        <Box sx={{ width: { xs: "100%", md: 200 } }}>
-          <Slider
-            value={scale}
-            min={0.5}
-            max={3}
-            step={0.1}
-            onChange={(e, val) => setScale(val as number)}
-          />
         </Box>
       </Box>
     </Box>
   );
-};
-
-export default PdfReader;
+}
