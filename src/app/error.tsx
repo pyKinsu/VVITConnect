@@ -1,6 +1,6 @@
 "use client";
 
-import ComingSoon from "@/app/ComingSoon/page.tsx";
+import ComingSoon from "@/app/ComingSoon/page";
 
 export default function GlobalError({
   error,
