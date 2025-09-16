@@ -6,10 +6,10 @@ import BookCard from "@/components/BookCard";
 import PdfReader from "@/components/PdfReader";
 
 const books = [
-  { title: "Book 1", image: "/book1.jpg", pdf: "https://example.com/book1.pdf" },
-  { title: "Book 2", image: "/book2.jpg", pdf: "https://example.com/book2.pdf" },
-  { title: "Book 3", image: "/book3.jpg", pdf: "https://example.com/book3.pdf" },
-  { title: "Book 4", image: "/book4.jpg", pdf: "https://example.com/book4.pdf" },
+  { title: "Sample 1", image: "/book.jpg", pdf: "https://www.nielit.gov.in/sites/default/files/Kohima/103-IT Tools %26 Application.pdf" },
+  { title: "Sample 2", image: "/book.jpg", pdf: "https://www.nielit.gov.in/sites/default/files/Kohima/103-IT Tools %26 Application.pdf" },
+  { title: "Sample 3", image: "/book.jpg", pdf: "https://www.nielit.gov.in/sites/default/files/Kohima/103-IT Tools %26 Application.pdf" },
+  { title: "Sanple 4", image: "/book.jpg", pdf: "https://www.nielit.gov.in/sites/default/files/Kohima/103-IT Tools %26 Application.pdf" },
 ];
 
 export default function Library() {
