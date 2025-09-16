@@ -48,7 +48,7 @@ const HomePopup: React.FC<HomePopupProps> = ({ hoursUntilNext = 24 }) => {
         {/* Buttons */}
         <div className="flex justify-end gap-3 mt-2">
           <a
-            href="mailto:your-email@example.com"
+            href="mailto: pykinsu@outlook.com"
             className="bg-yellow-400 hover:bg-yellow-300 text-black px-4 py-2 rounded-lg font-medium transition"
           >
             Contact Me
