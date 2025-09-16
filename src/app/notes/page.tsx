@@ -6,19 +6,19 @@ import { ArrowRight } from "lucide-react";
 const notes = [
   {
     title: "C-Programming",
-    href: "/notes/c-programming",
+    href: "/notes/c",
   },
   {
     title: "C++ Programming",
-    href: "/notes/cpplang",
+    href: "/notes/cpp",
   },
   {
     title: "Java Programming",
-    href: "/notes/javalang",
+    href: "/notes/java",
   },
   {
     title: "Python Programming",
-    href: "/notes/pythonlang",
+    href: "/notes/python",
   },
 ];
 
