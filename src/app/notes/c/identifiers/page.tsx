@@ -31,7 +31,7 @@ export default function Identifier() {
       {/* Image */}
       <div className="flex justify-center mb-6">
         <img
-          src="/identifier.png"
+          src="/course/identifier.png"
           alt="Identifier Example"
           className="rounded-xl shadow-md w-[300px]"
         />
