@@ -1,116 +1,141 @@
 "use client";
 
-import React from "react";
-import {
-  Container,
-  Typography,
-  Box,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Card,
-} from "@mui/material";
 import LessonNav from "@/components/LessonNav";
 
-// Local NoteImage component (no external ImageCard)
-const NoteImage: React.FC<{ src: string; alt: string; caption: string }> = ({
-  src,
-  alt,
-  caption,
-}) => (
-  <Box sx={{ textAlign: "center", mb: 3 }}>
-    <img
-      src={src}
-      alt={alt}
-      style={{
-        maxWidth: "100%",
-        borderRadius: "12px",
-        boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
-      }}
-    />
-    <Typography variant="caption" display="block" sx={{ mt: 1, fontStyle: "italic" }}>
-      {caption}
-    </Typography>
-  </Box>
-);
-
-const Datatypes: React.FC = () => {
+export default function Datatypes() {
   return (
-    <Container maxWidth="md" sx={{ mt: 4, mb: 6 }}>
-      <Typography variant="h4" gutterBottom color="primary">
-        C Programming – Data Types
-      </Typography>
+    <div className="max-w-4xl mx-auto px-4 py-12 text-white">
+      {/* Back link */}
+      <a
+        href="/notes/c"
+        className="inline-flex items-center text-sm font-medium text-white/80 hover:text-white transition-colors mb-6"
+      >
+        ← Back to C Notes
+      </a>
 
-      <Typography variant="body1" sx={{ textAlign: "justify", mb: 3 }}>
-        Data types define the type of data a variable can hold. It helps the compiler understand
-        how much memory to allocate and what kind of operations can be performed on the data.
-      </Typography>
+      {/* Title */}
+      <h1 className="text-3xl font-bold mb-6 text-white">
+       Data Types
+      </h1>
 
-      <Typography variant="body1" sx={{ textAlign: "justify", mb: 3 }}>
-        Suppose we have a mix of dry fruits. It is very difficult to separate individual dry fruits
-        from the mix. So, it is better to arrange them in different containers to make the process
-        easier. Data types work in a similar way—we define a data type according to the kind of data,
-        just like choosing the right container based on the item.
-      </Typography>
+      {/* Intro */}
+      <p className="text-white/90 text-justify mb-6 leading-relaxed">
+        Data types define the type of data a variable can hold. It helps the
+        compiler understand how much memory to allocate and what kind of
+        operations can be performed on the data.
+      </p>
 
-      {/* Example Images */}
-      <Box sx={{ display: "flex", justifyContent: "center", gap: 4, flexWrap: "wrap", mb: 4 }}>
-        <NoteImage src="/dryfruits.png" alt="Mix Dry Fruits" caption="Mix Dry Fruits" />
-        <NoteImage src="/fruit.png" alt="Fruits" caption="Fruit in Container" />
-      </Box>
+      <p className="text-white/90 text-justify mb-6 leading-relaxed">
+        Suppose we have a mix of dry fruits. It is very difficult to separate
+        individual dry fruits from the mix. So, it is better to arrange them in
+        different containers to make the process easier. Data types work in a
+        similar way—we define a data type according to the kind of data, just
+        like choosing the right container based on the item.
+      </p>
 
-      <Typography variant="h6" gutterBottom color="primary">
-        C also supports different categories of Data Types
-      </Typography>
+      {/* Images */}
+      <div className="flex flex-col sm:flex-row justify-center gap-4 mb-6">
+        <div className="text-center">
+          <img
+            src="/course/dryfruits.png"
+            alt="Mix Dry Fruits"
+            className="rounded-xl shadow-md max-w-full h-auto"
+          />
+          <p className="mt-2 text-white/80 text-sm">Mix Dry Fruits</p>
+        </div>
+        <div className="text-center">
+          <img
+            src="/course/fruit.png"
+            alt="Fruits in Container"
+            className="rounded-xl shadow-md max-w-full h-auto"
+          />
+          <p className="mt-2 text-white/80 text-sm">Fruit in Container</p>
+        </div>
+      </div>
 
-      <NoteImage
-        src="/datatypes.png"
-        alt="Datatype categories"
-        caption="C supports multiple data type categories."
-      />
+      <h2 className="text-2xl font-semibold text-white mb-3">
+        Categories of Data Types
+      </h2>
 
-      {/* Data Types Table */}
-      <TableContainer component={Paper} sx={{ overflowX: "auto", mb: 4 }}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell><strong>Types</strong></TableCell>
-              <TableCell><strong>Description</strong></TableCell>
-              <TableCell><strong>Data Types</strong></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            <TableRow>
-              <TableCell>Primitive Data Types</TableCell>
-              <TableCell>Used for representing simple values</TableCell>
-              <TableCell>int, char, float, double, void</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Derived Types</TableCell>
-              <TableCell>Derived from primitive types</TableCell>
-              <TableCell>array, pointers, function</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>User Defined Data Types</TableCell>
-              <TableCell>Defined by the user</TableCell>
-              <TableCell>structure, union, enum</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <div className="text-center mb-6">
+        <img
+          src="/course/datatypes.png"
+          alt="Data Type Categories"
+          className="rounded-xl shadow-md mx-auto max-w-full h-auto"
+        />
+        <p className="mt-2 text-white/80 text-sm">
+          C supports multiple data type categories
+        </p>
+      </div>
 
-      {/* ✅ Lesson Navigation */}
-      <LessonNav
-        quiz={{ href: "/quiz/datatypes" }}
-        prev={{ href: "/notes/c/keywords", label: "Previous Lesson" }}
-        next={{ href: "/notes/c/constants", label: "Next Lesson" }}
-      />
-    </Container>
+      {/* Primitive Data Types Table */}
+      <div className="overflow-x-auto rounded-lg border border-white/30 mb-6">
+        <table className="w-full border-collapse text-sm">
+          <thead className="bg-white/10 text-white">
+            <tr>
+              <th className="px-4 py-2 text-left font-semibold">Type</th>
+              <th className="px-4 py-2 text-left font-semibold">Description</th>
+              <th className="px-4 py-2 text-left font-semibold">Examples</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="bg-white/5">
+              <td className="px-4 py-2 text-white/90">Primitive</td>
+              <td className="px-4 py-2 text-white/90">Simple values</td>
+              <td className="px-4 py-2 text-white/90">int, char, float, double, void</td>
+            </tr>
+            <tr className="bg-white/10">
+              <td className="px-4 py-2 text-white/90">Derived</td>
+              <td className="px-4 py-2 text-white/90">Derived from primitive types</td>
+              <td className="px-4 py-2 text-white/90">array, pointer, function</td>
+            </tr>
+            <tr className="bg-white/5">
+              <td className="px-4 py-2 text-white/90">User Defined</td>
+              <td className="px-4 py-2 text-white/90">Defined by user</td>
+              <td className="px-4 py-2 text-white/90">struct, union, enum, typedef</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      {/* Example int */}
+      <h3 className="text-xl font-semibold text-white mt-6 mb-2">Example: int</h3>
+      <pre className="bg-blue-900 text-white p-4 rounded-lg text-sm font-mono mb-4">
+{`int age = 25;
+unsigned int salary = 50000;`}
+      </pre>
+
+      <p className="text-white/90 mb-6">
+        Here, <strong>age</strong> and <strong>salary</strong> are variables of type int.
+      </p>
+
+      {/* Images for float, char, double */}
+      <div className="flex flex-col sm:flex-row justify-center gap-4 mb-6">
+        <div className="text-center">
+          <img
+            src="/course/float.png"
+            alt="Float Example"
+            className="rounded-xl shadow-md max-w-full h-auto"
+          />
+          <p className="mt-2 text-white/80 text-sm">Float Example</p>
+        </div>
+        <div className="text-center">
+          <img
+            src="/course/antrakshi.png"
+            alt="Char Example"
+            className="rounded-xl shadow-md max-w-full h-auto"
+          />
+          <p className="mt-2 text-white/80 text-sm">Char Example</p>
+        </div>
+      </div>
+
+      <div className="mt-10">
+        <LessonNav
+          quiz={{ href: "/quiz/datatypes" }}
+          prev={{ href: "/notes/c/keywords", label: "Previous Lesson" }}
+          next={{ href: "/notes/c/constant", label: "Next Lesson" }}
+        />
+      </div>
+    </div>
   );
-};
-
-export default Datatypes;
+}
