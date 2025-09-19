@@ -395,3 +395,140 @@ export default function RoutineManager() {
           </button>
         </div>
       )}
+
+      {/* Routine Editing Interface */}
+      {currentSection && (
+        <div className="grid gap-6">
+          {daysOfWeek.map((day) => {
+            const dayRoutine = currentSection.routine[day] || [];
+            return (
+              <div key={day} className="bg-gray-50 p-4 rounded-xl shadow-sm">
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-xl font-semibold text-gray-800">{day}</h2>
+                  {editingPeriods && (
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => addPeriod(day)}
+                        className="px-3 py-1 bg-blue-600 text-white text-sm rounded shadow hover:bg-blue-700"
+                      >
+                        Add Period
+                      </button>
+                      <select
+                        onChange={(e) => {
+                          if (e.target.value && e.target.value !== day) {
+                            copyDayRoutine(e.target.value, day);
+                          }
+                        }}
+                        className="px-2 py-1 text-sm border rounded"
+                        defaultValue=""
+                      >
+                        <option value="">Copy from...</option>
+                        {daysOfWeek.filter(d => d !== day).map(d => (
+                          <option key={d} value={d}>{d}</option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+                </div>
+                
+                <div className="space-y-3">
+                  {dayRoutine.map((period, idx) => (
+                    <div
+                      key={idx}
+                      className="p-4 rounded-lg border-2 border-white bg-white shadow-sm"
+                    >
+                      <div className="flex items-center gap-4">
+                        {/* Time input/display */}
+                        <div className="w-40">
+                          {editingPeriods ? (
+                            <input
+                              type="text"
+                              value={period.time}
+                              onChange={(e) => handleTimeChange(day, idx, e.target.value)}
+                              placeholder="e.g., 09:00-10:00"
+                              className="w-full px-2 py-1 border rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            />
+                          ) : (
+                            <span className="font-medium text-gray-700">{period.time}</span>
+                          )}
+                        </div>
+
+                        {/* Subject selector */}
+                        <div className="flex-1">
+                          <select
+                            value={period.subject}
+                            onChange={(e) => handleSubjectChange(day, idx, e.target.value)}
+                            className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                          >
+                            {Object.keys(subjectOptions).map((subj) => (
+                              <option key={subj} value={subj}>
+                                {subj}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+
+                        {/* Period editing controls */}
+                        {editingPeriods && (
+                          <div className="flex gap-1">
+                            <button
+                              onClick={() => movePeriod(day, idx, 'up')}
+                              disabled={idx === 0}
+                              className="px-2 py-1 bg-gray-200 text-gray-600 rounded text-sm hover:bg-gray-300 disabled:opacity-50"
+                            >
+                              ↑
+                            </button>
+                            <button
+                              onClick={() => movePeriod(day, idx, 'down')}
+                              disabled={idx === dayRoutine.length - 1}
+                              className="px-2 py-1 bg-gray-200 text-gray-600 rounded text-sm hover:bg-gray-300 disabled:opacity-50"
+                            >
+                              ↓
+                            </button>
+                            <button
+                              onClick={() => removePeriod(day, idx)}
+                              className="px-2 py-1 bg-red-200 text-red-600 rounded text-sm hover:bg-red-300"
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                  
+                  {dayRoutine.length === 0 && (
+                    <div className="text-center text-gray-500 py-4">
+                      No periods for this day
+                      {editingPeriods && (
+                        <button
+                          onClick={() => addPeriod(day)}
+                          className="block mx-auto mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                        >
+                          Add First Period
+                        </button>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Save Button */}
+      {currentSection && (
+        <div className="mt-8 flex justify-center">
+          <button
+            onClick={handleSave}
+            disabled={loading}
+            className="px-8 py-3 bg-purple-600 text-white text-lg rounded-lg shadow-lg hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          >
+            {loading ? 'Saving...' : 'Save All Changes'}
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
