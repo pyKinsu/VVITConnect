@@ -1,7 +1,14 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Button, LinearProgress, Typography, Box, RadioGroup, FormControlLabel, Radio, Paper } from "@mui/material";
+import { motion } from "framer-motion";
+import {
+  Button,
+  Typography,
+  Box,
+  Paper,
+  LinearProgress,
+} from "@mui/material";
 
 // ------------------ Types ------------------
 interface Question {
@@ -16,7 +23,7 @@ interface Topic {
 }
 
 // ------------------ Data ------------------
-const mcqData: Topic[] = [
+const quizData: Topic[] = [
   {
     title: "Introduction",
     questions: [
@@ -37,13 +44,13 @@ const mcqData: Topic[] = [
 // ------------------ Component ------------------
 const QuizApp: React.FC = () => {
   const [current, setCurrent] = useState(0);
-  const [userAnswers, setUserAnswers] = useState<Record<number, string>>({});
-  const [timeLeft, setTimeLeft] = useState(30); // ⏱ 30 sec per question
+  const [answers, setAnswers] = useState<Record<number, string>>({});
   const [completed, setCompleted] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(20); // per question
 
-  const questions = mcqData.flatMap((t) => t.questions); // flatten topics
+  const questions = quizData.flatMap((t) => t.questions);
 
-  // Timer effect
+  // Timer
   useEffect(() => {
     if (completed) return;
     if (timeLeft <= 0) {
@@ -54,14 +61,14 @@ const QuizApp: React.FC = () => {
     return () => clearTimeout(timer);
   }, [timeLeft, completed]);
 
-  const handleSelect = (value: string) => {
-    setUserAnswers((prev) => ({ ...prev, [current]: value }));
+  const handleAnswer = (opt: string) => {
+    setAnswers({ ...answers, [current]: opt });
   };
 
   const handleNext = () => {
     if (current < questions.length - 1) {
       setCurrent(current + 1);
-      setTimeLeft(30);
+      setTimeLeft(20);
     } else {
       setCompleted(true);
     }
@@ -70,88 +77,128 @@ const QuizApp: React.FC = () => {
   const handlePrev = () => {
     if (current > 0) {
       setCurrent(current - 1);
-      setTimeLeft(30);
+      setTimeLeft(20);
     }
   };
 
-  // Score
   const score = questions.reduce(
-    (acc, q, idx) => (userAnswers[idx] === q.answer ? acc + 1 : acc),
+    (acc, q, idx) => (answers[idx] === q.answer ? acc + 1 : acc),
     0
   );
 
+  // ------------------ Completed View ------------------
   if (completed) {
     return (
-      <Box className="p-6 max-w-xl mx-auto">
-        <Typography variant="h4" gutterBottom>
-          🎉 Quiz Completed
+      <Box className="p-6 max-w-2xl mx-auto">
+        <Typography variant="h4" gutterBottom align="center">
+          🎉 Quiz Finished
         </Typography>
-        <Typography variant="h6">
-          Your Score: {score} / {questions.length}
+        <Typography variant="h6" align="center" className="mb-6">
+          Score: {score} / {questions.length}
         </Typography>
-        <Box mt={3}>
-          {questions.map((q, idx) => (
-            <Paper key={idx} className="p-4 mb-3">
-              <Typography fontWeight="bold">
-                Q{idx + 1}: {q.question}
-              </Typography>
-              <Typography
-                color={userAnswers[idx] === q.answer ? "green" : "red"}
-              >
-                Your Answer: {userAnswers[idx] || "Not Answered"}
-              </Typography>
-              <Typography color="blue">Correct: {q.answer}</Typography>
-            </Paper>
-          ))}
+
+        {questions.map((q, idx) => (
+          <Paper key={idx} className="p-4 mb-4 rounded-xl shadow-md">
+            <Typography fontWeight="bold">
+              Q{idx + 1}: {q.question}
+            </Typography>
+            <Typography
+              color={answers[idx] === q.answer ? "green" : "red"}
+              fontWeight="bold"
+            >
+              Your Answer: {answers[idx] || "Not Answered"}
+            </Typography>
+            <Typography color="blue">Correct: {q.answer}</Typography>
+          </Paper>
+        ))}
+
+        <Box textAlign="center" mt={4}>
+          <Button variant="contained" onClick={() => window.location.reload()}>
+            Restart Quiz
+          </Button>
         </Box>
       </Box>
     );
   }
 
+  // ------------------ Question View ------------------
   const currentQ = questions[current];
 
   return (
-    <Box className="p-6 max-w-xl mx-auto">
-      {/* Progress bar */}
+    <Box className="p-6 max-w-2xl mx-auto">
+      {/* Progress */}
       <LinearProgress
         variant="determinate"
         value={((current + 1) / questions.length) * 100}
       />
-      <Typography className="mt-2 text-gray-600">
+      <Typography align="center" className="mt-2 text-gray-600">
         Question {current + 1} of {questions.length}
       </Typography>
 
-      {/* Timer */}
-      <Typography className="text-red-500 mt-2">
-        ⏱ Time left: {timeLeft}s
-      </Typography>
-
-      {/* Question */}
-      <Typography variant="h6" className="mt-4">
-        {currentQ.question}
-      </Typography>
-
-      {/* Options */}
-      <RadioGroup
-        value={userAnswers[current] || ""}
-        onChange={(e) => handleSelect(e.target.value)}
-      >
-        {currentQ.options.map((opt, i) => (
-          <FormControlLabel key={i} value={opt} control={<Radio />} label={opt} />
+      {/* Timeline dots */}
+      <Box className="flex justify-center gap-2 my-3">
+        {questions.map((_, idx) => (
+          <div
+            key={idx}
+            className={`w-3 h-3 rounded-full cursor-pointer ${
+              idx === current
+                ? "bg-blue-600"
+                : answers[idx]
+                ? "bg-green-400"
+                : "bg-gray-300"
+            }`}
+            onClick={() => setCurrent(idx)}
+          />
         ))}
-      </RadioGroup>
+      </Box>
 
-      {/* Nav buttons */}
-      <Box className="flex justify-between mt-4">
-        <Button
-          variant="outlined"
-          disabled={current === 0}
-          onClick={handlePrev}
-        >
-          Previous
+      {/* Timer */}
+      <Typography className="text-center text-red-500">
+        ⏱ {timeLeft}s left
+      </Typography>
+
+      {/* Question Card */}
+      <motion.div
+        key={current}
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="mt-6"
+      >
+        <Paper className="p-6 rounded-2xl shadow-lg">
+          <Typography variant="h6" gutterBottom>
+            {currentQ.question}
+          </Typography>
+
+          <Box className="grid gap-3 mt-4">
+            {currentQ.options.map((opt, i) => {
+              const isSelected = answers[current] === opt;
+              return (
+                <Button
+                  key={i}
+                  variant={isSelected ? "contained" : "outlined"}
+                  color={isSelected ? "primary" : "inherit"}
+                  onClick={() => handleAnswer(opt)}
+                  className="w-full justify-start"
+                >
+                  {opt}
+                </Button>
+              );
+            })}
+          </Box>
+        </Paper>
+      </motion.div>
+
+      {/* Nav Buttons */}
+      <Box className="flex justify-between mt-6">
+        <Button onClick={handlePrev} disabled={current === 0}>
+          ⬅ Prev
         </Button>
-        <Button variant="contained" onClick={handleNext}>
-          {current === questions.length - 1 ? "Finish" : "Next"}
+        <Button
+          variant="contained"
+          onClick={handleNext}
+          disabled={!answers[current]}
+        >
+          {current === questions.length - 1 ? "Finish" : "Next ➡"}
         </Button>
       </Box>
     </Box>
