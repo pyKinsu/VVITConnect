@@ -1,13 +1,13 @@
 "use client";
 import { useRouter } from "next/navigation";
 
-interface BranchCardProps {
+interface ClassCardProps {
   image: string;
   title: string;
   link: string;
 }
 
-const BranchCard = ({ image, title, link }: BranchCardProps) => {
+const ClassCard = ({ image, title, link }: ClassCardProps) => {
   const router = useRouter();
 
   return (
@@ -27,21 +27,24 @@ const BranchCard = ({ image, title, link }: BranchCardProps) => {
   );
 };
 
-export function Branches() {
-  const branches = [
-    { title: "BCA", image: "/BCA.png", link: "/bca" },
-    { title: "BBA", image: "/BBA.png", link: "/bba" },
-    { title: "BTech", image: "/BTECH.png", link: "/btech" },
+export function Classes() {
+  const classes = [
+    { title: "Class 1", image: "/BCA.png", link: "/apply" },
+    { title: "Class 2", image: "/BBA.png", link: "/apply" },
+    { title: "Class 3", image: "/BTECH.png", link: "/apply" },
+    { title: "Class 4", image: "/BCA.png", link: "/apply" },
+    { title: "Class 5", image: "/BBA.png", link: "/apply" },
+    { title: "Class 6", image: "/BTECH.png", link: "/apply" },
   ];
 
   return (
-    <div className="flex justify-center items-center gap-6 sm:gap-12 py-8 overflow-x-auto no-scrollbar">
-      {branches.map((branch) => (
-        <BranchCard
-          key={branch.title}
-          image={branch.image}
-          title={branch.title}
-          link={branch.link}
+    <div className="flex flex-wrap justify-center items-center gap-8 py-12">
+      {classes.map((cls) => (
+        <ClassCard
+          key={cls.title}
+          image={cls.image}
+          title={cls.title}
+          link={cls.link}
         />
       ))}
     </div>
