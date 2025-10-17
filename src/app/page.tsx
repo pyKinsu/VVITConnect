@@ -18,7 +18,7 @@ export default function HomePage() {
       </div>
 
       <h1 className="text-balance mb-4 text-center text-4xl font-extrabold">
-        Choose Your Class Below Or For Contacting Us
+        Choose Your Class Below Or For Contact Us
       </h1>
 
       <Classes />
