@@ -15,10 +15,11 @@ const ClassCard = ({ image, title, link }: ClassCardProps) => {
       onClick={() => router.push(link)}
       className="cursor-pointer flex flex-col items-center justify-center transition-transform transform hover:scale-105 duration-300"
     >
-      <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 rounded-full overflow-hidden border-2 border-white/20 hover:border-teal-400/50 transition-colors duration-300 shadow-md">
+      <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 rounded-full overflow-hidden border-2 border-black/20 dark:border-white/20 hover:border-teal-400/50 transition-colors duration-300 shadow-md">
         <img src={image} alt={title} className="w-full h-full object-cover" />
       </div>
-      <span className="mt-3 text-white text-base sm:text-lg font-semibold">
+      {/* Text adapts to theme */}
+      <span className="mt-3 text-black dark:text-white text-base sm:text-lg font-semibold">
         {title}
       </span>
     </div>
