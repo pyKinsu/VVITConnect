@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { FiX, FiMail } from "react-icons/fi";
+import Image from "next/image";
 
 interface HomePopupProps {
   hoursUntilNext?: number; // after how many hours it should show again
@@ -24,12 +25,23 @@ const HomePopup: React.FC<HomePopupProps> = ({ hoursUntilNext = 24 }) => {
 
   return (
     <div
-      className="fixed bottom-4 left-1/2 transform -translate-x-1/2 w-[90%] max-w-md bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl shadow-lg z-50 overflow-hidden animate-slideUp"
+      className="fixed bottom-4 left-1/2 transform -translate-x-1/2 w-[90%] max-w-md bg-white text-black rounded-xl shadow-lg z-50 overflow-hidden animate-slideUp"
     >
+      {/* Top Image */}
+      <div className="w-full">
+        <Image
+          src="/admit.png"
+          alt="Admissions Open"
+          width={500} // set width to maintain aspect ratio
+          height={200} // set height as needed
+          className="w-full h-auto object-cover"
+        />
+      </div>
+
       {/* Top Close */}
       <button
         onClick={() => setVisible(false)}
-        className="absolute top-2 right-2 text-white p-1 hover:text-yellow-300"
+        className="absolute top-2 right-2 text-black p-1 hover:text-red-500"
         aria-label="close"
       >
         <FiX size={20} />
@@ -41,7 +53,7 @@ const HomePopup: React.FC<HomePopupProps> = ({ hoursUntilNext = 24 }) => {
           <FiMail /> Announcement
         </h2>
         <p className="text-sm">
-          Admissions Are Open At us If You Are Interested Can Contact me
+          Admissions Are Open At us. If You Are Interested, You Can Contact Me.
         </p>
 
         {/* Buttons */}
@@ -54,7 +66,7 @@ const HomePopup: React.FC<HomePopupProps> = ({ hoursUntilNext = 24 }) => {
           </a>
           <button
             onClick={() => setVisible(false)}
-            className="bg-white hover:bg-gray-200 text-black px-4 py-2 rounded-lg font-medium transition"
+            className="bg-gray-200 hover:bg-gray-300 text-black px-4 py-2 rounded-lg font-medium transition"
           >
             Close
           </button>
