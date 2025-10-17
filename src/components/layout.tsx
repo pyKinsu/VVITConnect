@@ -67,8 +67,17 @@ export function Footer() {
     <footer className="w-full border-t border-white/10 bg-gray-900 text-white">
       <div className="mx-auto max-w-7xl flex flex-col sm:flex-row justify-between items-start gap-10 px-6 py-12">
         
-        {/* Left: Quick Links */}
-        <div className="flex flex-col space-y-3 w-full sm:w-auto">
+        {/* School Info: appears first on mobile, center on desktop */}
+        <div className="flex flex-col text-center sm:text-left space-y-2 w-full sm:w-auto order-1 sm:order-2">
+          <h3 className="text-lg font-bold text-white">Future Lines</h3>
+          <p className="text-sm text-gray-300 max-w-xs mx-auto sm:mx-0">
+            Providing quality education and personal guidance for Classes 1–6.  
+            Building strong foundations for lifelong learning.
+          </p>
+        </div>
+
+        {/* Quick Links: left on desktop, below school info on mobile */}
+        <div className="flex flex-col space-y-3 w-full sm:w-auto order-2 sm:order-1">
           <h4 className="text-sm font-semibold uppercase">Quick Links</h4>
           <nav className="flex flex-col gap-1 text-sm">
             <Link href="/" className="hover:text-teal-400 transition-colors">Home</Link>
@@ -79,29 +88,16 @@ export function Footer() {
           </nav>
         </div>
 
-        {/* Center: School Info */}
-        <div className="flex flex-col text-center sm:text-left space-y-2 w-full sm:w-auto">
-          <h3 className="text-lg font-bold text-white">Future Lines</h3>
-          <p className="text-sm text-gray-300 max-w-xs mx-auto sm:mx-0">
-            Providing quality education and personal guidance for Classes 1–6.  
-            Building strong foundations for lifelong learning.
-          </p>
-        </div>
-
-        {/* Right: Contact Info */}
-        <div className="flex flex-col space-y-3 w-full sm:w-auto text-sm">
+        {/* Contact Info: right on desktop, below school info on mobile */}
+        <div className="flex flex-col space-y-3 w-full sm:w-auto text-sm order-3 sm:order-3">
           <h4 className="text-sm font-semibold uppercase">Contact Us</h4>
           <div className="flex flex-col gap-1">
-            <div className="flex items-center gap-2">
-              <a href="tel:+919876543210" className="flex items-center gap-2">
-                <Phone className="h-4 w-4 text-teal-400" /> +91 98765 43210
-              </a>
-            </div>
-            <div className="flex items-center gap-2">
-              <a href="mailto:info@futurelines.in" className="flex items-center gap-2">
-                <Mail className="h-4 w-4 text-teal-400" /> info@futurelines.in
-              </a>
-            </div>
+            <a href="tel:+919876543210" className="flex items-center gap-2">
+              <Phone className="h-4 w-4 text-teal-400" /> +91 98765 43210
+            </a>
+            <a href="mailto:info@futurelines.in" className="flex items-center gap-2">
+              <Mail className="h-4 w-4 text-teal-400" /> info@futurelines.in
+            </a>
           </div>
 
           {/* Social Icons */}
