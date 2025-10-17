@@ -16,9 +16,9 @@ const fontSans = FontSans({
 
 // ✅ Updated metadata for VVIT Connect
 export const metadata: Metadata = {
-  title: "VVIT Connect by @pyKinsu",
+  title: "Future-Lines by @pyKinsu",
   description:
-    "Your all-in-one study platform for VVIT. Access syllabus, notes, PDFs, and updates — fast, free, and trusted.",
+    "Your all-in-one study platform for your childs",
 };
 
 // ✅ Root layout component
