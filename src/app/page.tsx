@@ -1,12 +1,12 @@
-import { Home } from "@/vvitcon/Home";
-import { Branches } from "@/components/Branches";
+import { Home } from "@/landing/Home";
+import { Classes } from "@/components/Classes";
 import HomePopup from "@/components/HomePopup"; // default export now
 
 export default function HomePage() {
   return (
     <div className="flex flex-col py-8">
       <h1 className="text-balance mb-4 text-center text-4xl font-extrabold">
-        Choose Your Branch Below
+        Choose Your Class Below Or For Contacting Us
       </h1>
 
       <Branches />
