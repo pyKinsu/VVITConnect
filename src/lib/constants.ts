@@ -9,24 +9,20 @@ export const siteLinks: NavLink[] = [
     href: "/",
   },
   {
-    name: "BCA",
-    href: "/bca",
+    name: "Classes",
+    href: "/classes",
   },
   {
-    name: "BBA",
-    href: "/bba",
+    name: "/About",
+    href: "/about",
   },
   {
-    name: "BTech",
-    href: "/btech",
+    name: "Contact",
+    href: "/contact",
   },
 ];
 
 export const externalLinks: NavLink[] = [
-  {
-    name: "About Us",
-    href: "/about",
-  },
   {
     name: "Privacy Policy",
     href: "/privacy",
