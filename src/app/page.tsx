@@ -11,15 +11,8 @@ export default function HomePage() {
         <Image
           src="/kids.png"
           alt="Decorative 1"
-          width={50}
-          height={50}
-          className="object-contain"
-        />
-        <Image
-          src="/admit.png"
-          alt="Decorative 2"
-          width={50}
-          height={50}
+          width={150}
+          height={150}
           className="object-contain"
         />
       </div>
