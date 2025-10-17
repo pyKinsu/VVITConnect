@@ -9,7 +9,7 @@ export default function HomePage() {
         Choose Your Class Below Or For Contacting Us
       </h1>
 
-      <Branches />
+      <Classes />
 
       <section>
         <Home />
