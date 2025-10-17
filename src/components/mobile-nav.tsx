@@ -9,8 +9,8 @@ import { Menu } from "lucide-react";
 import { Separator } from "./ui/separator";
 import { siteLinks, externalLinks } from "@/lib/constants";
 
-// ✅ Social Icons only
-import { FaGithub, FaTelegram, FaTwitter } from "react-icons/fa";
+// Social Icons
+import { FaWhatsapp, FaPhone, FaTwitter } from "react-icons/fa";
 import { MdHome, MdLink } from "react-icons/md";
 
 export function MobileNav({ className }: { className?: string }) {
@@ -19,10 +19,10 @@ export function MobileNav({ className }: { className?: string }) {
 
   const handleCloseSheet = () => setOpen(false);
 
-  // Socials with icons
+  // Socials with proper links
   const socials = [
-    { name: "GitHub", href: "https://github.com/pykinsu", icon: <FaGithub /> },
-    { name: "Community", href: "https://t.me/VVITConnect", icon: <FaTelegram /> },
+    { name: "Call Us", href: "tel:+919876543210", icon: <FaPhone /> },
+    { name: "WhatsApp", href: "https://wa.me/919876543210", icon: <FaWhatsapp /> },
     { name: "Twitter", href: "https://twitter.com/pykinsu", icon: <FaTwitter /> },
   ];
 
@@ -35,7 +35,6 @@ export function MobileNav({ className }: { className?: string }) {
       </SheetTrigger>
 
       <SheetContent side="left" className="p-0">
-        {/* Scrollable wrapper */}
         <div className="h-full overflow-y-auto p-6 space-y-6">
           {/* Site Navigation */}
           <div>
@@ -64,10 +63,10 @@ export function MobileNav({ className }: { className?: string }) {
 
           <Separator />
 
-          {/* External Links (same style as Site Links) */}
+          {/* External Links */}
           <div>
             <h2 className="mb-4 text-center text-lg font-semibold flex items-center justify-center gap-2">
-              <MdLink className="text-xl" /> More Pages
+              <MdLink className="text-xl" /> Legal Pages
             </h2>
             <ul className="space-y-3">
               {externalLinks.map((link) => (
@@ -91,21 +90,26 @@ export function MobileNav({ className }: { className?: string }) {
 
           <Separator />
 
-          {/* Socials with icons */}
+          {/* Socials / Contact */}
           <div>
-            <h2 className="mb-4 text-center text-lg font-semibold">Socials</h2>
+            <h2 className="mb-4 text-center text-lg font-semibold">Contact</h2>
             <ul className="space-y-3">
               {socials.map((link) => (
                 <li key={link.href}>
-                  <Button variant="outline" asChild className="flex items-center gap-2">
-                    <Link
+                  <Button
+                    variant="outline"
+                    asChild
+                    className="flex items-center gap-2 w-full"
+                  >
+                    <a
                       href={link.href}
-                      className="w-full flex items-center gap-2"
                       target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 w-full"
                       onClick={handleCloseSheet}
                     >
                       {link.icon} {link.name}
-                    </Link>
+                    </a>
                   </Button>
                 </li>
               ))}
