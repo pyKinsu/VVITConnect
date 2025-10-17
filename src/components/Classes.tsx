@@ -15,14 +15,12 @@ const ClassCard = ({ image, title, link }: ClassCardProps) => {
       onClick={() => router.push(link)}
       className="cursor-pointer flex flex-col items-center justify-center transition-transform transform hover:scale-105 duration-300"
     >
-      <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-2 border-white/20 hover:border-teal-400/50 transition-colors duration-300">
-        <img
-          src={image}
-          alt={title}
-          className="w-full h-full object-cover"
-        />
+      <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 rounded-full overflow-hidden border-2 border-white/20 hover:border-teal-400/50 transition-colors duration-300 shadow-md">
+        <img src={image} alt={title} className="w-full h-full object-cover" />
       </div>
-      <span className="mt-3 text-white text-base sm:text-lg font-semibold">{title}</span>
+      <span className="mt-3 text-white text-base sm:text-lg font-semibold">
+        {title}
+      </span>
     </div>
   );
 };
@@ -38,15 +36,24 @@ export function Classes() {
   ];
 
   return (
-    <div className="flex flex-wrap justify-center items-center gap-8 py-12">
-      {classes.map((cls) => (
-        <ClassCard
-          key={cls.title}
-          image={cls.image}
-          title={cls.title}
-          link={cls.link}
-        />
-      ))}
-    </div>
+    <section className="py-16 flex flex-col items-center gap-10">
+      {/* Row 1 */}
+      <div className="flex justify-center w-full">
+        <ClassCard {...classes[0]} />
+      </div>
+
+      {/* Row 2 */}
+      <div className="flex justify-center gap-12 w-full">
+        <ClassCard {...classes[1]} />
+        <ClassCard {...classes[2]} />
+      </div>
+
+      {/* Row 3 */}
+      <div className="flex justify-center gap-12 flex-wrap w-full">
+        <ClassCard {...classes[3]} />
+        <ClassCard {...classes[4]} />
+        <ClassCard {...classes[5]} />
+      </div>
+    </section>
   );
 }
