@@ -13,7 +13,7 @@ export const siteLinks: NavLink[] = [
     href: "/classes",
   },
   {
-    name: "/About",
+    name: "About",
     href: "/about",
   },
   {
