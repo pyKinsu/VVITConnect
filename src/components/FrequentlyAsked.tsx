@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   Accordion,
@@ -8,18 +9,18 @@ import {
 
 export function FrequentlyAsked() {
   return (
-    <section id="faq" className="w-full scroll-mt-12 py-16 md:py-24">
+    <section id="faq" className="w-full scroll-mt-12 py-16 md:py-24 bg-background">
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col items-center justify-center space-y-8 text-center">
           <div className="space-y-2">
             <div className="mb-2 inline-block rounded-lg bg-accent px-3 py-1 text-sm text-accent-foreground">
-              Frequently Asked
+              Frequently Asked Questions
             </div>
             <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">
-              Common Questions We Get
+              Common Questions from Parents & Students
             </h2>
             <p className="text-muted-foreground mx-auto max-w-[700px] md:text-xl">
-              Here&rsquo;s what most Termux users ask us.
+              Here are some of the most common questions about our tuition classes and programs.
             </p>
           </div>
 
@@ -51,32 +52,34 @@ export function FrequentlyAsked() {
               <Accordion type="single" collapsible className="w-full">
                 <AccordionItem value="general-1" className="border-b">
                   <AccordionTrigger className="py-4 text-left font-medium hover:text-primary hover:no-underline">
-                    Is the VVIT Connect free?
+                    Which classes do you teach?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground pb-4 text-start">
-                    Yes! This website is completely free and accessible to everyone.
+                    We currently provide tuition for Classes 1 to 6, covering all major subjects like English, Math, and Science.
                   </AccordionContent>
                 </AccordionItem>
+
                 <AccordionItem value="general-2" className="border-b">
                   <AccordionTrigger className="py-4 text-left font-medium hover:text-primary hover:no-underline">
-                    Why I Trust You?
+                    What is the batch size?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground pb-4 text-start">
-                    Not at all. But We always share every update and notes from trusted sources.
+                    We keep our batches small (8–10 students) to ensure each student gets personal attention and guidance.
                   </AccordionContent>
                 </AccordionItem>
+
                 <AccordionItem value="general-3" className="border-b">
                   <AccordionTrigger className="py-4 text-left font-medium hover:text-primary hover:no-underline">
-                    Can I use this website offline?
+                    Do you provide home tuition or only at the center?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground pb-4 text-start">
-                    Yes, you can save pages for offline use. A downloadable PDF will also be available soon.
+                    We currently offer tuition at our center, and online classes are also available for select subjects.
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
             </div>
 
-            {/* Technical Section */}
+            {/* Admission Section */}
             <div className="rounded-xl border bg-card p-6 shadow-sm">
               <h3 className="mb-4 text-left text-xl font-bold flex items-center">
                 <div className="mr-3 rounded-full bg-primary/10 p-2">
@@ -95,32 +98,34 @@ export function FrequentlyAsked() {
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
                   </svg>
                 </div>
-                Technical Questions
+                Admission & Classes
               </h3>
 
               <Accordion type="single" collapsible className="w-full">
-                <AccordionItem value="tech-1" className="border-b">
+                <AccordionItem value="admission-1" className="border-b">
                   <AccordionTrigger className="py-4 text-left font-medium hover:text-primary hover:no-underline">
-                    Does this requires login signup?
+                    How can I enroll my child?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground pb-4 text-start">
-                    No, you don't need login or signup 
+                    You can register directly through our Contact Page or visit our center. Our team will guide you through the simple admission process.
                   </AccordionContent>
                 </AccordionItem>
-                <AccordionItem value="tech-2" className="border-b">
+
+                <AccordionItem value="admission-2" className="border-b">
                   <AccordionTrigger className="py-4 text-left font-medium hover:text-primary hover:no-underline">
-                    How Can I contact admin
+                    What are your class timings?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground pb-4 text-start">
-                    just email us kr visit our contact page
+                    We offer both morning and evening batches. Timings vary depending on the class and subject schedule.
                   </AccordionContent>
                 </AccordionItem>
-                <AccordionItem value="tech-3" className="border-b">
+
+                <AccordionItem value="admission-3" className="border-b">
                   <AccordionTrigger className="py-4 text-left font-medium hover:text-primary hover:no-underline">
-                    How often are study materials updated?
+                    Do you offer trial classes?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground pb-4 text-start">
-                    We regularly update the syllabus, notes, and PDFs to ensure you have the latest content for your courses.
+                    Yes, we offer one free demo class so you can experience our teaching style before enrolling.
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
