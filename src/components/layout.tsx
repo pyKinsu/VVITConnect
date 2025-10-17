@@ -65,10 +65,10 @@ export function Navbar() {
 export function Footer() {
   return (
     <footer className="w-full border-t border-white/10 bg-gray-900 text-white">
-      <div className="mx-auto max-w-7xl flex flex-col sm:flex-row justify-between items-start sm:items-start gap-10 px-6 py-12">
+      <div className="mx-auto max-w-7xl flex flex-col sm:flex-row justify-between items-start gap-10 px-6 py-12">
         
         {/* Left: Quick Links */}
-        <div className="flex flex-col space-y-3 order-2 sm:order-1 w-full sm:w-auto">
+        <div className="flex flex-col space-y-3 w-full sm:w-auto">
           <h4 className="text-sm font-semibold uppercase">Quick Links</h4>
           <nav className="flex flex-col gap-1 text-sm">
             <Link href="/" className="hover:text-teal-400 transition-colors">Home</Link>
@@ -79,8 +79,17 @@ export function Footer() {
           </nav>
         </div>
 
+        {/* Center: School Info */}
+        <div className="flex flex-col text-center sm:text-left space-y-2 w-full sm:w-auto">
+          <h3 className="text-lg font-bold text-white">Future Lines</h3>
+          <p className="text-sm text-gray-300 max-w-xs">
+            Providing quality education and personal guidance for Classes 1–6.  
+            Building strong foundations for lifelong learning.
+          </p>
+        </div>
+
         {/* Right: Contact Info */}
-        <div className="flex flex-col space-y-3 order-3 sm:order-3 w-full sm:w-auto text-sm">
+        <div className="flex flex-col space-y-3 w-full sm:w-auto text-sm">
           <h4 className="text-sm font-semibold uppercase">Contact Us</h4>
           <div className="flex flex-col gap-1">
             <div className="flex items-center gap-2">
@@ -114,15 +123,6 @@ export function Footer() {
               <Instagram className="h-5 w-5 text-white" />
             </a>
           </div>
-        </div>
-
-        {/* Center: School Info */}
-        <div className="flex flex-col text-center sm:text-left space-y-2 order-1 sm:order-2 w-full sm:w-auto">
-          <h3 className="text-lg font-bold text-white">Future Lines</h3>
-          <p className="text-sm text-gray-300 max-w-xs">
-            Providing quality education and personal guidance for Classes 1–6.  
-            Building strong foundations for lifelong learning.
-          </p>
         </div>
       </div>
 
