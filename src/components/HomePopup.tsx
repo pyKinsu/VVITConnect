@@ -38,17 +38,16 @@ const HomePopup: React.FC<HomePopupProps> = ({ hoursUntilNext = 24 }) => {
       {/* Content */}
       <div className="flex flex-col gap-3 p-5">
         <h2 className="text-lg font-bold flex items-center gap-2">
-          <FiMail /> Website Update
+          <FiMail /> Announcement
         </h2>
         <p className="text-sm">
-          This website is under development. I'm improving it day by day. If you notice any
-          mistakes or want to contribute, please contact me.
+          Admissions Are Open At us If You Are Interested Can Contact me
         </p>
 
         {/* Buttons */}
         <div className="flex justify-end gap-3 mt-2">
           <a
-            href="mailto: pykinsu@outlook.com"
+            href="mailto:info@futurelines.in"
             className="bg-yellow-400 hover:bg-yellow-300 text-black px-4 py-2 rounded-lg font-medium transition"
           >
             Contact Me
