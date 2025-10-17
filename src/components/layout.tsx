@@ -4,7 +4,7 @@
 import React from "react";
 import Link from "next/link";
 import { Facebook, Instagram, Mail, Phone } from "lucide-react";
-
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { MobileNav } from "@/components/mobile-nav";
