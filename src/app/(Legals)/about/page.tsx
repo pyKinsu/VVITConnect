@@ -23,7 +23,7 @@ export default function AboutPage() {
           👨‍💻 Made by <span className="text-primary">Kinsu (@pykinsu)</span>
         </p>
         <p className="text-sm text-muted-foreground mb-6">
-          Next.js lover, terminal automator, and indie web builder.
+          Next.js lover, and indie web builder.
         </p>
 
         {/* Contact Buttons */}
@@ -70,7 +70,7 @@ export default function AboutPage() {
             <Github className="h-5 w-5" /> Follow Me
           </Link>
           <Link
-            href="https://github.com/pykinsu/termux-handbook/stargazers"
+            href="https://github.com/pyKinsu/VVITConnect/stargazers"
             target="_blank"
             className="bg-yellow-500 text-black px-6 py-3 rounded-xl font-semibold flex items-center gap-2 hover:opacity-90 transition"
           >
