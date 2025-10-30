@@ -1,14 +1,41 @@
-# VVITConnect 🎓
+<h1 align="center">VVIT-Connect</h1>
 
-> A comprehensive student portal for VVIT students to access academic resources, schedules, and campus information.
+<p align="center">
+  <a href="https://vercel.com" target="_blank">
+    <img src="https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel" alt="Vercel Badge"/>
+  </a>
+  <a href="https://github.com/pyKinsu/VVITConnect/stargazers" target="_blank">
+    <img src="https://img.shields.io/github/stars/pykinsu/VVITConnect?style=for-the-badge&logo=github" alt="Stars Badge"/>
+  </a>
+  <a href="https://github.com/pykinsu/VVITConnect/network/members" target="_blank">
+    <img src="https://img.shields.io/github/forks/pykinsu/VVITConnect?style=for-the-badge&logo=github" alt="Forks Badge"/>
+  </a>
+  <a href="https://github.com/pykinsu" target="_blank">
+    <img src="https://img.shields.io/badge/Follow%20Me%20on-GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="Follow me on GitHub"/>
+  </a>
+  <a href="https://VVIT-Connect.vercel.app/" target="_blank">
+    <img src="https://img.shields.io/badge/Live%20Demo-FF4081?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Live Demo"/>
+  </a>
+</p>
 
-[![GitHub](https://img.shields.io/badge/GitHub-VVITConnect-blue)](https://github.com/pyKinsu/VVITConnect)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Status](https://img.shields.io/badge/Status-In%20Development-yellow)](https://github.com/pyKinsu/VVITConnect)
+<p align="center">
+This Is <b>College Info</b> Website built with <b>Next.js</b>, styled using <b>TailwindCSS</b>, and deployed on <b>Vercel</b>.
+</p>
 
-## 📋 Overview
+---
 
-VVITConnect is a student-centric web application designed to streamline access to academic resources at VVIT. The platform provides students with easy access to syllabus materials, notes, PDF documents, schedules, and an AI-powered assistant to answer campus-related queries.
+## \:gear: Tech Stack
+
+<p align="center">
+  <a href="https://react.dev/" target="_blank"><img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React"/></a>
+  <a href="https://nextjs.org/" target="_blank"><img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js"/></a>
+  <a href="https://www.typescriptlang.org/" target="_blank"><img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript"/></a>
+  <a href="https://tailwindcss.com/" target="_blank"><img src="https://img.shields.io/badge/TailwindCSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="TailwindCSS"/></a>
+  <a href="https://vercel.com/" target="_blank"><img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel"/></a>
+</p>
+
+---
+
 
 ### ✨ Key Features
 
