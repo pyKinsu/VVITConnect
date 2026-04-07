@@ -1,4 +1,4 @@
-import { Home } from "@/vvitcon/Home";
+import { Home } from "@/components/Home";
 import { Branches } from "@/components/Branches";
 import HomePopup from "@/components/HomePopup"; // default export now
 
